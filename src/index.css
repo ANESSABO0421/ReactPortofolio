@@ -1,0 +1,67 @@
+@import "tailwindcss";
+nav {
+  color: #f5f5f5;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* MovingSection.css */
+.image-scroller {
+  width: 100%;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.scroller-content {
+  display: flex;
+  animation: scroll 20s linear infinite;
+  width: max-content;
+}
+
+.scroller-content.paused {
+  animation-play-state: paused;
+}
+
+.scroller-content img {
+  height: 150px; /* Adjust based on your needs */
+  width: auto;
+  margin-right: 30px; /* Space between images */
+  object-fit: contain;
+}
+
+
+  @keyframes rotate {
+        100% {
+            transform: rotate(1turn);
+        }
+    }
+
+    .rainbow::before {
+        content: '';
+        position: absolute;
+        z-index: -2;
+        left: -50%;
+        top: -50%;
+        width: 200%;
+        height: 200%;
+        background-position: 100% 50%;
+        background-repeat: no-repeat;
+        background-size: 50% 30%;
+        filter: blur(6px);
+        background-image: linear-gradient(#FFF);
+        animation: rotate 4s linear infinite;
+    }
+
+    @keyframes scrollX {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-x {
+  animation: scrollX 20s linear infinite;
+}
