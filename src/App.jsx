@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -8,6 +8,9 @@ import Projects from "./pages/Projects";
 import Navbar from "./components/Navbar";
 import Skills from "./pages/Skills";
 import Darkmode from "./components/Darkmode";
+import Contact from "./pages/Contact";
+
+export const ThemeContext = createContext();
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -20,18 +23,20 @@ const App = () => {
   }, []);
 
   return (
-    // <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
-    <div
-      className={`${
-        darkMode ? "bg-black text-white" : "bg-white text-black"
-      } transition-all duration-500`}
-    >
-      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <Home />
-      <About />
-      <Projects />
-      <Skills />
-    </div>
+    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+      <div
+        className={`${
+          darkMode ? "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white" : "bg-[#e6f2ff] text-[#3a7ca5] "
+        } transition-all duration-500`}
+      >
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+        <Home />
+        <About />
+        <Projects />
+        <Skills />
+        <Contact />
+      </div>
+    </ThemeContext.Provider>
   );
 };
 

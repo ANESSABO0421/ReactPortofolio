@@ -1,4 +1,5 @@
 import React from "react";
+import { FaGithub, FaLinkedin, FaInstagram,FaGoogle } from "react-icons/fa";
 
 const Home = () => {
   return (
@@ -13,15 +14,41 @@ const Home = () => {
               MERN Full Stack Developer
             </h1>
           </div>
+          <div className=" w-full h-15 flex justify-center items-center  gap-2 md:gap-5 lg:gap-10">
+            <a
+              href="#"
+              className="border-3 border-[#080f8e] hover:bg-[#080f8e] hover:text-white duration-300 ease-out rounded-full h-[50px] w-[50px] flex items-center justify-center"
+            >
+              <FaGithub />
+            </a>
+            <a
+              href="#"
+              className="border-3 border-[#080f8e] hover:bg-[#080f8e] hover:text-white duration-300 ease-out rounded-full h-[50px] w-[50px] flex items-center justify-center"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href="#"
+              className="border-3 border-[#080f8e] hover:bg-[#080f8e] hover:text-white duration-300 ease-out rounded-full h-[50px] w-[50px] flex items-center justify-center"
+            >
+              <FaInstagram />
+            </a>
+            <a
+              href="#"
+              className="border-3 border-[#080f8e] hover:bg-[#080f8e] hover:text-white duration-300 ease-out rounded-full h-[50px] w-[50px] flex items-center justify-center"
+            >
+              <FaGoogle/>
+            </a>
+          </div>
           <div className="flex gap-5">
-            <div class="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
-              <button class="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur ">
+            <div className="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
+              <button className="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur ">
                 Download Cv
               </button>
             </div>
-            <div class="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
-              <button class="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur ">
-                Download Cv
+            <div className="rainbow relative z-0 bg-white/15 overflow-hidden p-0.5 flex items-center justify-center rounded-full hover:scale-105 transition duration-300 active:scale-100">
+              <button className="px-8 text-sm py-3 text-white rounded-full font-medium bg-gray-900/80 backdrop-blur ">
+                Contact Me
               </button>
             </div>
           </div>

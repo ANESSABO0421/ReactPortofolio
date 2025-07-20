@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { MdDarkMode } from 'react-icons/md';
-import { BsFillSunFill } from 'react-icons/bs';
+import { MdDarkMode } from "react-icons/md";
+import { BsFillSunFill } from "react-icons/bs";
 const Navbar = ({ darkMode, setDarkMode }) => {
   // dark and lignt mode
 
@@ -20,11 +20,25 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <a href="#">Projects</a>
           <a href="#">Skill</a>
           <a href="#">Contact</a>
-          <button onClick={() => setDarkMode(!darkMode)} className={`${darkMode?"bg-white text-[#080f8e] ":"bg-black text-white"} rounded-md px-2 py-1 hover:-translate-y-1 duration-300 ease-in  hover:shadow-md/30`}>
-            {darkMode ? <BsFillSunFill/> : <MdDarkMode/>}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`${
+              darkMode ? "bg-white text-[#080f8e] " : "bg-black text-white"
+            } rounded-md px-2 py-1 hover:-translate-y-1 duration-300 ease-in  hover:shadow-md/30`}
+          >
+            {darkMode ? <BsFillSunFill /> : <MdDarkMode />}
           </button>
         </div>
-        <div className="sm:block lg:hidden px-3 sm:px-4 md:px-6  lg:px-8 text-3xl">
+        <div className="flex flex-row gap-2 items-center justify-center px-3 sm:px-4 md:px-6 lg:px-8 text-3xl lg:hidden">
+          {" "}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className={`${
+              darkMode ? "bg-white text-[#080f8e] " : "bg-black text-white"
+            } rounded-md px-2 py-1 hover:-translate-y-1 duration-300 ease-in  hover:shadow-md/30`}
+          >
+            {darkMode ? <BsFillSunFill /> : <MdDarkMode />}
+          </button>
           <GiHamburgerMenu />
         </div>
       </nav>

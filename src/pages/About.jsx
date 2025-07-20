@@ -3,7 +3,10 @@ import React from "react";
 const About = () => {
   return (
     <div>
-      <section className="flex flex-col md:flex-col lg:flex-row h-screen  justify-center items-center" id="About">
+      <section
+        className="flex flex-col md:flex-col lg:flex-row h-screen  justify-center items-center"
+        id="About"
+      >
         <div className=" w-full h-[50%] md:w-full md:h-[50%] lg:h-[100%] lg:w-[50%] p-[20px] flex justify-center items-center flex-col">
           <div>
             <h1 className="text-[40px]  md:text-6xl lg:text-7xl flex items-start m-2 md:m-3 lg:m-4">
@@ -36,13 +39,13 @@ const About = () => {
           </p>
         </div>
         <div
-          className=" w-full h-[50%] flex justify-center items-center md:w-full md:h-[50%] lg:h-[100%] lg:w-[50%]"
+          className=" w-full h-[50%] flex justify-center items-center md:w-full md:h-[50%] lg:h-[100%] lg:w-[50%] "
           data-aos="fade-right"
         >
           <img
             src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
             alt="coding gif"
-            className="h-[270px] md:h-[400px] lg:h-[500px] rounded-3xl shadow-xl/30 shadow-green-800 "
+            className="h-[270px] md:h-[400px] lg:h-[500px] rounded-3xl "
           />
         </div>
       </section>
