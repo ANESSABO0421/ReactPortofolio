@@ -10,7 +10,7 @@ const Projects = () => {
     const { width, height, left, top } = card.getBoundingClientRect();
     const x = ((e.clientY - top) / height - 0.5) * -10;
     const y = ((e.clientX - left) / width - 0.5) * 10;
-    setTilt({ x, y, id: card.dataset.id });
+    setTilt({ x, y, id: Number(card.dataset.id) }); // ✅ Fix: convert to number
   };
 
   const handleLeave = () => {
@@ -20,8 +20,8 @@ const Projects = () => {
   const cards = Array.from({ length: 6 });
 
   return (
-    <div className={`px-4 sm:px-6 md:px-10 lg:px-16 py-12`}>
-      <h1 className="text-5xl md:text-6xl font-bold text-center  m-2 md:m-4 lg:m-5">
+    <div className="px-4 sm:px-6 md:px-10 lg:px-16 py-12">
+      <h1 className="text-5xl md:text-6xl font-bold text-center m-2 md:m-4 lg:m-5">
         My Projects
       </h1>
 

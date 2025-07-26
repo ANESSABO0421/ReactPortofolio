@@ -8,7 +8,7 @@ const Footer = () => {
           <p>Copyright © 2025 Anees. All rights reservered.</p>
         </div>
         <button
-          className="bg-white text-black w-10 h-10 rounded-md hover text-xl"
+          className="bg-white text-black w-10 h-10 rounded-md text-xl hover:border-4 border-transparent hover:border-blue-500  duration-300 ease-out cursor-pointer "
           onClick={() => window.scrollTo(0, 0)}
         >
           ↑
