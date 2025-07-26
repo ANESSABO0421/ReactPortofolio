@@ -9,8 +9,8 @@ const About = () => {
       >
         <div className=" w-full h-[50%] md:w-full md:h-[50%] lg:h-[100%] lg:w-[50%] p-[20px] flex justify-center items-center flex-col">
           <div>
-            <h1 className="text-[40px]  md:text-6xl lg:text-7xl flex items-start m-2 md:m-3 lg:m-4">
-              About <span className="text-amber-300 font-bold"> Me</span>
+            <h1 className="text-[40px]  md:text-6xl lg:text-7xl gap-2 flex items-start m-2 md:m-3 lg:m-4">
+              About<span className="text-amber-300 font-bold">Me</span>
             </h1>
           </div>
           <p
@@ -40,7 +40,7 @@ const About = () => {
         </div>
         <div
           className=" w-full h-[50%] flex justify-center items-center md:w-full md:h-[50%] lg:h-[100%] lg:w-[50%] "
-          data-aos="fade-right"
+          data-aos="fade-up"
         >
           <img
             src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"

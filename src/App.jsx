@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar";
 import Skills from "./pages/Skills";
 import Darkmode from "./components/Darkmode";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 
 export const ThemeContext = createContext();
 
@@ -35,6 +36,7 @@ const App = () => {
         <Projects />
         <Skills />
         <Contact />
+        <Footer/>
       </div>
     </ThemeContext.Provider>
   );

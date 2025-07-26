@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdDarkMode } from "react-icons/md";
 import { BsFillSunFill } from "react-icons/bs";
+import { AiOutlineClose } from "react-icons/ai";
+import { div } from "motion/react-client";
 const Navbar = ({ darkMode, setDarkMode }) => {
+  const [open, setOpen] = useState(false);
+  const toggle = () => setOpen(!open);
   // dark and lignt mode
 
   return (
@@ -39,11 +43,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           >
             {darkMode ? <BsFillSunFill /> : <MdDarkMode />}
           </button>
-          <GiHamburgerMenu />
+          <button onClick={toggle}>
+            {!open ? <GiHamburgerMenu /> : <AiOutlineClose />}
+          </button>
         </div>
       </nav>
       {/* mobile-menu  add flex*/}
-      <div className="mobile-menu hidden  items-center justify-around flex-col pt-[10vh] bg-red-500 h-[400px] lg:hidden ">
+      {/* <div className="mobile-menu hidden  items-center justify-around flex-col pt-[10vh] bg-red-500 h-[400px] lg:hidden ">
         <a href="#" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           Home
         </a>
@@ -59,6 +65,64 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         <a href="#" className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
           Contact
         </a>
+      </div> */}
+
+      {/* overlay */}
+      {open && <div className="bg-black inset-0 z-20 opacity-50 fixed"></div>}
+
+      {/* sidebar */}
+      <div
+        className={`bg-[#080f8e] fixed z-50 gap-6  text-white h-full w-64 right-0 ${
+          open ? "translate-x-0" : "translate-x-full"
+        } transition-transform backdrop-blur-2xl flex justify-center items-center `}
+      >
+        <ul className="flex gap-20  flex-col items-center justify-center">
+          <li>
+            <a
+              href="#"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              onClick={toggle}
+            >
+              Home
+            </a>
+          </li>
+          <li>
+            <a
+              href="#About"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              onClick={toggle}
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              onClick={toggle}
+            >
+              Projects
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              onClick={toggle}
+            >
+              Skill
+            </a>
+          </li>
+          <li>
+            <a
+              href="contact"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+              onClick={toggle}
+            >
+              Contact
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   );

@@ -58,7 +58,7 @@ const Home = () => {
             src="https://www.web24zone.com/wp-content/uploads/2022/10/46207-programmer-1.gif"
             alt="Animated Hero"
             className="rounded-2xl h-[300px] md:h-[380px] lg:h-[400px] xl:h-[500px] shadow-xl/30"
-            data-aos="fade-left"
+            data-aos="fade-up"
           />
         </div>
       </section>

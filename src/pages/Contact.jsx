@@ -49,7 +49,7 @@ const Contact = () => {
             type="text"
             name="name"
             id="name"
-            className={`input w-full ${darkMode ? "text-black" : "text-white"}`}
+            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
             placeholder="Your name"
             required
           />
@@ -64,7 +64,7 @@ const Contact = () => {
             type="email"
             name="email"
             id="email"
-            className={`input w-full ${darkMode ? "text-black" : "text-white"}`}
+            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
             placeholder="you@example.com"
             required
           />
@@ -79,7 +79,7 @@ const Contact = () => {
             name="message"
             id="message"
             className={`input w-full h-[100px] px-3 py-2 ${
-              darkMode ? "text-black" : "text-white"
+              darkMode ? "text-white" : "text-white"
             }`}
             placeholder="Write your message..."
             required

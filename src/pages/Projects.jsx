@@ -1,101 +1,66 @@
-import React from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../App"; // or your actual path
 
 const Projects = () => {
+  const [tilt, setTilt] = useState({});
+  const { darkMode } = useContext(ThemeContext);
+
+  const handleMove = (e) => {
+    const card = e.currentTarget;
+    const { width, height, left, top } = card.getBoundingClientRect();
+    const x = ((e.clientY - top) / height - 0.5) * -10;
+    const y = ((e.clientX - left) / width - 0.5) * 10;
+    setTilt({ x, y, id: card.dataset.id });
+  };
+
+  const handleLeave = () => {
+    setTilt({});
+  };
+
+  const cards = Array.from({ length: 6 });
+
   return (
-    <div>
-      <h1 className="text-5xl md:text-6xl font-bold text-center  ">
-        Projects
+    <div className={`px-4 sm:px-6 md:px-10 lg:px-16 py-12`}>
+      <h1 className="text-5xl md:text-6xl font-bold text-center  m-2 md:m-4 lg:m-5">
+        My Projects
       </h1>
-      <section className="flex flex-col py-10 md:flex-col lg:flex-row  gap-4 min-h-screen  justify-center items-center">
-        <div data-aos="flip-left">
-          <div className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-black bg-white h-[480px] w-[300px] rounded-xl transition-transform duration-300 hover:rotate-3 hover:scale-105">
-            <div className="flex justify-center items-center flex-col">
-              <img
-                src="https://tse3.mm.bing.net/th/id/OIP.mH83FORryP-dmNGRBSPP-AHaE8?pid=Api&P=0&h=180"
-                alt=""
-                className="rounded-[20px] p-2"
-              />
-              <div className="">
-                <h1 className="font-bold flex bg-red-400 w-[300px] px-5 text-2xl">
-                  Lorem, ipsum.
-                </h1>
-                <p className="px-5 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                  et dolor natus eligendi impedit? Quos dolor sit non fugiat
-                  maxime, soluta, cumque nam officiis quo, dignissimos
-                  exercitationem debitis itaque provident.
-                </p>
-              </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 justify-items-center">
+        {cards.map((_, idx) => (
+          <div
+            key={idx}
+            data-id={idx}
+            className={`w-full max-w-[320px] h-[380px] ${
+              darkMode ? "bg-white text-black" : "bg-black text-white"
+            } rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform duration-200 ease-out hover:scale-[1.02]`}
+            onMouseMove={handleMove}
+            onMouseLeave={handleLeave}
+            style={
+              tilt.id === idx
+                ? {
+                    transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+                  }
+                : {}
+            }
+          >
+            <img
+              src="https://images.unsplash.com/photo-1747134392471-831ea9a48e1e?q=80&w=2000&auto=format&fit=crop"
+              alt={`Project ${idx + 1}`}
+              className="w-full h-44 object-cover"
+              loading="lazy"
+            />
+            <div className="px-5 py-4">
+              <h3 className="text-lg font-semibold mb-2">
+                Interactive Tilt Project
+              </h3>
+              <p className="text-sm">
+                Hover over this card to reveal a 3D tilt animation that adds a
+                dynamic user experience.
+              </p>
             </div>
           </div>
-        </div>
-        <div data-aos="flip-left">
-          <div className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-white text-black h-[480px] w-[300px] rounded-xl transition-transform duration-300 hover:rotate-3 hover:scale-105">
-            <div className="flex justify-center items-center flex-col">
-              <img
-                src="https://tse3.mm.bing.net/th/id/OIP.mH83FORryP-dmNGRBSPP-AHaE8?pid=Api&P=0&h=180"
-                alt=""
-                className="rounded-[20px] p-2"
-              />
-              <div className="">
-                <h1 className="font-bold flex bg-red-400 w-[300px] px-5 text-2xl">
-                  Lorem, ipsum.
-                </h1>
-                <p className="px-5 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                  et dolor natus eligendi impedit? Quos dolor sit non fugiat
-                  maxime, soluta, cumque nam officiis quo, dignissimos
-                  exercitationem debitis itaque provident.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div data-aos="flip-left">
-          <div className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-black bg-white h-[480px] w-[300px] rounded-xl transition-transform duration-300 hover:rotate-3 hover:scale-105">
-            <div className="flex justify-center items-center flex-col">
-              <img
-                src="https://tse3.mm.bing.net/th/id/OIP.mH83FORryP-dmNGRBSPP-AHaE8?pid=Api&P=0&h=180"
-                alt=""
-                className="rounded-[20px] p-2"
-              />
-              <div className="">
-                <h1 className="font-bold flex bg-red-400 w-[300px] px-5 text-2xl">
-                  Lorem, ipsum.
-                </h1>
-                <p className="px-5 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                  et dolor natus eligendi impedit? Quos dolor sit non fugiat
-                  maxime, soluta, cumque nam officiis quo, dignissimos
-                  exercitationem debitis itaque provident.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div data-aos="flip-left">
-          <div className=" grid-cols-2 md:grid-cols-3 lg:grid-cols-4 text-black bg-white h-[480px] w-[300px] rounded-xl transition-transform duration-300 hover:rotate-3 hover:scale-105">
-            <div className="flex justify-center items-center flex-col">
-              <img
-                src="https://tse3.mm.bing.net/th/id/OIP.mH83FORryP-dmNGRBSPP-AHaE8?pid=Api&P=0&h=180"
-                alt=""
-                className="rounded-[20px] p-2"
-              />
-              <div className="">
-                <h1 className="font-bold flex bg-red-400 w-[300px] px-5 text-2xl">
-                  Lorem, ipsum.
-                </h1>
-                <p className="px-5 ">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi
-                  et dolor natus eligendi impedit? Quos dolor sit non fugiat
-                  maxime, soluta, cumque nam officiis quo, dignissimos
-                  exercitationem debitis itaque provident.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
     </div>
   );
 };
