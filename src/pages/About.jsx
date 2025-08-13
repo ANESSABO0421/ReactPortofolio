@@ -45,7 +45,7 @@ const About = () => {
           <img
             src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
             alt="coding gif"
-            className="h-[270px] md:h-[400px] lg:h-[500px] rounded-3xl "
+            className="h-[270px] md:h-[400px] lg:h-[500px] rounded-3xl hover:-translate-y-1 duration-300 ease-out hover:shadow-2xl"
           />
         </div>
       </section>

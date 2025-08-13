@@ -11,16 +11,16 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_1ujloms", // service ID
-        "template_vw9xwq5", // template ID
-        formRef.current, // form reference
-        "dtWkdo4Xe4hk2mNM4" // public key
+        "service_1ujloms", 
+        "template_vw9xwq5", 
+        formRef.current, 
+        "dtWkdo4Xe4hk2mNM4" 
       )
       .then(
         (result) => {
           console.log("Email sent:", result.text);
           setSuccess(true);
-          formRef.current.reset(); // Optional: reset form after submit
+          formRef.current.reset(); 
         },
         (error) => {
           console.error("Email error:", error.text);
