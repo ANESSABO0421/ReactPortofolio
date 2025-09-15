@@ -1,6 +1,14 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { FaHtml5, FaCss3Alt, FaJs, FaReact, FaBootstrap } from "react-icons/fa";
-import { SiTailwindcss } from "react-icons/si";
+import {
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaReact,
+  FaBootstrap,
+  FaNodeJs,
+  FaGithub,
+} from "react-icons/fa";
+import { SiExpress, SiMongodb, SiTailwindcss } from "react-icons/si";
 import { ThemeContext } from "../App";
 import { motion } from "framer-motion";
 
@@ -51,6 +59,35 @@ const Skills = () => {
       icon: <FaBootstrap />,
       color: "text-purple-500",
       glow: "shadow-[0_0_30px_rgba(147,51,234,0.8)]",
+    },
+    {
+      title: "Node.js",
+      description: "Backend runtime environment for scalable applications",
+      icon: <FaNodeJs />,
+      color: "text-green-500",
+      glow: "shadow-[0_0_30px_rgba(34,197,94,0.8)]",
+    },
+    {
+      title: "Express.js",
+      description: "Fast and minimalist web framework for Node.js",
+      icon: <SiExpress />,
+      color: "text-red-500",
+      glow: "shadow-[0_0_30px_rgba(239,68,68,0.8)]",
+    },
+
+    {
+      title: "MongoDB",
+      description: "NoSQL database for modern applications",
+      icon: <SiMongodb />,
+      color: "text-green-600",
+      glow: "shadow-[0_0_30px_rgba(21,128,61,0.8)]",
+    },
+    {
+      title: "GitHub",
+      description: "Version control and collaboration platform",
+      icon: <FaGithub />,
+      color: "text-black dark:text-white",
+      glow: "shadow-[0_0_30px_rgba(0,0,0,0.6)]",
     },
   ];
 
@@ -171,7 +208,9 @@ const Skills = () => {
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              animation: `float ${6 + Math.random() * 10}s ease-in-out infinite`,
+              animation: `float ${
+                6 + Math.random() * 10
+              }s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`,
             }}
           ></div>

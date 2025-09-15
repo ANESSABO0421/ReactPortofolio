@@ -47,11 +47,28 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         <li>
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className={`ml-1 sm:ml-2 ${
-              darkMode ? "bg-white text-black" : "bg-black text-white"
-            } rounded-md px-2 sm:px-3 py-1 text-sm sm:text-base hover:-translate-y-1 duration-300 ease-in hover:shadow-md`}
+            className={`
+    relative flex items-center justify-center 
+    ml-1 sm:ml-2
+    w-10 h-10 sm:w-12 sm:h-12
+    rounded-full
+    border
+    ${
+      darkMode
+        ? "bg-white text-black border-gray-300"
+        : "bg-black text-white border-gray-700"
+    }
+    shadow-md
+    hover:scale-110 hover:shadow-xl
+    active:scale-95
+    transition-all duration-300 ease-in-out
+  `}
           >
-            {darkMode ? <BsFillSunFill /> : <MdDarkMode />}
+            {darkMode ? (
+              <BsFillSunFill className="text-yellow-500 text-xl sm:text-2xl" />
+            ) : (
+              <MdDarkMode className="text-blue-400 text-xl sm:text-2xl" />
+            )}
           </button>
         </li>
       </ul>

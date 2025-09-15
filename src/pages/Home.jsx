@@ -32,8 +32,6 @@ const Home = ({ darkMode }) => {
                 2000,
                 "Backend Developer",
                 2000,
-                "Problem Solver",
-                2000,
               ]}
               wrapper="span"
               speed={50}
@@ -44,9 +42,9 @@ const Home = ({ darkMode }) => {
           {/* Social Icons */}
           <div className="flex justify-center lg:justify-start items-center gap-4 md:gap-6 mt-6">
             {[
-              { icon: <FaGithub />, link: "#" },
-              { icon: <FaLinkedin />, link: "#" },
-              { icon: <FaInstagram />, link: "#" },
+              { icon: <FaGithub />, link: "https://github.com/ANESSABO0421" },
+              { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/anees-aboobacker-4842b627a/" },
+              { icon: <FaInstagram />, link: "https://www.instagram.com/anees__aboobacker/" },
               { icon: <FaGoogle />, link: "#" },
             ].map((item, i) => (
               <a
@@ -56,7 +54,7 @@ const Home = ({ darkMode }) => {
                 ${
                   darkMode
                     ? "border-white text-white hover:bg-white hover:text-black"
-                    : "border-[#080f8e] text-[#080f8e] hover:bg-[#080f8e] hover:text-white"
+                    : "border-[#FFB900] text-[#FFB900] hover:bg-[#FFB900] hover:text-white"
                 }`}
               >
                 {item.icon}

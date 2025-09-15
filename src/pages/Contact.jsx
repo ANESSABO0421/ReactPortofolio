@@ -35,9 +35,7 @@ const Contact = () => {
     <section
       id="contact"
       className={`min-h-screen flex flex-col justify-center items-center py-16 px-4 ${
-        darkMode
-          ? "bg-gray-900 text-white"
-          : "bg-[#E6F2FF] text-gray-900"
+        darkMode ? "bg-[#151E30] text-white" : "bg-[#E6F2FF] text-gray-900"
       }`}
     >
       <motion.h1
@@ -61,73 +59,49 @@ const Contact = () => {
         autoComplete="off"
       >
         {/* Name */}
-        <div className="relative mb-6">
-          <input
-            type="text"
-            name="name"
-            id="name"
-            required
-            autoComplete="off"
-            placeholder=" "
-            className={`peer w-full px-4 py-3 rounded-xl border-2 ${
-              darkMode
-                ? "border-gray-600 bg-gray-900 text-white focus:border-blue-400"
-                : "border-gray-300 bg-white text-gray-900 focus:border-purple-500"
-            } outline-none transition`}
-          />
-          <label
-            htmlFor="name"
-            className="absolute left-4 top-3 text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-2 peer-focus:text-sm transition-all"
-          >
-            Your Name
-          </label>
-        </div>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          required
+          placeholder="Your Name"
+          autoComplete="off"
+          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
+            darkMode
+              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
+              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
+          }`}
+        />
 
         {/* Email */}
-        <div className="relative mb-6">
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            autoComplete="off"
-            placeholder=" "
-            className={`peer w-full px-4 py-3 rounded-xl border-2 ${
-              darkMode
-                ? "border-gray-600 bg-gray-900 text-white focus:border-blue-400"
-                : "border-gray-300 bg-white text-gray-900 focus:border-purple-500"
-            } outline-none transition`}
-          />
-          <label
-            htmlFor="email"
-            className="absolute left-4 top-3 text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-2 peer-focus:text-sm transition-all"
-          >
-            Your Email
-          </label>
-        </div>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          required
+          placeholder="Your Email"
+          autoComplete="off"
+          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
+            darkMode
+              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
+              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
+          }`}
+        />
 
         {/* Message */}
-        <div className="relative mb-6">
-          <textarea
-            name="message"
-            id="message"
-            required
-            placeholder=" "
-            rows={5}
-            autoComplete="off"
-            className={`peer w-full px-4 py-3 rounded-xl border-2 resize-none ${
-              darkMode
-                ? "border-gray-600 bg-gray-900 text-white focus:border-blue-400"
-                : "border-gray-300 bg-white text-gray-900 focus:border-purple-500"
-            } outline-none transition`}
-          ></textarea>
-          <label
-            htmlFor="message"
-            className="absolute left-4 top-3 text-gray-400 peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-focus:-top-2 peer-focus:text-sm transition-all"
-          >
-            Your Message
-          </label>
-        </div>
+        <textarea
+          name="message"
+          id="message"
+          required
+          placeholder="Your Message"
+          rows={5}
+          autoComplete="off"
+          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base resize-none outline-none transition-all duration-300 ${
+            darkMode
+              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
+              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
+          }`}
+        ></textarea>
 
         {/* Submit button */}
         <motion.button
