@@ -122,7 +122,7 @@ const About = () => {
       </motion.div>
 
       {/* Glass Card Custom Styles */}
-      <style jsx>{`
+      <style>{`
         .glass-info-card {
           background: linear-gradient(
             120deg,
