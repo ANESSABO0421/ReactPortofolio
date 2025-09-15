@@ -81,7 +81,6 @@ const Home = ({ darkMode }) => {
               Download CV
             </button>
             <button
-              id="contact"
               className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full font-medium hover:scale-105 transition duration-300 shadow-md 
               ${
                 darkMode

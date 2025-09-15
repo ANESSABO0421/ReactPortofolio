@@ -15,9 +15,9 @@ const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
       <ul
-        className={`flex items-center gap-2 sm:gap-3 md:gap-5 
-        px-3 sm:px-4 md:px-6 py-1 sm:py-2 
-        rounded-full backdrop-blur-lg shadow-md border transition-colors duration-300 
+        className={`flex items-center gap-3 sm:gap-4 md:gap-6 
+        px-4 sm:px-6 md:px-8 py-2 sm:py-3 
+        rounded-full backdrop-blur-lg shadow-lg border-2 transition-colors duration-300 
         ${
           darkMode
             ? "bg-black/50 border-white/30 text-white"
@@ -25,17 +25,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
         }`}
       >
         {links.map((link) => (
-          <li key={link.name} className="text-xs sm:text-sm md:text-base">
+          <li key={link.name} className="text-sm sm:text-base md:text-lg">
             <a
               href={link.href}
               onClick={() => setActive(link.name.toLowerCase())}
-              className={`px-2 sm:px-3 py-0.5 rounded-full transition-all duration-300 ease-in-out 
+              className={`px-3 sm:px-4 py-1 rounded-full transition-all duration-300 ease-in-out 
               ${
                 active === link.name.toLowerCase()
                   ? darkMode
                     ? "bg-white text-black"
                     : "bg-black text-white"
-                  : "hover:shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                  : "hover:shadow-[0_0_10px_rgba(255,255,255,0.6)]"
               }`}
             >
               {link.name}
@@ -48,26 +48,26 @@ const Navbar = ({ darkMode, setDarkMode }) => {
           <button
             onClick={() => setDarkMode(!darkMode)}
             className={`
-              relative flex items-center justify-center 
-              ml-1 sm:ml-2
-              w-8 h-8 sm:w-9 sm:h-9
-              rounded-full
-              border
-              ${
-                darkMode
-                  ? "bg-white text-black border-gray-300"
-                  : "bg-black text-white border-gray-700"
-              }
-              shadow-sm
-              hover:scale-110 hover:shadow-md
-              active:scale-95
-              transition-all duration-300 ease-in-out
-            `}
+    relative flex items-center justify-center 
+    ml-1 sm:ml-2
+    w-10 h-10 sm:w-12 sm:h-12
+    rounded-full
+    border
+    ${
+      darkMode
+        ? "bg-white text-black border-gray-300"
+        : "bg-black text-white border-gray-700"
+    }
+    shadow-md
+    hover:scale-110 hover:shadow-xl
+    active:scale-95
+    transition-all duration-300 ease-in-out
+  `}
           >
             {darkMode ? (
-              <BsFillSunFill className="text-yellow-500 text-lg sm:text-xl" />
+              <BsFillSunFill className="text-yellow-500 text-xl sm:text-2xl" />
             ) : (
-              <MdDarkMode className="text-blue-400 text-lg sm:text-xl" />
+              <MdDarkMode className="text-blue-400 text-xl sm:text-2xl" />
             )}
           </button>
         </li>
