@@ -38,8 +38,7 @@ const About = () => {
             Sofroniics{" "}
           </span>
           , building full-stack web applications.
-          <br />
-          I hold a Bachelor's degree in
+          <br />I hold a Bachelor's degree in
           <span className="font-semibold text-blue-700 dark:text-blue-400">
             {" "}
             Computer Science
@@ -50,8 +49,7 @@ const About = () => {
             GEMS College, Ramapuram
           </span>
           .
-          <br />
-          I love transforming complex problems into simple, elegant, and
+          <br />I love transforming complex problems into simple, elegant, and
           impactful solutions. My focus is on mastering React.js & Node.js while
           building scalable applications that make a difference.
         </p>
@@ -103,21 +101,30 @@ const About = () => {
       {/* Right Content - Image */}
       <motion.div
         initial={{ opacity: 0, x: 60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="flex-1  p-6 m-4 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-2xl dark:bg-black/40 dark:border-white/30 flex justify-center items-center"
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        className="flex-1 p-6 m-4 flex justify-center items-center"
       >
         <motion.div
-          whileHover={{ scale: 1.03 }}
+          whileHover={{ scale: 1.05, rotate: 1 }}
           transition={{ type: "spring", stiffness: 200 }}
-          className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 glass-img-card backdrop-blur-xl w-[360px] h-[300px] md:w-[420px] md:h-[320px]"
+          className="relative group"
         >
-          <img
-            src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
-            alt="coding gif"
-            className="w-full h-full object-cover rounded-2xl"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/20 to-amber-400/20 rounded-2xl"></div>
+          {/* Animated Gradient Ring */}
+          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-600 via-purple-500 to-amber-400 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+
+          {/* Glass Card Wrapper */}
+          <div className="relative rounded-full overflow-hidden shadow-2xl border border-white/20 backdrop-blur-xl w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
+            <img
+              src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
+              alt="coding gif"
+              className="w-[85%] h-[85%] object-cover rounded-full shadow-lg group-hover:scale-105 transition-transform duration-500"
+            />
+
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/20 to-amber-400/20"></div>
+          </div>
         </motion.div>
       </motion.div>
 
