@@ -43,8 +43,14 @@ const Home = ({ darkMode }) => {
           <div className="flex justify-center lg:justify-start items-center gap-4 md:gap-6 mt-6">
             {[
               { icon: <FaGithub />, link: "https://github.com/ANESSABO0421" },
-              { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/anees-aboobacker-4842b627a/" },
-              { icon: <FaInstagram />, link: "https://www.instagram.com/anees__aboobacker/" },
+              {
+                icon: <FaLinkedin />,
+                link: "https://www.linkedin.com/in/anees-aboobacker-4842b627a/",
+              },
+              {
+                icon: <FaInstagram />,
+                link: "https://www.instagram.com/anees__aboobacker/",
+              },
               { icon: <FaGoogle />, link: "#" },
             ].map((item, i) => (
               <a
@@ -75,6 +81,7 @@ const Home = ({ darkMode }) => {
               Download CV
             </button>
             <button
+              id="contact"
               className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full font-medium hover:scale-105 transition duration-300 shadow-md 
               ${
                 darkMode
