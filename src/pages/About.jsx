@@ -105,7 +105,7 @@ const About = () => {
         initial={{ opacity: 0, x: 60 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="flex-1 max-w-lg p-6 m-4 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-2xl dark:bg-black/40 dark:border-white/30 flex justify-center items-center"
+        className="flex-1  p-6 m-4 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-2xl dark:bg-black/40 dark:border-white/30 flex justify-center items-center"
       >
         <motion.div
           whileHover={{ scale: 1.03 }}
