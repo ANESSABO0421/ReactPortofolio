@@ -123,7 +123,7 @@ const About = () => {
             />
 
             {/* Overlay gradient */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-blue-600/20 to-amber-400/20"></div>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-blue-600/20 to-amber-400/20"></div>
           </div>
         </motion.div>
       </motion.div>
