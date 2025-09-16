@@ -112,14 +112,14 @@ const About = () => {
           className="relative group"
         >
           {/* Animated Gradient Ring */}
-          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-600 via-purple-500 to-amber-400 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-500 to-amber-400 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
 
           {/* Glass Card Wrapper */}
-          <div className="relative rounded-full overflow-hidden shadow-2xl border border-white/20 backdrop-blur-xl w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 backdrop-blur-xl w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
             <img
               src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
               alt="coding gif"
-              className="w-[85%] h-[85%] object-cover rounded-full shadow-lg group-hover:scale-105 transition-transform duration-500"
+              className="w-[85%] h-[85%] object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-500"
             />
 
             {/* Overlay gradient */}
