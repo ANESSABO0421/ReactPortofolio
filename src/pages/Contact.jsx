@@ -34,7 +34,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className={`min-h-screen flex flex-col justify-center items-center py-16 px-4 ${
+      className={`min-h-[calc(100vh-4rem)] md:min-h-screen flex flex-col justify-start items-center py-8 sm:py-16 px-4 ${
         darkMode ? "bg-[#151E30] text-white" : "bg-[#E6F2FF] text-gray-900"
       }`}
     >
@@ -42,7 +42,7 @@ const Contact = () => {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-10"
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-10"
       >
         Contact Me
       </motion.h1>
@@ -53,7 +53,7 @@ const Contact = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.8 }}
-        className={`w-full max-w-lg md:max-w-xl p-8 rounded-3xl shadow-2xl backdrop-blur-md ${
+        className={`w-full max-w-lg md:max-w-xl p-6 sm:p-8 rounded-3xl shadow-2xl backdrop-blur-md ${
           darkMode ? "bg-gray-800/80" : "bg-white/70"
         }`}
         autoComplete="off"
@@ -66,7 +66,7 @@ const Contact = () => {
           required
           placeholder="Your Name"
           autoComplete="off"
-          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
+          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
             darkMode
               ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
               : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
@@ -81,7 +81,7 @@ const Contact = () => {
           required
           placeholder="Your Email"
           autoComplete="off"
-          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
+          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
             darkMode
               ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
               : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
@@ -96,7 +96,7 @@ const Contact = () => {
           placeholder="Your Message"
           rows={5}
           autoComplete="off"
-          className={`w-full mb-6 px-4 py-3 rounded-xl border-2 text-base resize-none outline-none transition-all duration-300 ${
+          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base resize-none outline-none transition-all duration-300 ${
             darkMode
               ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
               : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
@@ -108,7 +108,7 @@ const Contact = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all"
+          className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-2 sm:py-3 rounded-xl shadow-lg transition-all"
         >
           Send Message
         </motion.button>

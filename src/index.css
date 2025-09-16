@@ -3,11 +3,9 @@
 nav {
   color: #f5f5f5;
 }
-  html {
-    scroll-behavior: smooth;
-  }
-
-
+html {
+  scroll-behavior: smooth;
+}
 
 /* MovingSection.css */
 .image-scroller {
@@ -68,27 +66,26 @@ nav {
   animation: scrollX 20s linear infinite;
 }
 
-
- @keyframes scroll-x {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-50% - 1.5rem));
-          }
-        }
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          33% {
-            transform: translateY(-8px) rotate(2deg);
-          }
-          66% {
-            transform: translateY(6px) rotate(-2deg);
-          }
-        }
-        .animate-pulse-slow {
-          animation: pulse 8s ease-in-out infinite;
-        }
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 1.5rem));
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(6px) rotate(-2deg);
+  }
+}
+.animate-pulse-slow {
+  animation: pulse 8s ease-in-out infinite;
+}
