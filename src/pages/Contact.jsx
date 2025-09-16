@@ -34,7 +34,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className={`min-h-[calc(100vh-4rem)]  flex flex-col justify-start items-center py-8 sm:py-8 px-4 ${
+      className={`min-h-screen flex flex-col justify-start items-center py-8 sm:py-8 px-4 ${
         darkMode ? "bg-[#151E30] text-white" : "bg-[#E6F2FF] text-gray-900"
       }`}
     >
