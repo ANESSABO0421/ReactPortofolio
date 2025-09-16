@@ -69,3 +69,26 @@ nav {
 }
 
 
+ @keyframes scroll-x {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-50% - 1.5rem));
+          }
+        }
+        @keyframes float {
+          0%,
+          100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          33% {
+            transform: translateY(-8px) rotate(2deg);
+          }
+          66% {
+            transform: translateY(6px) rotate(-2deg);
+          }
+        }
+        .animate-pulse-slow {
+          animation: pulse 8s ease-in-out infinite;
+        }

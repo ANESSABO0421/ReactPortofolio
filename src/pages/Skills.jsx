@@ -74,7 +74,6 @@ const Skills = () => {
       color: "text-red-500",
       glow: "shadow-[0_0_30px_rgba(239,68,68,0.8)]",
     },
-
     {
       title: "MongoDB",
       description: "NoSQL database for modern applications",
@@ -114,7 +113,7 @@ const Skills = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[90rem] mx-auto py-24 overflow-hidden">
+    <div className="relative w-full max-w-[90rem] mx-auto py-12 sm:py-24 overflow-hidden">
       {/* Glowing gradient background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
@@ -216,32 +215,6 @@ const Skills = () => {
           ></div>
         ))}
       </div>
-
-      <style jsx>{`
-        @keyframes scroll-x {
-          0% {
-            transform: translateX(0);
-          }
-          100% {
-            transform: translateX(calc(-50% - 1.5rem));
-          }
-        }
-        @keyframes float {
-          0%,
-          100% {
-            transform: translateY(0) rotate(0deg);
-          }
-          33% {
-            transform: translateY(-8px) rotate(2deg);
-          }
-          66% {
-            transform: translateY(6px) rotate(-2deg);
-          }
-        }
-        .animate-pulse-slow {
-          animation: pulse 8s ease-in-out infinite;
-        }
-      `}</style>
     </div>
   );
 };
