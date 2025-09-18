@@ -70,18 +70,23 @@ const Home = ({ darkMode }) => {
 
           {/* Buttons */}
           <div className="flex gap-5 mt-8">
-            <button
-              className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full font-medium hover:scale-105 transition duration-300 shadow-md 
+            <a
+              href="/Anees_Aboobacker_Resume.pdf"
+              download="Anees_Aboobacker_Resume.pdf"
+            >
+              <button
+                className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full cursor-pointer font-medium hover:scale-105 transition duration-300 shadow-md 
               ${
                 darkMode
                   ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
                   : "bg-gradient-to-r from-[#080f8e] to-[#497ba3] text-white"
               }`}
-            >
-              Download CV
-            </button>
+              >
+                Download CV
+              </button>
+            </a>
             <button
-              className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full font-medium hover:scale-105 transition duration-300 shadow-md 
+              className={`px-6 md:px-8 py-3 text-sm md:text-base cursor-pointer rounded-full font-medium hover:scale-105 transition duration-300 shadow-md 
               ${
                 darkMode
                   ? "bg-gradient-to-r from-purple-600 to-blue-500 text-white"
