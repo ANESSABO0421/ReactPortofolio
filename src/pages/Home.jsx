@@ -71,8 +71,8 @@ const Home = ({ darkMode }) => {
           {/* Buttons */}
           <div className="flex gap-5 mt-8">
             <a
-              href="/Anees_Aboobacker_Resume.pdf"
-              download="Anees_Aboobacker_Resume.pdf"
+              href="/Anees_Aboobacker_CV.pdf"
+              download="Anees_Aboobacker_CV.pdf"
             >
               <button
                 className={`px-6 md:px-8 py-3 text-sm md:text-base rounded-full cursor-pointer font-medium hover:scale-105 transition duration-300 shadow-md 
