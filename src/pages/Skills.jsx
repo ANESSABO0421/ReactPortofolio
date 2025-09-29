@@ -8,7 +8,7 @@ import {
   FaNodeJs,
   FaGithub,
 } from "react-icons/fa";
-import { SiExpress, SiMongodb, SiTailwindcss } from "react-icons/si";
+import { SiExpress, SiMongodb, SiTailwindcss, SiFigma } from "react-icons/si";
 import { ThemeContext } from "../App";
 import { motion } from "framer-motion";
 
@@ -32,6 +32,27 @@ const Skills = () => {
       glow: "shadow-[0_0_30px_rgba(37,99,235,0.8)]",
     },
     {
+      title: "Tailwind CSS",
+      description: "Create responsive designs using utility-first CSS classes",
+      icon: <SiTailwindcss />,
+      color: "text-sky-400",
+      glow: "shadow-[0_0_30px_rgba(56,189,248,0.8)]",
+    },
+    {
+      title: "Bootstrap",
+      description: "Quickly develop mobile-first projects with prebuilt components",
+      icon: <FaBootstrap />,
+      color: "text-purple-500",
+      glow: "shadow-[0_0_30px_rgba(147,51,234,0.8)]",
+    },
+    {
+      title: "Figma",
+      description: "UI/UX design and prototyping tool for modern interfaces",
+      icon: <SiFigma />,
+      color: "text-pink-500",
+      glow: "shadow-[0_0_30px_rgba(236,72,153,0.8)]",
+    },
+    {
       title: "JavaScript",
       description: "Add interactivity and dynamic behavior to websites",
       icon: <FaJs />,
@@ -44,21 +65,6 @@ const Skills = () => {
       icon: <FaReact />,
       color: "text-cyan-400",
       glow: "shadow-[0_0_30px_rgba(6,182,212,0.8)]",
-    },
-    {
-      title: "Tailwind CSS",
-      description: "Create responsive designs using utility-first CSS classes",
-      icon: <SiTailwindcss />,
-      color: "text-sky-400",
-      glow: "shadow-[0_0_30px_rgba(56,189,248,0.8)]",
-    },
-    {
-      title: "Bootstrap",
-      description:
-        "Quickly develop mobile-first projects with prebuilt components",
-      icon: <FaBootstrap />,
-      color: "text-purple-500",
-      glow: "shadow-[0_0_30px_rgba(147,51,234,0.8)]",
     },
     {
       title: "Node.js",
