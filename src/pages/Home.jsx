@@ -1,6 +1,7 @@
 import React from "react";
 import { FaGithub, FaLinkedin, FaInstagram, FaGoogle } from "react-icons/fa";
 import { TypeAnimation } from "react-type-animation";
+import { easeOut, motion } from "framer-motion";
 
 const Home = ({ darkMode }) => {
   return (
@@ -99,14 +100,28 @@ const Home = ({ darkMode }) => {
         </div>
 
         {/* Right Image */}
-        <div className="w-full lg:w-1/2 flex justify-center items-center">
+        <motion.div
+          initial={{
+            opacity: 0.8,
+            scale: 0.8,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            ease: easeOut,
+           duration:1
+          }}
+          className="w-full lg:w-1/2 flex justify-center items-center"
+        >
           <img
             src="https://www.web24zone.com/wp-content/uploads/2022/10/46207-programmer-1.gif"
             alt="Animated Hero"
-            className="rounded-2xl h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px] shadow-2xl hover:scale-105 transition duration-500"
-            data-aos="fade-up"
+            className="transform rounded-2xl h-[260px] sm:h-[320px] md:h-[400px] lg:h-[480px] xl:h-[520px] 
+               shadow-2xl hover:-translate-y-2 transition-all ease-out duration-500"
           />
-        </div>
+        </motion.div>
       </section>
     </div>
   );
