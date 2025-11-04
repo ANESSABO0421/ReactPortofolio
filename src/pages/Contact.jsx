@@ -1,13 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "../App";
 import emailjs from "emailjs-com";
-import { motion } from "framer-motion";
 
 const Contact = () => {
   const { darkMode } = useContext(ThemeContext);
   const formRef = useRef();
   const [success, setSuccess] = useState(false);
-
   const sentEmail = (e) => {
     e.preventDefault();
 
@@ -23,7 +21,6 @@ const Contact = () => {
           console.log("Email sent:", result.text);
           setSuccess(true);
           formRef.current.reset();
-          setTimeout(() => setSuccess(false), 5000);
         },
         (error) => {
           console.error("Email error:", error.text);
@@ -32,98 +29,74 @@ const Contact = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className={`h-[700px] flex flex-col justify-center items-center py-8 sm:py-8 px-4 ${
-        darkMode ? "bg-[#151E30] text-white" : "bg-[#E6F2FF] text-gray-900"
-      }`}
-    >
-      <motion.h1
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-center mb-8 sm:mb-10"
-      >
+    <div className="h-[500px]  flex justify-center items-center flex-col ">
+      <h1 className="text-5xl md:text-6xl font-bold text-center  m-2 md:m-4 lg:m-5">
         Contact Me
-      </motion.h1>
-
-      <motion.form
-        ref={formRef}
-        onSubmit={sentEmail}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-        className={`w-full max-w-lg md:max-w-xl p-6 sm:p-8 rounded-3xl shadow-2xl backdrop-blur-md ${
-          darkMode ? "bg-gray-800/80" : "bg-white/70"
-        }`}
-        autoComplete="off"
-      >
-        {/* Name */}
-        <input
-          type="text"
-          name="name"
-          id="name"
-          required
-          placeholder="Your Name"
-          autoComplete="off"
-          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
-            darkMode
-              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
-              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
-          }`}
-        />
-
-        {/* Email */}
-        <input
-          type="email"
-          name="email"
-          id="email"
-          required
-          placeholder="Your Email"
-          autoComplete="off"
-          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base outline-none transition-all duration-300 ${
-            darkMode
-              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
-              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
-          }`}
-        />
-
-        {/* Message */}
-        <textarea
-          name="message"
-          id="message"
-          required
-          placeholder="Your Message"
-          rows={5}
-          autoComplete="off"
-          className={`w-full mb-4 sm:mb-6 px-3 sm:px-4 py-2 sm:py-3 rounded-xl border-2 text-base resize-none outline-none transition-all duration-300 ${
-            darkMode
-              ? "bg-gray-900 border-gray-600 text-white focus:border-yellow-400"
-              : "bg-white border-gray-300 text-gray-900 focus:border-purple-500"
-          }`}
-        ></textarea>
-
-        {/* Submit button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 text-white font-bold py-2 sm:py-3 rounded-xl shadow-lg transition-all"
+      </h1>
+      <form ref={formRef} onSubmit={sentEmail}>
+        <fieldset
+          className={`fieldset bg-base-200 border-base-300 rounded-box w-xs md:w-md lg:w-xl border p-4 ${darkMode ? "bg-white text-black" : "bg-black text-white"
+            }`}
         >
-          Send Message
-        </motion.button>
-
-        {success && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-4 text-green-500 font-medium text-center"
+          <label
+            className={darkMode ? "text-black" : "text-white"}
+            htmlFor="name"
           >
-            ✔ Message sent successfully!
-          </motion.p>
-        )}
-      </motion.form>
-    </section>
+            Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
+            placeholder="Your name"
+            required
+          />
+
+          <label
+            className={darkMode ? "text-black" : "text-white"}
+            htmlFor="email"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
+            placeholder="you@example.com"
+            required
+          />
+
+          <label
+            className={darkMode ? "text-black" : "text-white"}
+            htmlFor="message"
+          >
+            Message
+          </label>
+          <textarea
+            name="message"
+            id="message"
+            className={`input w-full h-[100px] px-3 py-2 ${darkMode ? "text-white" : "text-white"
+              }`}
+            placeholder="Write your message..."
+            required
+          ></textarea>
+
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md px-4 py-2 mt-5"
+          >
+            Submit
+          </button>
+          {success && (
+            <p className="text-green-500 mt-3 font-medium">
+              ✔ Message sent successfully!
+            </p>
+          )}
+        </fieldset>
+      </form>
+    </div>
   );
 };
 
