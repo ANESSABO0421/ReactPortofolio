@@ -6,40 +6,104 @@ import {
   FaReact,
   FaBootstrap,
   FaNodeJs,
-  FaGithub,
+  FaPython,
+  FaGitAlt,
+  FaDatabase,
+  FaLaptopCode,
+  FaTools,
+  FaBrain,
+  FaRobot,
 } from "react-icons/fa";
-import { SiExpress, SiMongodb, SiTailwindcss, SiFigma } from "react-icons/si";
+import {
+  SiTailwindcss,
+  SiNextdotjs,
+  SiMongodb,
+  SiSupabase,
+  SiPostgresql,
+  SiTypescript,
+  SiC,
+  SiVite,
+  SiShadcnui,
+} from "react-icons/si";
+import { VscCode } from "react-icons/vsc";
 import { motion } from "framer-motion";
 
-const Skills = () => {
-  const skills = [
-    { title: "HTML", icon: <FaHtml5 />, color: "#FF5733" },
-    { title: "CSS", icon: <FaCss3Alt />, color: "#2965f1" },
-    { title: "Tailwind", icon: <SiTailwindcss />, color: "#38bdf8" },
-    { title: "Bootstrap", icon: <FaBootstrap />, color: "#7f0fff" },
-    { title: "JavaScript", icon: <FaJs />, color: "#f7df1e" },
-    { title: "React", icon: <FaReact />, color: "#61dafb" },
-    { title: "Node.js", icon: <FaNodeJs />, color: "#68a063" },
-    { title: "Express", icon: <SiExpress />, color: "#f87171" },
-    { title: "MongoDB", icon: <SiMongodb />, color: "#4caf50" },
-    { title: "GitHub", icon: <FaGithub />, color: "#ffffff" },
-    { title: "Figma", icon: <SiFigma />, color: "#f24e1e" },
-  ];
+const categories = [
+  {
+    title: "Frontend",
+    icon: <FaLaptopCode className="text-cyan-400" />,
+    skills: [
+      { name: "HTML5", icon: <FaHtml5 /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { name: "Bootstrap", icon: <FaBootstrap /> },
+      { name: "Next.js", icon: <SiNextdotjs /> },
+    ],
+  },
+  {
+    title: "Backend & Database",
+    icon: <FaDatabase className="text-green-400" />,
+    skills: [
+      { name: "Node.js", icon: <FaNodeJs /> },
+      { name: "Supabase", icon: <SiSupabase /> },
+      { name: "PostgreSQL", icon: <SiPostgresql /> },
+      { name: "MongoDB", icon: <SiMongodb /> },
+    ],
+  },
+  {
+    title: "Programming",
+    icon: <VscCode className="text-blue-400" />,
+    skills: [
+      { name: "JavaScript", icon: <FaJs /> },
+      { name: "TypeScript", icon: <SiTypescript /> },
+      { name: "Python", icon: <FaPython /> },
+      { name: "C/C++", icon: <SiC /> },
+    ],
+  },
+  {
+    title: "Development Tools",
+    icon: <FaTools className="text-yellow-400" />,
+    skills: [
+      { name: "Git", icon: <FaGitAlt /> },
+      { name: "VS Code", icon: <VscCode /> },
+      { name: "Cursor IDE", icon: <VscCode /> },
+      { name: "Vite", icon: <SiVite /> },
+    ],
+  },
+  {
+    title: "AI Development",
+    icon: <FaBrain className="text-pink-400" />,
+    skills: [
+      { name: "ChatGPT", icon: <FaRobot /> },
+      { name: "Claude", icon: <FaRobot /> },
+      { name: "Manus", icon: <FaRobot /> },
+    ],
+  },
+  {
+    title: "AI Prototyping",
+    icon: <FaRobot className="text-purple-400" />,
+    skills: [
+      { name: "Lovable", icon: <SiShadcnui /> },
+      { name: "v0", icon: <SiShadcnui /> },
+      { name: "Shadcn/UI", icon: <SiShadcnui /> },
+    ],
+  },
+];
 
+const Skills = () => {
   return (
     <section
       id="skills"
       className="relative min-h-screen flex flex-col justify-center items-center py-24 bg-[#050505] overflow-hidden"
     >
-      {/* === Cosmic Animated Grid Background === */}
+      {/* === Cosmic Grid Background === */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.07),transparent_70%)]" />
-        <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:40px_40px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_70%)]" />
+        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:50px_50px]" />
       </div>
 
       {/* === Floating Stars === */}
       <div className="absolute inset-0 z-0">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(35)].map((_, i) => (
           <motion.span
             key={i}
             className="absolute bg-white rounded-full"
@@ -50,9 +114,9 @@ const Skills = () => {
               left: `${Math.random() * 100}%`,
               opacity: Math.random() * 0.6 + 0.3,
             }}
-            animate={{ y: [0, -10, 0], opacity: [0.3, 1, 0.3] }}
+            animate={{ y: [0, -10, 0], opacity: [0.4, 1, 0.4] }}
             transition={{
-              duration: Math.random() * 6 + 3,
+              duration: Math.random() * 5 + 3,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -64,73 +128,59 @@ const Skills = () => {
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.8 }}
         viewport={{ once: true }}
         className="relative z-10 mb-16 text-center"
       >
-        <h1 className="text-6xl sm:text-7xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-transparent tracking-tight">
-          TECH ARSENAL
+        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-transparent tracking-tight">
+          TECH STACK
         </h1>
-        <p className="mt-4 text-gray-400 uppercase text-sm tracking-[0.25em]">
-          Forged in Code · Perfected with Passion
+        <p className="mt-3 text-gray-400 uppercase text-sm tracking-[0.25em]">
+          Tools · Frameworks · Languages · AI
         </p>
       </motion.div>
 
-      {/* === Skills Grid === */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10 relative z-10 px-6 max-w-7xl"
-      >
-        {skills.map((skill, i) => (
+      {/* === Skill Categories === */}
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6 max-w-7xl">
+        {categories.map((category, index) => (
           <motion.div
-            key={i}
-            whileHover={{ scale: 1.1, rotateY: 10 }}
-            transition={{ type: "spring", stiffness: 300 }}
-            className="group relative flex flex-col justify-center items-center p-6 rounded-2xl
-            bg-gradient-to-br from-[#141414] to-[#0a0a0a] border border-white/10
-            shadow-[0_0_25px_rgba(255,255,255,0.05),inset_0_0_20px_rgba(255,255,255,0.08)]
-            backdrop-blur-xl overflow-hidden"
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            className="group relative flex flex-col items-center justify-between bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-white/10 rounded-3xl p-8 shadow-[0_0_25px_rgba(255,255,255,0.05)] backdrop-blur-xl overflow-hidden"
           >
-            {/* Icon */}
-            <motion.div
-              whileHover={{ rotate: 360 }}
-              transition={{ duration: 1.2, ease: "easeInOut" }}
-              className="mb-4 text-6xl drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]"
-              style={{
-                color: skill.color,
-                filter: `drop-shadow(0 0 15px ${skill.color}90)`,
-              }}
-            >
-              {skill.icon}
-            </motion.div>
+            {/* Category Header */}
+            <div className="flex items-center gap-3 mb-6 text-white/80">
+              <span className="text-2xl">{category.icon}</span>
+              <h3 className="text-xl font-semibold text-gray-100 tracking-wide">
+                {category.title}
+              </h3>
+            </div>
 
-            {/* Title */}
-            <h3
-              className="text-xl font-bold"
-              style={{
-                background: `linear-gradient(90deg, ${skill.color}, #fff)`,
-                WebkitBackgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              {skill.title}
-            </h3>
+            {/* Skill Icons */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-5">
+              {category.skills.map((skill, i) => (
+                <motion.div
+                  key={i}
+                  whileHover={{ scale: 1.08 }}
+                  transition={{ type: "spring", stiffness: 250 }}
+                  className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#0f0f0f]/70 border border-white/5 shadow-inner hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-300"
+                >
+                  <div className="text-3xl text-gray-300">{skill.icon}</div>
+                  <span className="text-sm text-gray-400">{skill.name}</span>
+                </motion.div>
+              ))}
+            </div>
 
-            {/* Glow Effect */}
+            {/* Glow Hover */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-              <div
-                className="absolute inset-0 blur-3xl rounded-2xl"
-                style={{
-                  background: `radial-gradient(circle at center, ${skill.color}40, transparent 70%)`,
-                }}
-              />
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-transparent blur-2xl"></div>
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 };

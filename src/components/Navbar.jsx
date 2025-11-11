@@ -1,78 +1,63 @@
 import React, { useState } from "react";
-import { MdDarkMode } from "react-icons/md";
-import { BsFillSunFill } from "react-icons/bs";
+import { motion } from "framer-motion";
 
-const Navbar = ({ darkMode, setDarkMode }) => {
+const Navbar = () => {
   const [active, setActive] = useState("home");
 
   const links = [
-    { name: "Home", href: "#" },
-    { name: "About", href: "#About" },
-    { name: "Works", href: "#project" },
-    { name: "Contact", href: "#contact" },
+    { name: "HOME", href: "#" },
+    { name: "ABOUT", href: "#about" },
+    { name: "WORKS", href: "#project" },
+    { name: "CONTACT", href: "#contact" },
   ];
 
   return (
-    <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50">
-      <ul
-        className={`flex items-center gap-3 sm:gap-4 md:gap-6 
-        px-4 sm:px-6 md:px-8 py-2 sm:py-3 
-        rounded-full backdrop-blur-lg shadow-lg border-2 transition-colors duration-300 
-        ${
-          darkMode
-            ? "bg-black/50 border-white/30 text-white"
-            : "bg-white/50 border-black/30 text-black"
-        }`}
+    <motion.nav
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className="fixed top-8 left-1/2 -translate-x-1/2 z-50 border border-white rounded-full"
+    >
+      <ul className="flex items-center justify-center gap-8 px-10 py-3 rounded-full
+        bg-black/60 border border-white/10 backdrop-blur-xl 
+        shadow-[0_0_25px_rgba(255,255,255,0.15)] relative overflow-hidden
+        before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/5 before:to-transparent
+        before:translate-x-[-100%] before:animate-[shine_6s_linear_infinite]"
       >
         {links.map((link) => (
-          <li key={link.name} className="text-sm sm:text-base md:text-lg">
+          <li key={link.name} className="relative">
             <a
               href={link.href}
               onClick={() => setActive(link.name.toLowerCase())}
-              className={`px-3 sm:px-4 py-1 rounded-full transition-all duration-300 ease-in-out 
+              className={`text-sm sm:text-base md:text-lg font-semibold tracking-widest 
+              transition-all duration-300 
               ${
                 active === link.name.toLowerCase()
-                  ? darkMode
-                    ? "bg-white text-black"
-                    : "bg-black text-white"
-                  : "hover:shadow-[0_0_10px_rgba(255,255,255,0.6)]"
+                  ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                  : "text-gray-400 hover:text-white"
               }`}
             >
               {link.name}
             </a>
+            {active === link.name.toLowerCase() && (
+              <motion.div
+                layoutId="activeUnderline"
+                className="absolute -bottom-1 left-1/2 w-2 h-2 bg-white rounded-full -translate-x-1/2 shadow-[0_0_10px_white]"
+              />
+            )}
           </li>
         ))}
-
-        {/* Dark/Light Mode Button */}
-        <li>
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className={`
-    relative flex items-center justify-center 
-    ml-1 sm:ml-2
-    w-10 h-10 sm:w-12 sm:h-12
-    rounded-full
-    border
-    ${
-      darkMode
-        ? "bg-white text-black border-gray-300"
-        : "bg-black text-white border-gray-700"
-    }
-    shadow-md
-    hover:scale-110 hover:shadow-xl
-    active:scale-95
-    transition-all duration-300 ease-in-out
-  `}
-          >
-            {darkMode ? (
-              <BsFillSunFill className="text-yellow-500 text-xl sm:text-2xl" />
-            ) : (
-              <MdDarkMode className="text-blue-400 text-xl sm:text-2xl" />
-            )}
-          </button>
-        </li>
       </ul>
-    </nav>
+
+      {/* Metallic Sweep Animation Keyframes */}
+      <style>{`
+        @keyframes shine {
+          0% { transform: translateX(-100%); }
+          50% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+      `}</style>
+    </motion.nav>
   );
 };
 
