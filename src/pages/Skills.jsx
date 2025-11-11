@@ -93,9 +93,9 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen flex flex-col justify-center items-center py-24 bg-[#050505] overflow-hidden"
+      className="relative flex flex-col justify-center items-center py-24 bg-[#050505] overflow-hidden min-h-screen"
     >
-      {/* === Cosmic Grid Background === */}
+      {/* === Cosmic Background === */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_70%)]" />
         <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:50px_50px]" />
@@ -130,18 +130,18 @@ const Skills = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
-        className="relative z-10 mb-16 text-center"
+        className="relative z-10 mb-16 text-center px-6"
       >
-        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-transparent tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-transparent tracking-tight">
           TECH STACK
         </h1>
-        <p className="mt-3 text-gray-400 uppercase text-sm tracking-[0.25em]">
+        <p className="mt-3 text-gray-400 uppercase text-xs sm:text-sm tracking-[0.25em]">
           Tools · Frameworks · Languages · AI
         </p>
       </motion.div>
 
-      {/* === Skill Categories === */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-6 max-w-7xl">
+      {/* === Skill Cards Grid === */}
+      <div className="relative z-10 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 px-4 sm:px-8 lg:px-16 w-full max-w-7xl">
         {categories.map((category, index) => (
           <motion.div
             key={index}
@@ -149,18 +149,18 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="group relative flex flex-col items-center justify-between bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-white/10 rounded-3xl p-8 shadow-[0_0_25px_rgba(255,255,255,0.05)] backdrop-blur-xl overflow-hidden"
+            className="group relative flex flex-col items-center justify-between bg-gradient-to-br from-[#111111] to-[#0a0a0a] border border-white/10 rounded-3xl p-6 sm:p-8 shadow-[0_0_25px_rgba(255,255,255,0.05)] backdrop-blur-xl overflow-hidden hover:scale-[1.02] transition-transform duration-300"
           >
-            {/* Category Header */}
+            {/* Header */}
             <div className="flex items-center gap-3 mb-6 text-white/80">
-              <span className="text-2xl">{category.icon}</span>
-              <h3 className="text-xl font-semibold text-gray-100 tracking-wide">
+              <span className="text-2xl sm:text-3xl">{category.icon}</span>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-100 tracking-wide text-center sm:text-left">
                 {category.title}
               </h3>
             </div>
 
-            {/* Skill Icons */}
-            <div className="grid grid-cols-2 sm:grid-cols-2 gap-5">
+            {/* Skills */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 sm:gap-5 w-full">
               {category.skills.map((skill, i) => (
                 <motion.div
                   key={i}
@@ -168,13 +168,17 @@ const Skills = () => {
                   transition={{ type: "spring", stiffness: 250 }}
                   className="flex flex-col items-center gap-2 p-3 rounded-2xl bg-[#0f0f0f]/70 border border-white/5 shadow-inner hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all duration-300"
                 >
-                  <div className="text-3xl text-gray-300">{skill.icon}</div>
-                  <span className="text-sm text-gray-400">{skill.name}</span>
+                  <div className="text-2xl sm:text-3xl text-gray-300">
+                    {skill.icon}
+                  </div>
+                  <span className="text-xs sm:text-sm text-gray-400 text-center">
+                    {skill.name}
+                  </span>
                 </motion.div>
               ))}
             </div>
 
-            {/* Glow Hover */}
+            {/* Glow */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/5 to-transparent blur-2xl"></div>
             </div>

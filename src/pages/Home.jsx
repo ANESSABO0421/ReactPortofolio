@@ -6,11 +6,11 @@ const Home = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col justify-center items-center bg-[#050505] overflow-hidden text-center"
+      className="relative min-h-screen flex flex-col justify-center items-center bg-[#050505] overflow-hidden text-center px-4 sm:px-6 md:px-10"
     >
-      {/* ⚡ Metallic Cosmic Grid Background (same as About) */}
+      {/* ⚡ Metallic Cosmic Grid Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(180,180,180,0.05),transparent_70%)]">
-        <div className="absolute inset-0 opacity-[0.15] bg-[linear-gradient(115deg,#c0c0c0_1px,transparent_1px),linear-gradient(-115deg,#c0c0c0_1px,transparent_1px)] bg-[length:50px_50px]" />
+        <div className="absolute inset-0 opacity-[0.15] bg-[linear-gradient(115deg,#c0c0c0_1px,transparent_1px),linear-gradient(-115deg,#c0c0c0_1px,transparent_1px)] bg-[length:40px_40px] sm:bg-[length:50px_50px]" />
       </div>
 
       {/* ✨ Floating Metallic Stars */}
@@ -39,15 +39,15 @@ const Home = () => {
       </div>
 
       {/* === Hero Content === */}
-      <div className="relative z-10 text-center px-6 sm:px-10 md:px-16">
+      <div className="relative z-10 text-center max-w-[90vw] sm:max-w-[85vw] md:max-w-[70vw] lg:max-w-[65vw]">
         {/* Metallic Gradient Name */}
         <motion.h1
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2 }}
-          className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[9rem] font-extrabold 
+          className="text-[2.5rem] xs:text-[3.2rem] sm:text-[4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] font-extrabold 
                      bg-gradient-to-b from-gray-100 via-gray-400 to-gray-600 bg-clip-text 
-                     text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)] leading-[1.1]"
+                     text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)] leading-tight sm:leading-[1.1]"
         >
           ANEES
           <br />
@@ -55,37 +55,41 @@ const Home = () => {
         </motion.h1>
 
         {/* Info Row */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-8 sm:gap-12 mt-10 text-gray-300 text-sm sm:text-base uppercase tracking-wide">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-10 md:gap-12 mt-8 sm:mt-10 text-gray-300 text-xs sm:text-sm md:text-base uppercase tracking-wide">
           <div className="flex flex-col items-center">
-            <span className="text-white font-semibold">Full-Stack Developer</span>
-            <span className="text-gray-400 text-xs sm:text-sm">
+            <span className="text-white font-semibold text-sm sm:text-base md:text-lg">
+              Full-Stack Developer
+            </span>
+            <span className="text-gray-400 text-[0.7rem] sm:text-xs md:text-sm">
               AI & Software Solutions
             </span>
           </div>
 
-          <div className="hidden sm:block w-px h-10 bg-gray-600" />
+          <div className="hidden sm:block w-px h-8 md:h-10 bg-gray-600" />
 
           <div className="flex flex-col items-center">
-            <span className="text-white font-semibold">
+            <span className="text-white font-semibold text-sm sm:text-base md:text-lg">
               Clients Across 5+ Countries
             </span>
-            <span className="text-gray-400 text-xs sm:text-sm">
+            <span className="text-gray-400 text-[0.7rem] sm:text-xs md:text-sm">
               India • UK • Canada • UAE
             </span>
           </div>
 
-          <div className="hidden sm:block w-px h-10 bg-gray-600" />
+          <div className="hidden sm:block w-px h-8 md:h-10 bg-gray-600" />
 
           <div className="flex flex-col items-center">
-            <span className="text-white font-semibold">Based in</span>
-            <span className="text-gray-400 text-xs sm:text-sm">
+            <span className="text-white font-semibold text-sm sm:text-base md:text-lg">
+              Based in
+            </span>
+            <span className="text-gray-400 text-[0.7rem] sm:text-xs md:text-sm">
               Kerala, India
             </span>
           </div>
         </div>
 
         {/* 🌐 Social Icons */}
-        <div className="flex justify-center gap-6 sm:gap-8 mt-12 text-gray-300">
+        <div className="flex justify-center gap-5 sm:gap-6 md:gap-8 mt-10 sm:mt-12 text-gray-300 flex-wrap">
           {[
             { icon: <FaGithub />, link: "https://github.com/ANESSABO0421" },
             {
@@ -102,7 +106,7 @@ const Home = () => {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-2xl sm:text-3xl hover:text-sky-400 hover:scale-110 transition-all duration-300"
+              className="text-2xl sm:text-3xl md:text-4xl hover:text-sky-400 hover:scale-110 transition-all duration-300"
             >
               {item.icon}
             </a>

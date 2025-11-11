@@ -12,10 +12,10 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
     className="group relative rounded-2xl bg-[#0b0b0b]/80 border border-white/10 
                hover:border-white/25 backdrop-blur-lg overflow-hidden 
                hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] transition-all duration-500 
-               cursor-pointer flex flex-col"
+               cursor-pointer flex flex-col w-full"
   >
     {/* Project Image */}
-    <div className="relative w-full h-56 md:h-64 overflow-hidden flex-shrink-0">
+    <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden flex-shrink-0">
       <AnimatePresence mode="wait">
         <motion.img
           key={imgIndex}
@@ -33,19 +33,19 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
     </div>
 
     {/* Card Content */}
-    <div className="flex flex-col justify-between flex-1 p-5 md:p-6 text-gray-300">
+    <div className="flex flex-col justify-between flex-1 p-4 sm:p-5 md:p-6 text-gray-300">
       <div>
-        <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-gray-400 text-sm leading-relaxed mb-3 line-clamp-2">
+        <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-3 line-clamp-2">
           {project.shortDescription}
         </p>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.technologies.slice(0, 3).map((tech, i) => (
             <span
               key={i}
-              className="px-3 py-1 text-xs rounded-full bg-[#161616] border border-gray-700 text-gray-300"
+              className="px-3 py-1 text-xs sm:text-sm rounded-full bg-[#161616] border border-gray-700 text-gray-300"
             >
               {tech}
             </span>
@@ -59,7 +59,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
           href={project.demoLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm hover:text-white transition"
+          className="flex items-center gap-2 text-xs sm:text-sm hover:text-white transition"
           onClick={(e) => e.stopPropagation()}
         >
           <FiExternalLink /> Demo
@@ -68,7 +68,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
           href={project.githubLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-sm hover:text-white transition"
+          className="flex items-center gap-2 text-xs sm:text-sm hover:text-white transition"
           onClick={(e) => e.stopPropagation()}
         >
           <FiGithub /> Repo
@@ -148,9 +148,9 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-24 px-6 sm:px-10 md:px-16 flex flex-col justify-center items-center bg-[#050505] overflow-hidden"
+      className="relative min-h-screen py-20 sm:py-24 px-4 sm:px-8 md:px-16 flex flex-col justify-center items-center bg-[#050505] overflow-hidden"
     >
-      {/* 🌌 Metallic Cosmic Grid Background (matches Home/About) */}
+      {/* 🌌 Metallic Cosmic Grid Background */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(180,180,180,0.05),transparent_70%)]">
         <div className="absolute inset-0 opacity-[0.15] bg-[linear-gradient(115deg,#c0c0c0_1px,transparent_1px),linear-gradient(-115deg,#c0c0c0_1px,transparent_1px)] bg-[length:50px_50px]" />
       </div>
@@ -182,21 +182,21 @@ const Projects = () => {
 
       {/* Header */}
       <motion.div
-        className="text-center relative z-10 mb-20"
+        className="text-center relative z-10 mb-14 sm:mb-20"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 via-gray-400 to-gray-600 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold bg-gradient-to-b from-gray-100 via-gray-400 to-gray-600 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]">
           WORKS
         </h1>
-        <p className="mt-3 text-gray-400 text-xs tracking-[0.3em] uppercase">
+        <p className="mt-3 text-gray-400 text-[0.65rem] sm:text-xs tracking-[0.3em] uppercase">
           Crafted with Code & Precision
         </p>
       </motion.div>
 
       {/* Projects Grid */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 w-full max-w-7xl">
         {projectData.map((p, i) => (
           <ProjectCard
             key={p.id}
@@ -236,35 +236,35 @@ const Projects = () => {
               <motion.img
                 key={currentImageIndex}
                 src={projectData[selectedProject].images[currentImageIndex]}
-                className="w-full h-72 md:h-96 object-cover"
+                className="w-full h-56 sm:h-72 md:h-96 object-cover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               />
-              <div className="p-6 md:p-8 text-gray-300">
-                <h2 className="text-3xl font-bold mb-3 text-white">
+              <div className="p-5 sm:p-6 md:p-8 text-gray-300">
+                <h2 className="text-2xl sm:text-3xl font-bold mb-3 text-white">
                   {projectData[selectedProject].title}
                 </h2>
-                <p className="text-gray-400 mb-6">
+                <p className="text-gray-400 mb-6 text-sm sm:text-base leading-relaxed">
                   {projectData[selectedProject].detailedDescription}
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {projectData[selectedProject].technologies.map((t, i) => (
                     <span
                       key={i}
-                      className="px-3 py-1 text-xs rounded-full bg-[#1a1a1a] border border-gray-700 text-gray-300"
+                      className="px-3 py-1 text-xs sm:text-sm rounded-full bg-[#1a1a1a] border border-gray-700 text-gray-300"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <a
                     href={projectData[selectedProject].demoLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 flex-1 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition"
+                    className="flex items-center justify-center gap-2 flex-1 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition text-sm sm:text-base"
                   >
                     <FiExternalLink /> Demo
                   </a>
@@ -272,7 +272,7 @@ const Projects = () => {
                     href={projectData[selectedProject].githubLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 flex-1 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 transition"
+                    className="flex items-center justify-center gap-2 flex-1 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 transition text-sm sm:text-base"
                   >
                     <FiGithub /> Repo
                   </a>
@@ -284,7 +284,7 @@ const Projects = () => {
                   document.body.style.overflow = "auto";
                 }}
                 whileHover={{ scale: 1.1 }}
-                className="absolute top-4 right-4 bg-white/10 p-2 rounded-full text-white hover:bg-white/20"
+                className="absolute top-4 right-4 bg-white/10 p-2 rounded-full text-white hover:bg-white/20 text-lg"
               >
                 ✕
               </motion.button>
