@@ -92,6 +92,7 @@ const Contact = () => {
           {success && (
             <p className="mt-3 font-medium text-green-500">
               ✔ Message sent successfully!
+              
             </p>
           )}
         </fieldset>
