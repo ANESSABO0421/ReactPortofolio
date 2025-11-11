@@ -1,27 +1,57 @@
-import React from "react";
-import { FaArrowUp } from "react-icons/fa";
+// src/components/Footer.jsx
+import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi';
+import { Link } from 'react-scroll';
 
 const Footer = () => {
-  return (
-    <footer className="flex flex-col items-center justify-center bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white/70 rounded-t-2xl py-6 px-4 shadow-lg">
-      <div className="flex w-full max-w-6xl items-center justify-between">
-        {/* Copyright */}
-        <p className="text-xs sm:text-sm md:text-base tracking-wide">
-          © {new Date().getFullYear()} <span className="font-semibold text-white">Anees</span>. All rights reserved.
-        </p>
+  const currentYear = new Date().getFullYear();
 
-        {/* Scroll to top button */}
-        <button
-          onClick={() =>
-            window.scrollTo({
-              top: 0,
-              behavior: "smooth",
-            })
-          }
-          className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 text-black shadow-md hover:shadow-xl hover:scale-110 active:scale-95 transition-all duration-300 ease-in-out"
-        >
-          <FaArrowUp className="text-lg sm:text-xl" />
-        </button>
+  return (
+    <footer className="bg-black/80 backdrop-blur-md text-gray-400 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex space-x-6 mb-4 md:mb-0">
+            <a
+              href="https://github.com/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="GitHub"
+            >
+              <FiGithub size={20} />
+            </a>
+            <a
+              href="https://linkedin.com/in/yourusername"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
+              <FiLinkedin size={20} />
+            </a>
+            <a
+              href="mailto:your.email@example.com"
+              className="text-gray-400 hover:text-white transition-colors"
+              aria-label="Email"
+            >
+              <FiMail size={20} />
+            </a>
+          </div>
+          
+          <div className="text-sm mb-4 md:mb-0">
+            &copy; {currentYear} Your Name. All rights reserved.
+          </div>
+          
+          <Link
+            to="home"
+            smooth={true}
+            duration={500}
+            className="flex items-center text-gray-400 hover:text-white transition-colors cursor-pointer"
+            aria-label="Back to top"
+          >
+            <span className="mr-2">Back to top</span>
+            <FiArrowUp size={18} />
+          </Link>
+        </div>
       </div>
     </footer>
   );

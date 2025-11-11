@@ -1,45 +1,44 @@
-import React, { createContext, useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
+// src/App.jsx
+import { useState } from 'react';
+import  ThemeContext  from './context/ThemeContext';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import MetallicHero from './components/MetallicHero';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import Contact from './pages/Contact';
+import SectionWrapper from './components/SectionWrapper';
+import MetallicCosmicBackground from './components/MetallicCosmicBackground';
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
-import Navbar from "./components/Navbar";
-import Skills from "./pages/Skills";
-import Darkmode from "./components/Darkmode";
-import Contact from "./pages/Contact";
-import Footer from "./components/Footer";
-
-export const ThemeContext = createContext();
-
-const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-    });
-  }, []);
+function App() {
+  const [darkMode, setDarkMode] = useState(true); // Default to dark mode
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <div
-        className={`${
-          darkMode ? "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white" : "bg-[#e6f2ff] text-[#3a7ca5] "
-        } transition-all duration-500`}
-      >
+      <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
+        <MetallicCosmicBackground />
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Home />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-        <Footer/>
+        
+        <main className="relative z-10">
+          <MetallicHero />
+          
+          <SectionWrapper id="about">
+            <About />
+          </SectionWrapper>
+          
+          <SectionWrapper id="projects" className="bg-gray-900/80 backdrop-blur-sm">
+            <Projects />
+          </SectionWrapper>
+          
+          <SectionWrapper id="contact">
+            <Contact />
+          </SectionWrapper>
+        </main>
+        
+        <Footer />
       </div>
     </ThemeContext.Provider>
   );
-};
+}
 
 export default App;

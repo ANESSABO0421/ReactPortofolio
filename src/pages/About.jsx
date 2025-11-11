@@ -1,166 +1,82 @@
-import React from "react";
-import { motion } from "framer-motion";
+// src/pages/About.jsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { FiAward, FiGlobe, FiCode, FiCpu } from 'react-icons/fi';
+import SectionTitle from '../components/SectionTitle';
 
 const About = () => {
+  const stats = [
+    { icon: <FiAward size={32} />, value: '50+', label: 'Projects Completed' },
+    { icon: <FiGlobe size={32} />, label: '7+ Countries Served' },
+    { icon: <FiCode size={32} />, value: '5+', label: 'Years Experience' },
+    { icon: <FiCpu size={32} />, label: 'Full-Stack Expertise' },
+  ];
+
   return (
-    <section
-      id="About"
-      className="flex flex-col lg:flex-row justify-center items-center min-h-screen px-6 md:px-12 bg-transparent"
-    >
-      {/* Left Content */}
-      <motion.div
-        initial={{ opacity: 0, x: -60 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="flex-1 max-w-2xl p-10 md:p-14 m-4 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/30 shadow-2xl dark:bg-black/40 dark:border-white/30"
-      >
-        {/* Section Title */}
-        <div className="mb-10 text-center">
-          <p className="uppercase tracking-[4px] text-gray-500 dark:text-gray-400 text-sm mb-3">
-            Portfolio
-          </p>
-          <h1 className="text-[42px] md:text-6xl lg:text-[56px] font-bold text-blue-900 dark:text-white leading-tight">
-            About <span className="text-amber-400">Me</span>
-          </h1>
-          <div className="mx-auto mt-4 w-24 h-[3px] bg-gradient-to-r from-blue-600 to-amber-400 rounded-full"></div>
-        </div>
-
-        {/* About Paragraph */}
-        <p className="text-lg md:text-[22px] text-justify font-light leading-relaxed mb-8 text-blue-900 dark:text-gray-200">
-          I'm a passionate
-          <span className="font-semibold text-blue-700 dark:text-blue-400">
-            {" "}
-            MERN Stack Developer{" "}
-          </span>
-          currently interning at
-          <span className="font-semibold text-amber-500 dark:text-amber-400">
-            {" "}
-            Sofroniics{" "}
-          </span>
-          , building full-stack web applications.
-          <br />I hold a Bachelor's degree in
-          <span className="font-semibold text-blue-700 dark:text-blue-400">
-            {" "}
-            Computer Science
-          </span>{" "}
-          from
-          <span className="font-semibold text-amber-500 dark:text-amber-400">
-            {" "}
-            GEMS College, Ramapuram
-          </span>
-          .
-          <br />I love transforming complex problems into simple, elegant, and
-          impactful solutions. My focus is on mastering React.js & Node.js while
-          building scalable applications that make a difference.
+    <div className="space-y-16">
+      <div className="text-center">
+        <SectionTitle>About Me</SectionTitle>
+        <p className="text-gray-400 max-w-3xl mx-auto text-lg">
+          I'm a passionate Full-Stack Developer with expertise in building modern web applications.
+          With a strong foundation in both frontend and backend technologies, I create seamless
+          user experiences and robust server-side solutions.
         </p>
+      </div>
 
-        {/* Info Cards */}
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Role Card */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="glass-info-card dark:glass-info-card-dark"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">💼</span>
-              <span className="text-base font-semibold text-amber-400">
-                Current Role
-              </span>
-            </div>
-            <div className="text-lg font-bold text-blue-700 dark:text-blue-400">
-              MERN Stack Developer
-            </div>
-            <div className="text-sm text-blue-900/70 dark:text-gray-300">
-              Interning at Sofroniics
-            </div>
-          </motion.div>
-
-          {/* Education Card */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 200 }}
-            className="glass-info-card dark:glass-info-card-dark"
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-2xl">🎓</span>
-              <span className="text-base font-semibold text-amber-400">
-                Education
-              </span>
-            </div>
-            <div className="text-lg font-bold text-blue-700 dark:text-blue-400">
-              Computer Science
-            </div>
-            <div className="text-sm text-blue-900/70 dark:text-gray-300">
-              GEMS College, Ramapuram
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Right Content - Image */}
-      <motion.div
-        initial={{ opacity: 0, x: 60 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, ease: "easeOut" }}
-        className="flex-1 p-6 m-4 flex justify-center items-center"
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         <motion.div
-          whileHover={{ scale: 1.05, rotate: 1 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="relative group"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative"
         >
-          {/* Animated Gradient Ring */}
-          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-500 to-amber-400 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
-
-          {/* Glass Card Wrapper */}
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/20 backdrop-blur-xl w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
+          <div className="relative z-10 rounded-2xl overflow-hidden border border-gray-800">
             <img
-              src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
-              alt="coding gif"
-              className="w-[85%] h-[85%] object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-500"
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+              alt="Profile"
+              className="w-full h-auto"
             />
-
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-blue-600/20 to-amber-400/20"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+              <div>
+                <h3 className="text-xl font-bold text-white">Your Name</h3>
+                <p className="text-gray-300">Full-Stack Developer</p>
+              </div>
+            </div>
           </div>
+          <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full -z-10 opacity-20 blur-3xl"></div>
         </motion.div>
-      </motion.div>
 
-      {/* Glass Card Custom Styles */}
-      <style>{`
-        .glass-info-card {
-          background: linear-gradient(
-            120deg,
-            rgba(255, 255, 255, 0.12),
-            rgba(160, 180, 255, 0.06)
-          );
-          border-radius: 1rem;
-          padding: 1.2rem 1.4rem;
-          border: 1px solid rgba(255, 255, 255, 0.18);
-          box-shadow: 0 4px 20px rgba(34, 58, 130, 0.1);
-        }
-        .glass-info-card-dark {
-          background: linear-gradient(
-            120deg,
-            rgba(0, 0, 0, 0.25),
-            rgba(40, 40, 70, 0.1)
-          );
-          border: 1px solid rgba(255, 255, 255, 0.15);
-          color: #d1d5db;
-          box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-        }
-        .glass-img-card {
-          background: linear-gradient(
-            95deg,
-            rgba(255, 255, 255, 0.15),
-            rgba(255, 193, 7, 0.08)
-          );
-          box-shadow: 0 3px 15px rgba(255, 193, 7, 0.15);
-        }
-      `}</style>
-    </section>
+        <div className="space-y-6">
+          <h2 className="text-3xl font-bold">
+            Full-Stack Developer based in <span className="text-cyan-400">[Your Location]</span>
+          </h2>
+          
+          <p className="text-gray-400">
+            I specialize in building responsive, performant, and accessible web applications
+            using modern technologies like React, Node.js, and various databases. My focus is
+            on creating intuitive user interfaces and scalable backend architectures.
+          </p>
+          
+          <div className="grid grid-cols-2 gap-4">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-gray-900/50 backdrop-blur-sm p-4 rounded-lg border border-gray-800 hover:border-cyan-500/30 transition-colors"
+              >
+                <div className="text-cyan-400 mb-2">{stat.icon}</div>
+                {stat.value && <div className="text-2xl font-bold mb-1">{stat.value}</div>}
+                <div className="text-sm text-gray-400">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
