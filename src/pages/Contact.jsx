@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { ThemeContext } from "../App";
-import emailjs from "emailjs-com";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const { darkMode } = useContext(ThemeContext);
@@ -30,7 +30,7 @@ const Contact = () => {
 
   return (
     <div className="h-[500px]  flex justify-center items-center flex-col ">
-      <h1 className="text-5xl md:text-6xl font-bold text-center  m-2 md:m-4 lg:m-5">
+      <h1 className="m-2 text-5xl font-bold text-center md:text-6xl md:m-4 lg:m-5">
         Contact Me
       </h1>
       <form ref={formRef} onSubmit={sentEmail}>
@@ -85,12 +85,12 @@ const Contact = () => {
 
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md px-4 py-2 mt-5"
+            className="px-4 py-2 mt-5 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600"
           >
             Submit
           </button>
           {success && (
-            <p className="text-green-500 mt-3 font-medium">
+            <p className="mt-3 font-medium text-green-500">
               ✔ Message sent successfully!
             </p>
           )}
