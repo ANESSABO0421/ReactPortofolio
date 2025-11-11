@@ -27,6 +27,7 @@ import {
 } from "react-icons/si";
 import { VscCode } from "react-icons/vsc";
 import { motion } from "framer-motion";
+import { RiClaudeFill } from "react-icons/ri";
 
 const categories = [
   {
@@ -73,9 +74,9 @@ const categories = [
     title: "AI Development",
     icon: <FaBrain className="text-pink-400" />,
     skills: [
-      { name: "ChatGPT", icon: <FaRobot /> },
-      { name: "Claude", icon: <FaRobot /> },
       { name: "Manus", icon: <FaRobot /> },
+      { name: "ChatGPT", icon: <FaRobot /> },
+      { name: "Claude", icon: <RiClaudeFill /> },
     ],
   },
   {

@@ -46,7 +46,7 @@ const Home = () => {
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.2 }}
           className="text-[2.5rem] xs:text-[3.2rem] sm:text-[4rem] md:text-[5rem] lg:text-[6.5rem] xl:text-[8rem] font-extrabold 
-                     bg-gradient-to-b from-gray-100 via-gray-400 to-gray-600 bg-clip-text 
+                     bg-[#EFEFEF] bg-clip-text 
                      text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)] leading-tight sm:leading-[1.1]"
         >
           ANEES
