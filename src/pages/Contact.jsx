@@ -8,6 +8,7 @@ const Contact = () => {
   const [success, setSuccess] = useState(false);
   const sentEmail = (e) => {
     e.preventDefault();
+    
 
     emailjs
       .sendForm(
