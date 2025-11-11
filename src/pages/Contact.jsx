@@ -1,14 +1,16 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { ThemeContext } from "../App";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 const Contact = () => {
   const { darkMode } = useContext(ThemeContext);
   const formRef = useRef();
   const [success, setSuccess] = useState(false);
-  const sentEmail = (e) => {
-    e.preventDefault();
+  const [stars, setStars] = useState([]);
 
+  const sendEmail = (e) => {
+    e.preventDefault();
     emailjs
       .sendForm(
         "service_1ujloms",
@@ -28,76 +30,128 @@ const Contact = () => {
       );
   };
 
+  // Generate floating stars dynamically
+  useEffect(() => {
+    const newStars = Array.from({ length: 30 }, (_, i) => ({
+      id: i,
+      top: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
+      size: Math.random() * 2 + 1,
+      opacity: Math.random() * 0.7 + 0.3,
+      duration: Math.random() * 4 + 2,
+    }));
+    setStars(newStars);
+  }, []);
+
   return (
-    <div className="h-[500px]  flex justify-center items-center flex-col ">
-      <h1 className="m-2 text-5xl font-bold text-center md:text-6xl md:m-4 lg:m-5">
-        Contact Me
-      </h1>
-      <form ref={formRef} onSubmit={sentEmail}>
-        <fieldset
-          className={`fieldset bg-base-200 border-base-300 rounded-box w-xs md:w-md lg:w-xl border p-4 ${darkMode ? "bg-white text-black" : "bg-black text-white"
-            }`}
+    <section
+      id="contact"
+      className="relative min-h-screen py-24 px-6 sm:px-10 md:px-16 flex flex-col justify-center items-center overflow-hidden bg-[#050505]"
+    >
+      {/* --- Cosmic Grid Background --- */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]">
+        <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:45px_45px]" />
+      </div>
+
+      {/* --- Floating Stars --- */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {stars.map((star) => (
+          <motion.span
+            key={star.id}
+            className="absolute bg-white rounded-full"
+            style={{
+              width: star.size,
+              height: star.size,
+              top: star.top,
+              left: star.left,
+              opacity: star.opacity,
+            }}
+            animate={{
+              y: [0, -10, 0],
+              opacity: [0.4, 1, 0.4],
+            }}
+            transition={{
+              duration: star.duration,
+              repeat: Infinity,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* --- Header --- */}
+      <motion.div
+        className="text-center relative z-10 mb-12"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
+          CONTACT
+        </h1>
+        <p className="mt-3 text-gray-400 text-xs tracking-[0.3em] uppercase">
+          Let’s Create Something Cosmic
+        </p>
+      </motion.div>
+
+      {/* --- Contact Form --- */}
+      <motion.form
+        ref={formRef}
+        onSubmit={sendEmail}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 w-[90%] max-w-lg p-8 rounded-2xl backdrop-blur-md border border-white/20 bg-black/70 
+        shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] transition-all duration-300"
+      >
+        {/* Name */}
+        <label className="block text-gray-300 mb-2 font-medium">Name</label>
+        <input
+          type="text"
+          name="name"
+          placeholder="Your name"
+          className="w-full mb-4 px-4 py-2 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all"
+          required
+        />
+
+        {/* Email */}
+        <label className="block text-gray-300 mb-2 font-medium">Email</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          className="w-full mb-4 px-4 py-2 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all"
+          required
+        />
+
+        {/* Message */}
+        <label className="block text-gray-300 mb-2 font-medium">Message</label>
+        <textarea
+          name="message"
+          placeholder="Write your message..."
+          className="w-full h-32 mb-6 px-4 py-2 rounded-lg bg-transparent border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all resize-none"
+          required
+        ></textarea>
+
+        {/* Submit Button */}
+        <motion.button
+          whileHover={{
+            scale: 1.05,
+            boxShadow: "0 0 30px rgba(0,255,255,0.7)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          type="submit"
+          className="w-full py-3 font-semibold text-lg text-black bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-xl shadow-[0_0_25px_rgba(0,255,255,0.5)] hover:shadow-[0_0_40px_rgba(0,255,255,0.8)] transition-all"
         >
-          <label
-            className={darkMode ? "text-black" : "text-white"}
-            htmlFor="name"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
-            placeholder="Your name"
-            required
-          />
+          Send Message
+        </motion.button>
 
-          <label
-            className={darkMode ? "text-black" : "text-white"}
-            htmlFor="email"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className={`input w-full ${darkMode ? "text-white" : "text-white"}`}
-            placeholder="you@example.com"
-            required
-          />
-
-          <label
-            className={darkMode ? "text-black" : "text-white"}
-            htmlFor="message"
-          >
-            Message
-          </label>
-          <textarea
-            name="message"
-            id="message"
-            className={`input w-full h-[100px] px-3 py-2 ${darkMode ? "text-white" : "text-white"
-              }`}
-            placeholder="Write your message..."
-            required
-          ></textarea>
-
-          <button
-            type="submit"
-            className="px-4 py-2 mt-5 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-600"
-          >
-            Submit
-          </button>
-          {success && (
-            <p className="mt-3 font-medium text-green-500">
-              ✔ Message sent successfully!
-              
-            </p>
-          )}
-        </fieldset>
-      </form>
-    </div>
+        {success && (
+          <p className="mt-4 text-center font-medium text-green-400">
+            ✔ Message sent successfully!
+          </p>
+        )}
+      </motion.form>
+    </section>
   );
 };
 
