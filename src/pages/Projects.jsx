@@ -13,6 +13,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
                hover:border-white/25 backdrop-blur-lg overflow-hidden 
                hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] transition-all duration-500 
                cursor-pointer flex flex-col w-full"
+               id="project"
   >
     {/* Project Image */}
     <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden flex-shrink-0">
