@@ -7,17 +7,17 @@ const About = () => {
       id="About"
       className="relative flex flex-col lg:flex-row justify-center items-center min-h-screen px-6 md:px-12 bg-[#050505] overflow-hidden"
     >
-      {/* Tilted cosmic grid background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06),transparent_60%)]">
-        <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:40px_40px]" />
+      {/* ⚡ Metallic cosmic grid background */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(180,180,180,0.05),transparent_70%)]">
+        <div className="absolute inset-0 opacity-[0.15] bg-[linear-gradient(115deg,#c0c0c0_1px,transparent_1px),linear-gradient(-115deg,#c0c0c0_1px,transparent_1px)] bg-[length:50px_50px]" />
       </div>
 
-      {/* Floating stars */}
+      {/* ✨ Floating metallic stars */}
       <div className="absolute inset-0">
         {[...Array(25)].map((_, i) => (
           <motion.span
             key={i}
-            className="absolute bg-white rounded-full"
+            className="absolute bg-gradient-to-br from-gray-200 to-gray-500 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)]"
             style={{
               width: Math.random() * 2 + 1,
               height: Math.random() * 2 + 1,
@@ -27,7 +27,7 @@ const About = () => {
             }}
             animate={{
               y: [0, -10, 0],
-              opacity: [0.4, 1, 0.4],
+              opacity: [0.5, 1, 0.5],
             }}
             transition={{
               duration: Math.random() * 4 + 2,
@@ -37,78 +37,89 @@ const About = () => {
         ))}
       </div>
 
-      {/* Left Content */}
+      {/* ⚙️ Left Content - Metallic Card */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative z-10 flex-1 max-w-2xl p-10 md:p-14 m-4 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_0_25px_rgba(255,255,255,0.1)]"
+        className="relative z-10 flex-1 max-w-2xl p-10 md:p-14 m-4 rounded-3xl 
+                   bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a]
+                   border border-gray-600/40 shadow-[0_0_40px_rgba(255,255,255,0.08)]
+                   backdrop-blur-2xl"
       >
-        {/* Section Title */}
+        {/* 🪞 Title with Chrome Glow */}
         <div className="mb-10 text-center">
           <p className="uppercase tracking-[4px] text-gray-400 text-sm mb-3">
             Portfolio
           </p>
-          <h1 className="text-[42px] md:text-6xl lg:text-[56px] font-bold bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-            About <span className="text-amber-400">Me</span>
+          <h1 className="text-[42px] md:text-6xl lg:text-[56px] font-extrabold 
+                        bg-gradient-to-b from-[#e0e0e0] via-[#b0b0b0] to-[#6f6f6f]
+                        bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">
+            About <span className="text-sky-400">Me</span>
           </h1>
-          <div className="mx-auto mt-4 w-24 h-[3px] bg-gradient-to-r from-blue-600 to-amber-400 rounded-full"></div>
+          <div className="mx-auto mt-4 w-24 h-[3px] bg-gradient-to-r from-sky-400 via-silver-400 to-amber-300 rounded-full"></div>
         </div>
 
-        {/* About Paragraph */}
+        {/* 🧠 Metallic Text */}
         <p className="text-base sm:text-lg md:text-[20px] text-justify font-light leading-relaxed mb-8 text-gray-300">
           I'm a passionate{" "}
-          <span className="font-semibold text-blue-400">MERN Stack Developer</span>{" "}
+          <span className="font-semibold text-sky-400 drop-shadow-[0_0_6px_rgba(91,199,255,0.6)]">
+            MERN Stack Developer
+          </span>{" "}
           currently interning at{" "}
-          <span className="font-semibold text-amber-400">Sofroniics</span>, building
-          full-stack web applications.
+          <span className="font-semibold text-amber-300 drop-shadow-[0_0_6px_rgba(255,200,100,0.6)]">
+            Sofroniics
+          </span>, building futuristic full-stack web experiences.
           <br />
           I hold a Bachelor's degree in{" "}
-          <span className="font-semibold text-blue-400">Computer Science</span> from{" "}
-          <span className="font-semibold text-amber-400">GEMS College, Ramapuram</span>.
-          <br />I love transforming complex problems into simple, elegant, and impactful
-          solutions. My focus is on mastering{" "}
-          <span className="font-semibold text-blue-400">React.js</span> &
-          <span className="font-semibold text-blue-400"> Node.js</span> while building
-          scalable applications that make a difference.
+          <span className="font-semibold text-sky-400">Computer Science</span> from{" "}
+          <span className="font-semibold text-amber-300">GEMS College, Ramapuram</span>.
+          <br />My craft lies in shaping{" "}
+          <span className="font-semibold text-sky-400">React.js</span> &
+          <span className="font-semibold text-sky-400"> Node.js</span> systems
+          into visually striking, high-performance creations.
         </p>
 
-        {/* Info Cards */}
+        {/* 💎 Info Cards */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Role Card */}
+          {/* Role */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-gradient-to-br from-gray-900/40 to-gray-700/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+            className="bg-gradient-to-br from-[#2b2b2b] to-[#1a1a1a]
+                       border border-gray-700/50 rounded-2xl p-5
+                       shadow-[inset_0_0_20px_rgba(255,255,255,0.1),0_0_15px_rgba(0,0,0,0.4)]
+                       hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">💼</span>
-              <span className="text-base font-semibold text-amber-400">
-                Current Role
-              </span>
+              <span className="text-base font-semibold text-sky-400">Current Role</span>
             </div>
-            <div className="text-lg font-bold text-blue-400">MERN Stack Developer</div>
+            <div className="text-lg font-bold text-gray-200">MERN Stack Developer</div>
             <div className="text-sm text-gray-400">Interning at Sofroniics</div>
           </motion.div>
 
-          {/* Education Card */}
+          {/* Education */}
           <motion.div
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 200 }}
-            className="bg-gradient-to-br from-gray-900/40 to-gray-700/20 backdrop-blur-md border border-white/10 rounded-2xl p-5 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
+            className="bg-gradient-to-br from-[#2b2b2b] to-[#1a1a1a]
+                       border border-gray-700/50 rounded-2xl p-5
+                       shadow-[inset_0_0_20px_rgba(255,255,255,0.1),0_0_15px_rgba(0,0,0,0.4)]
+                       hover:shadow-[0_0_30px_rgba(255,255,255,0.1)] transition-all duration-300"
           >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-2xl">🎓</span>
-              <span className="text-base font-semibold text-amber-400">Education</span>
+              <span className="text-base font-semibold text-sky-400">Education</span>
             </div>
-            <div className="text-lg font-bold text-blue-400">Computer Science</div>
+            <div className="text-lg font-bold text-gray-200">Computer Science</div>
             <div className="text-sm text-gray-400">GEMS College, Ramapuram</div>
           </motion.div>
         </div>
       </motion.div>
 
-      {/* Right Side Image */}
+      {/* 🪩 Right Image - Metallic Glow Frame */}
       <motion.div
         initial={{ opacity: 0, x: 60 }}
         whileInView={{ opacity: 1, x: 0 }}
@@ -121,17 +132,21 @@ const About = () => {
           transition={{ type: "spring", stiffness: 200 }}
           className="relative group"
         >
-          {/* Glowing Gradient Border */}
-          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-blue-600 via-purple-500 to-amber-400 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
+          {/* Metallic Glow Border */}
+          <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-sky-400 via-gray-300 to-amber-300 blur-xl opacity-70 group-hover:opacity-100 transition duration-500 animate-pulse"></div>
 
-          {/* Glass Card with Image */}
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 backdrop-blur-xl w-[250px] h-[250px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
+          {/* Metallic Glass Card */}
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-600/60 
+                          bg-gradient-to-br from-[#1c1c1c] to-[#2e2e2e] backdrop-blur-xl
+                          w-[250px] h-[250px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px]
+                          flex items-center justify-center">
             <img
               src="https://cdn.dribbble.com/users/1019864/screenshots/3079099/media/9e5055da2ee6c899aab9403ceb7d0dc3.gif"
               alt="coding gif"
-              className="w-[85%] h-[85%] object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-500"
+              className="w-[85%] h-[85%] object-cover rounded-2xl shadow-lg 
+                         group-hover:scale-105 transition-transform duration-500"
             />
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-blue-600/20 to-amber-400/20"></div>
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-sky-400/20 to-amber-300/20 mix-blend-screen"></div>
           </div>
         </motion.div>
       </motion.div>

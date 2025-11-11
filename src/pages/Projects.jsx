@@ -9,10 +9,12 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.6, delay: index * 0.1 }}
-    className="group relative rounded-2xl bg-[#0b0b0b]/80 border border-white/10 hover:border-white/25 backdrop-blur-lg overflow-hidden 
-    hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] transition-all duration-500 cursor-pointer flex flex-col"
+    className="group relative rounded-2xl bg-[#0b0b0b]/80 border border-white/10 
+               hover:border-white/25 backdrop-blur-lg overflow-hidden 
+               hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] transition-all duration-500 
+               cursor-pointer flex flex-col"
   >
-    {/* Project Image (Fixed Aspect Ratio) */}
+    {/* Project Image */}
     <div className="relative w-full h-56 md:h-64 overflow-hidden flex-shrink-0">
       <AnimatePresence mode="wait">
         <motion.img
@@ -30,7 +32,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
     </div>
 
-    {/* Content */}
+    {/* Card Content */}
     <div className="flex flex-col justify-between flex-1 p-5 md:p-6 text-gray-300">
       <div>
         <h3 className="text-lg sm:text-xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
@@ -51,7 +53,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
         </div>
       </div>
 
-      {/* Visit & Repo Buttons */}
+      {/* Buttons */}
       <div className="flex justify-between items-center pt-3 border-t border-white/10">
         <a
           href={project.demoLink}
@@ -129,7 +131,7 @@ const Projects = () => {
     []
   );
 
-  // Auto Image Cycling
+  // Auto Image Cycle
   useEffect(() => {
     const interval = setInterval(() => {
       setCardIndexes((prev) => {
@@ -148,27 +150,27 @@ const Projects = () => {
       id="projects"
       className="relative min-h-screen py-24 px-6 sm:px-10 md:px-16 flex flex-col justify-center items-center bg-[#050505] overflow-hidden"
     >
-      {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]">
-        <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(115deg,#fff_1px,transparent_1px),linear-gradient(-115deg,#fff_1px,transparent_1px)] bg-[length:45px_45px]" />
+      {/* 🌌 Metallic Cosmic Grid Background (matches Home/About) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(180,180,180,0.05),transparent_70%)]">
+        <div className="absolute inset-0 opacity-[0.15] bg-[linear-gradient(115deg,#c0c0c0_1px,transparent_1px),linear-gradient(-115deg,#c0c0c0_1px,transparent_1px)] bg-[length:50px_50px]" />
       </div>
 
-      {/* Floating Stars */}
+      {/* ✨ Metallic Stars */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(35)].map((_, i) => (
           <motion.span
             key={i}
-            className="absolute bg-white rounded-full"
+            className="absolute bg-gradient-to-br from-gray-200 to-gray-500 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.3)]"
             style={{
               width: Math.random() * 2 + 1,
               height: Math.random() * 2 + 1,
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
-              opacity: Math.random() * 0.7 + 0.3,
+              opacity: Math.random() * 0.6 + 0.3,
             }}
             animate={{
               y: [0, -10, 0],
-              opacity: [0.4, 1, 0.4],
+              opacity: [0.5, 1, 0.5],
             }}
             transition={{
               duration: Math.random() * 4 + 2,
@@ -185,7 +187,7 @@ const Projects = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.1)]">
+        <h1 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-b from-gray-100 via-gray-400 to-gray-600 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]">
           WORKS
         </h1>
         <p className="mt-3 text-gray-400 text-xs tracking-[0.3em] uppercase">
