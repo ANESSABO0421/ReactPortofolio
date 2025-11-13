@@ -96,12 +96,12 @@ const About = () => {
         </p>
 
         {/* ⚡ Stats Section */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 justify-items-center lg:justify-items-start">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 justify-items-center lg:justify-items-start ">
           {[
             { title: "20+", subtitle: "Projects" },
             { title: "3+", subtitle: "Years Learning" },
             { title: "5+", subtitle: "Technologies" },
-            { title: "Core Stack", subtitle: "React • Node • MongoDB" },
+            { title: "Core Stack", subtitle: "React • MongoDB" },
           ].map((item, i) => (
             <motion.div
               key={i}
@@ -112,7 +112,7 @@ const About = () => {
                          rounded-2xl border border-gray-700/50 
                          bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a]
                          relative overflow-hidden shadow-[inset_0_0_25px_rgba(255,255,255,0.05)]
-                         transition-all duration-500"
+                         transition-all duration-500 "
             >
               {/* Glow effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-sky-500/20 via-transparent to-amber-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
