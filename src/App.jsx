@@ -30,6 +30,7 @@ const App = () => {
           darkMode ? "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white" : "bg-[#e6f2ff] text-[#3a7ca5] "
         } transition-all duration-500`}
       >
+        
         <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Home />
         <About />

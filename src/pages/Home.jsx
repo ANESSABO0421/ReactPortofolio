@@ -68,26 +68,26 @@ const Home = () => {
         >
           {/* ITEM */}
           <div className="flex flex-col items-center text-center px-4 sm:border-r sm:border-gray-700">
-            <p className="text-xs sm:text-sm font-semibold tracking-widest text-gray-400">
+            <p className="text-xs sm:text-sm font-bold tracking-widest text-white">
               FULL-STACK DEVELOPER
             </p>
-            <p className="text-[11px] sm:text-xs text-gray-500 mt-1">MERN Developer</p>
+            <p className="text-[11px] sm:text-xs font-bold text-white mt-1">MERN Developer</p>
           </div>
 
           <div className="flex flex-col items-center text-center px-4 sm:border-r sm:border-gray-700">
-            <p className="text-xs sm:text-sm font-semibold tracking-widest text-gray-400">
+            <p className="text-xs sm:text-sm font-bold tracking-widest text-white">
               INTERN
             </p>
-            <p className="text-[11px] sm:text-xs text-gray-500 mt-1">
+            <p className="text-[11px] sm:text-xs font-bold text-white mt-1">
               Softroniics, Perinthalmanna
             </p>
           </div>
 
           <div className="flex flex-col items-center text-center px-4">
-            <p className="text-xs sm:text-sm font-semibold tracking-widest text-gray-400">
+            <p className="text-xs sm:text-sm font-bold tracking-widest text-white">
               BASED IN
             </p>
-            <p className="text-[11px] sm:text-xs text-gray-500 mt-1">
+            <p className="text-[11px] sm:text-xs text-white mt-1">
               Kerala, India
             </p>
           </div>
