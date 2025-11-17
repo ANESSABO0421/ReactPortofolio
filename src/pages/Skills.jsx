@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -29,79 +29,83 @@ import {
 
 import { VscCode } from "react-icons/vsc";
 import { RiClaudeFill } from "react-icons/ri";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const categories = [
   {
     title: "Frontend",
-    icon: <FaLaptopCode className="text-cyan-400" />,
+    icon: <FaLaptopCode className="text-cyan-400" aria-hidden="true" />,
     skills: [
-      { name: "HTML5", icon: <FaHtml5 /> },
-      { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-      { name: "Bootstrap", icon: <FaBootstrap /> },
-      { name: "Next.js", icon: <SiNextdotjs /> },
+      { name: "HTML5", icon: <FaHtml5 aria-hidden="true" /> },
+      { name: "Tailwind CSS", icon: <SiTailwindcss aria-hidden="true" /> },
+      { name: "Bootstrap", icon: <FaBootstrap aria-hidden="true" /> },
+      { name: "Next.js", icon: <SiNextdotjs aria-hidden="true" /> },
     ],
   },
   {
     title: "Backend & Database",
-    icon: <FaDatabase className="text-green-400" />,
+    icon: <FaDatabase className="text-green-400" aria-hidden="true" />,
     skills: [
-      { name: "Node.js", icon: <FaNodeJs /> },
-      { name: "Supabase", icon: <SiSupabase /> },
-      { name: "PostgreSQL", icon: <SiPostgresql /> },
-      { name: "MongoDB", icon: <SiMongodb /> },
+      { name: "Node.js", icon: <FaNodeJs aria-hidden="true" /> },
+      { name: "Supabase", icon: <SiSupabase aria-hidden="true" /> },
+      { name: "PostgreSQL", icon: <SiPostgresql aria-hidden="true" /> },
+      { name: "MongoDB", icon: <SiMongodb aria-hidden="true" /> },
     ],
   },
   {
     title: "Programming",
-    icon: <VscCode className="text-blue-400" />,
+    icon: <VscCode className="text-blue-400" aria-hidden="true" />,
     skills: [
-      { name: "JavaScript", icon: <FaJs /> },
-      { name: "TypeScript", icon: <SiTypescript /> },
-      { name: "Python", icon: <FaPython /> },
-      { name: "C/C++", icon: <SiC /> },
+      { name: "JavaScript", icon: <FaJs aria-hidden="true" /> },
+      { name: "TypeScript", icon: <SiTypescript aria-hidden="true" /> },
+      { name: "Python", icon: <FaPython aria-hidden="true" /> },
+      { name: "C/C++", icon: <SiC aria-hidden="true" /> },
     ],
   },
   {
     title: "Tools",
-    icon: <FaTools className="text-yellow-400" />,
+    icon: <FaTools className="text-yellow-400" aria-hidden="true" />,
     skills: [
-      { name: "Git", icon: <FaGitAlt /> },
-      { name: "VS Code", icon: <VscCode /> },
-      { name: "Cursor IDE", icon: <VscCode /> },
-      { name: "Vite", icon: <SiVite /> },
+      { name: "Git", icon: <FaGitAlt aria-hidden="true" /> },
+      { name: "VS Code", icon: <VscCode aria-hidden="true" /> },
+      { name: "Cursor IDE", icon: <VscCode aria-hidden="true" /> },
+      { name: "Vite", icon: <SiVite aria-hidden="true" /> },
     ],
   },
   {
     title: "AI Development",
-    icon: <FaBrain className="text-pink-400" />,
+    icon: <FaBrain className="text-pink-400" aria-hidden="true" />,
     skills: [
-      { name: "Manus", icon: <FaRobot /> },
-      { name: "ChatGPT", icon: <FaRobot /> },
-      { name: "Claude", icon: <RiClaudeFill /> },
+      { name: "Manus", icon: <FaRobot aria-hidden="true" /> },
+      { name: "ChatGPT", icon: <FaRobot aria-hidden="true" /> },
+      { name: "Claude", icon: <RiClaudeFill aria-hidden="true" /> },
     ],
   },
   {
     title: "AI Prototyping",
-    icon: <FaRobot className="text-purple-400" />,
+    icon: <FaRobot className="text-purple-400" aria-hidden="true" />,
     skills: [
-      { name: "Lovable", icon: <SiShadcnui /> },
-      { name: "v0", icon: <SiShadcnui /> },
-      { name: "Shadcn/UI", icon: <SiShadcnui /> },
+      { name: "Lovable", icon: <SiShadcnui aria-hidden="true" /> },
+      { name: "v0", icon: <SiShadcnui aria-hidden="true" /> },
+      { name: "Shadcn/UI", icon: <SiShadcnui aria-hidden="true" /> },
     ],
   },
 ];
 
 const Skills = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section
       id="skills"
+      aria-labelledby="skills-heading"
       className="min-h-screen py-20 bg-[#0d0d0d] text-white"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
       {/* Title */}
       <div className="text-center mb-12">
         <h1
+          id="skills-heading"
           className="
             text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
             bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
@@ -134,9 +138,10 @@ const Skills = () => {
         {categories.map((category, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 30 }}
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
             className="
               bg-[#111]
               rounded-2xl
@@ -186,4 +191,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default memo(Skills);

@@ -1,46 +1,48 @@
-import React, { createContext, useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Projects from "./pages/Projects";
+import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
-import Skills from "./pages/Skills";
-import Darkmode from "./components/Darkmode";
-import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import Home from "./pages/Home";
 
-export const ThemeContext = createContext();
+const About = lazy(() => import("./pages/About"));
+const Projects = lazy(() => import("./pages/Projects"));
+const Skills = lazy(() => import("./pages/Skills"));
+const Contact = lazy(() => import("./pages/Contact"));
 
-const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
+const SectionFallback = ({ label }) => (
+  <div
+    role="status"
+    aria-live="polite"
+    className="flex min-h-[40vh] items-center justify-center bg-transparent text-sm uppercase tracking-[0.3em]"
+  >
+    Loading {label}…
+  </div>
+);
 
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: false,
-    });
-  }, []);
-
-  return (
-    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
-      <div
-        className={`${
-          darkMode ? "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white" : "bg-[#e6f2ff] text-[#3a7ca5] "
-        } transition-all duration-500`}
-      >
-        
-        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+const App = () => (
+  <>
+    <a className="skip-link" href="#main-content">
+      Skip to content
+    </a>
+    <div className="bg-[#e6f2ff] text-[#3a7ca5] transition-colors duration-500">
+      <Navbar />
+      <main id="main-content" role="main">
         <Home />
-        <About />
-        <Projects />
-        <Skills />
-        <Contact />
-        <Footer/>
-      </div>
-    </ThemeContext.Provider>
-  );
-};
+        <Suspense fallback={<SectionFallback label="about" />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<SectionFallback label="projects" />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<SectionFallback label="skills" />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<SectionFallback label="contact" />}>
+          <Contact />
+        </Suspense>
+      </main>
+      <Footer />
+    </div>
+  </>
+);
 
 export default App;

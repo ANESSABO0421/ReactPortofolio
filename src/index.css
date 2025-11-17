@@ -1,10 +1,50 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
 nav {
   color: #f5f5f5;
 }
+
 html {
   scroll-behavior: smooth;
+}
+
+@keyframes starFloat {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+.star-float {
+  will-change: transform, opacity;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  width: auto;
+  height: auto;
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background-color: #0d0d0d;
+  color: #fff;
+  z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
 }
 
 /* MovingSection.css */

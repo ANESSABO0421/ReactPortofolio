@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const Navbar = () => {
   const [active, setActive] = useState("home");
+  const prefersReducedMotion = useReducedMotion();
 
   const links = [
     { name: "HOME", href: "#home" },
@@ -14,7 +15,8 @@ const Navbar = () => {
 
   return (
     <motion.nav
-      initial={{ opacity: 0, y: -20 }}
+      aria-label="Primary"
+      initial={prefersReducedMotion ? false : { opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1 }}
       className="
@@ -49,6 +51,7 @@ const Navbar = () => {
                     ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                     : "text-gray-400 hover:text-white"
                 }`}
+              aria-current={active === link.name.toLowerCase() ? "page" : undefined}
             >
               {link.name}
             </a>

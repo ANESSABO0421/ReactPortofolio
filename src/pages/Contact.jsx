@@ -1,50 +1,64 @@
-import React, { useContext, useRef, useState, useEffect } from "react";
-import { ThemeContext } from "../App";
+import React, { useRef, useState, useMemo, useCallback } from "react";
 import emailjs from "@emailjs/browser";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const Contact = () => {
-  const { darkMode } = useContext(ThemeContext);
   const formRef = useRef();
-  const [success, setSuccess] = useState(false);
-  const [stars, setStars] = useState([]);
+  const prefersReducedMotion = useReducedMotion();
+  const [status, setStatus] = useState({ type: "idle", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const sendEmail = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm(
-        "service_1ujloms",
-        "template_vw9xwq5",
-        formRef.current,
-        "dtWkdo4Xe4hk2mNM4"
-      )
-      .then(
-        () => {
-          setSuccess(true);
-          formRef.current.reset();
-        },
-        (error) => {
-          console.error("Email error:", error.text);
-        }
-      );
-  };
+  const stars = useMemo(
+    () =>
+      Array.from({ length: 20 }, (_, i) => ({
+        id: i,
+        size: Math.random() * 2 + 1,
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        opacity: Math.random() * 0.8 + 0.2,
+        duration: Math.random() * 6 + 4,
+      })),
+    []
+  );
 
-  // ⭐ Floating Stars
-  useEffect(() => {
-    const newStars = Array.from({ length: 35 }, (_, i) => ({
-      id: i,
-      size: Math.random() * 2 + 1,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      opacity: Math.random() * 0.8 + 0.2,
-      duration: Math.random() * 6 + 4,
-    }));
-    setStars(newStars);
-  }, []);
+  const sendEmail = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (isSubmitting) return;
+
+      setIsSubmitting(true);
+      setStatus({ type: "idle", message: "" });
+
+      emailjs
+        .sendForm(
+          "service_1ujloms",
+          "template_vw9xwq5",
+          formRef.current,
+          "dtWkdo4Xe4hk2mNM4"
+        )
+        .then(() => {
+          setStatus({
+            type: "success",
+            message: "Message sent successfully! I’ll get back shortly.",
+          });
+          formRef.current?.reset();
+        })
+        .catch((error) => {
+          console.error("Email error:", error);
+          setStatus({
+            type: "error",
+            message: "Something went wrong. Please try again later.",
+          });
+        })
+        .finally(() => setIsSubmitting(false));
+    },
+    [isSubmitting]
+  );
 
   return (
     <section
       id="contact"
+      aria-labelledby="contact-heading"
       className="
         relative min-h-screen 
         flex flex-col justify-center items-center 
@@ -67,7 +81,7 @@ const Contact = () => {
               linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)
             `,
             backgroundSize: "3rem 3rem",
-            animation: "gridMovement 200s linear infinite",
+            animation: prefersReducedMotion ? "none" : "gridMovement 200s linear infinite",
           }}
         />
 
@@ -88,20 +102,19 @@ const Contact = () => {
       </div>
 
       {/* ⭐ Floating Stars */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {stars.map((star) => (
-          <motion.span
+          <span
             key={star.id}
-            className="absolute bg-white rounded-full"
+            className="absolute bg-white rounded-full star-float"
             style={{
               width: star.size,
               height: star.size,
               top: star.top,
               left: star.left,
               opacity: star.opacity,
+              animation: prefersReducedMotion ? "none" : `starFloat ${star.duration}s ease-in-out infinite`,
             }}
-            animate={{ y: [0, -10, 0], opacity: [0.4, 1, 0.4] }}
-            transition={{ duration: star.duration, repeat: Infinity }}
           />
         ))}
       </div>
@@ -109,11 +122,13 @@ const Contact = () => {
       {/* HEADER */}
       <motion.div
         className="text-center relative z-10 mb-10 sm:mb-12"
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         <h1
+          id="contact-heading"
           className="
             text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
             bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
@@ -138,9 +153,11 @@ const Contact = () => {
       <motion.form
         ref={formRef}
         onSubmit={sendEmail}
-        initial={{ opacity: 0, y: 40 }}
+        aria-busy={isSubmitting}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="
           relative z-10 w-full
           max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
@@ -151,10 +168,13 @@ const Contact = () => {
         "
       >
         {/* NAME */}
-        <label className="block text-gray-300 mb-2 text-sm">Name</label>
+        <label className="block text-gray-300 mb-2 text-sm" htmlFor="contact-name">
+          Name
+        </label>
         <input
           type="text"
           name="name"
+          id="contact-name"
           placeholder="Your name"
           className="
             w-full mb-4 px-4 py-2 text-sm sm:text-base 
@@ -162,14 +182,18 @@ const Contact = () => {
             placeholder-gray-500 focus:outline-none focus:border-cyan-400 
             transition-all
           "
+          autoComplete="name"
           required
         />
 
         {/* EMAIL */}
-        <label className="block text-gray-300 mb-2 text-sm">Email</label>
+        <label className="block text-gray-300 mb-2 text-sm" htmlFor="contact-email">
+          Email
+        </label>
         <input
           type="email"
           name="email"
+          id="contact-email"
           placeholder="you@example.com"
           className="
             w-full mb-4 px-4 py-2 text-sm sm:text-base 
@@ -177,13 +201,17 @@ const Contact = () => {
             placeholder-gray-500 focus:outline-none focus:border-cyan-400 
             transition-all
           "
+          autoComplete="email"
           required
         />
 
         {/* MESSAGE */}
-        <label className="block text-gray-300 mb-2 text-sm">Message</label>
+        <label className="block text-gray-300 mb-2 text-sm" htmlFor="contact-message">
+          Message
+        </label>
         <textarea
           name="message"
+          id="contact-message"
           placeholder="Write your message..."
           className="
             w-full h-28 sm:h-32 md:h-40
@@ -197,8 +225,12 @@ const Contact = () => {
 
         {/* BUTTON */}
         <motion.button
-          whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0,255,255,0.7)" }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={
+            prefersReducedMotion
+              ? undefined
+              : { scale: 1.02 }
+          }
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
           type="submit"
           className="
             w-full py-2 sm:py-3 text-sm sm:text-lg font-semibold text-black 
@@ -206,16 +238,26 @@ const Contact = () => {
             shadow-[0_0_25px_rgba(0,255,255,0.5)]
             hover:shadow-[0_0_40px_rgba(0,255,255,0.8)] transition-all
           "
+          disabled={isSubmitting}
+          aria-disabled={isSubmitting}
         >
-          Send Message
+          {isSubmitting ? "Sending…" : "Send Message"}
         </motion.button>
 
         {/* SUCCESS MESSAGE */}
-        {success && (
-          <p className="mt-4 text-center font-medium text-green-400 text-sm sm:text-base">
-            ✔ Message sent successfully!
-          </p>
-        )}
+        <p
+          className={`mt-4 text-center text-sm sm:text-base font-medium ${
+            status.type === "error"
+              ? "text-red-400"
+              : status.type === "success"
+              ? "text-green-400"
+              : "text-gray-400"
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          {status.message || (isSubmitting ? "Sending your message…" : "\u00A0")}
+        </p>
       </motion.form>
     </section>
   );

@@ -14,25 +14,29 @@ const Footer = () => {
         {/* Center - Social Icons */}
         <div className="flex items-center gap-6 text-xl">
           <a
-            href="#"
+            href="https://github.com/ANESSABO0421"
             className="hover:text-white transition-colors"
             aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <FiGithub />
+            <FiGithub aria-hidden="true" />
           </a>
           <a
-            href="#"
+            href="https://linkedin.com"
             className="hover:text-white transition-colors"
             aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <FiLinkedin />
+            <FiLinkedin aria-hidden="true" />
           </a>
           <a
-            href="mailto:your@email.com"
+            href="mailto:hello@aneesaboobacker.com"
             className="hover:text-white transition-colors"
             aria-label="Email"
           >
-            <FiMail />
+            <FiMail aria-hidden="true" />
           </a>
         </div>
 

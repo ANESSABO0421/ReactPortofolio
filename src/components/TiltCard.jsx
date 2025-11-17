@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {
@@ -36,27 +36,34 @@ export default function TiltCard({
   });
 
   const [lastY, setLastY] = useState(0);
+  const rafRef = useRef(null);
 
-  function handleMouse(e) {
+  const handleMouse = useCallback((e) => {
     if (!ref.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left - rect.width / 2;
-    const offsetY = e.clientY - rect.top - rect.height / 2;
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
 
-    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
-    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+    rafRef.current = requestAnimationFrame(() => {
+      const rect = ref.current.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left - rect.width / 2;
+      const offsetY = e.clientY - rect.top - rect.height / 2;
 
-    rotateX.set(rotationX);
-    rotateY.set(rotationY);
+      const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+      const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
 
-    x.set(e.clientX - rect.left);
-    y.set(e.clientY - rect.top);
+      rotateX.set(rotationX);
+      rotateY.set(rotationY);
 
-    const velocityY = offsetY - lastY;
-    rotateFigcaption.set(-velocityY * 0.6);
-    setLastY(offsetY);
-  }
+      x.set(e.clientX - rect.left);
+      y.set(e.clientY - rect.top);
+
+      const velocityY = offsetY - lastY;
+      rotateFigcaption.set(-velocityY * 0.6);
+      setLastY(offsetY);
+    });
+  }, [rotateX, rotateY, rotateAmplitude, x, y, rotateFigcaption, lastY]);
 
   function handleMouseEnter() {
     scale.set(scaleOnHover);
@@ -71,6 +78,8 @@ export default function TiltCard({
     rotateFigcaption.set(0);
   }
 
+  const figureLabel = captionText ? `${captionText} portrait` : undefined;
+
   return (
     <figure
       ref={ref}
@@ -79,6 +88,7 @@ export default function TiltCard({
         height: containerHeight,
         width: containerWidth
       }}
+      aria-label={figureLabel}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -102,10 +112,14 @@ export default function TiltCard({
         <motion.img
           src={imageSrc}
           alt={altText}
-          className="absolute top-0 left-0 object-cover rounded-[15px] will-change-transform [transform:translateZ(0)]"
+          loading="lazy"
+          decoding="async"
+          fetchpriority="auto"
+          className="absolute top-0 left-0 object-cover rounded-[15px]"
           style={{
             width: imageWidth,
-            height: imageHeight
+            height: imageHeight,
+            transform: "translateZ(0)",
           }}
         />
 

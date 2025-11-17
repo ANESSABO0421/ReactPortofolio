@@ -1,11 +1,27 @@
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, memo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import TiltCard from "../components/TiltCard";
 
+const STAR_COUNT = 20;
+
+const generateStars = (count) =>
+  Array.from({ length: count }, (_, id) => ({
+    id,
+    size: Math.random() * 2 + 1,
+    top: Math.random() * 100,
+    left: Math.random() * 100,
+    opacity: Math.random() * 0.9 + 0.2,
+    duration: Math.random() * 6 + 4,
+  }));
+
 const About = () => {
+  const prefersReducedMotion = useReducedMotion();
+  const stars = useMemo(() => generateStars(STAR_COUNT), []);
+
   return (
     <section
       id="about"
+      aria-labelledby="about-heading"
       className="relative min-h-screen flex flex-col lg:flex-row justify-center items-center 
                  bg-[#0d0d0d] overflow-hidden px-6 sm:px-10 md:px-16 py-20 lg:py-28"
       style={{ fontFamily: "Poppins, sans-serif" }}
@@ -31,7 +47,7 @@ const About = () => {
                 transparent 50px
               )
             `,
-            animation: "gridFloat 35s linear infinite",
+            animation: prefersReducedMotion ? "none" : "gridFloat 35s linear infinite",
           }}
         ></div>
 
@@ -46,20 +62,18 @@ const About = () => {
       </div>
 
       {/* 🌟 Floating Stars */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(40)].map((_, i) => (
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        {stars.map((star) => (
           <span
-            key={i}
+            key={star.id}
             className="absolute bg-white rounded-full"
             style={{
-              width: Math.random() * 2 + 1 + "px",
-              height: Math.random() * 2 + 1 + "px",
-              top: Math.random() * 100 + "%",
-              left: Math.random() * 100 + "%",
-              opacity: Math.random() * 0.9 + 0.2,
-              animation: `starFloat ${
-                Math.random() * 6 + 4
-              }s ease-in-out infinite`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              top: `${star.top}%`,
+              left: `${star.left}%`,
+              opacity: star.opacity,
+              animation: prefersReducedMotion ? "none" : `starFloat ${star.duration}s ease-in-out infinite`,
             }}
           ></span>
         ))}
@@ -77,10 +91,10 @@ const About = () => {
 
       {/* 👨‍💻 Image Block */}
       <motion.div
-        initial={{ opacity: 0, x: -60 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 flex justify-center items-center 
                   w-full lg:w-1/2 mb-12 lg:mb-0"
       >
@@ -106,10 +120,10 @@ const About = () => {
 
       {/* 📝 Text Block */}
       <motion.div
-        initial={{ opacity: 0, x: 60 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, x: 30 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
         className="relative z-10 text-center lg:text-left 
                   w-full lg:w-1/2 max-w-2xl"
       >
@@ -119,6 +133,7 @@ const About = () => {
                      from-[#f0f0f0] via-[#bcbcbc] to-[#6c6c6c]
                      bg-clip-text text-transparent mb-6 
                      drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] leading-tight"
+          id="about-heading"
         >
           MERN STACK DEVELOPER
         </h1>
@@ -155,14 +170,14 @@ const About = () => {
           ].map((item, i) => (
             <motion.div
               key={i}
-              whileHover={{ scale: 1.08 }}
-              transition={{ type: "spring", stiffness: 250 }}
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               className="group flex flex-col justify-center items-center 
                          w-[130px] sm:w-[150px] h-[95px] sm:h-[110px] 
                          rounded-2xl border border-gray-700/50 
                          bg-gradient-to-b from-[#0b0b0b] to-[#1a1a1a] 
                          relative overflow-hidden shadow-[inset_0_0_25px_rgba(255,255,255,0.05)] 
-                         transition-all duration-500"
+                         transition-all duration-300"
             >
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-sky-500/20 via-transparent to-amber-400/20 blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
               <div className="text-xl sm:text-2xl font-bold text-gray-100 z-10">
@@ -179,4 +194,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default memo(About);
