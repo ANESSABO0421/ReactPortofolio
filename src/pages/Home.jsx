@@ -37,7 +37,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2 }}
           className="text-white font-display mb-2 uppercase tracking-tighter leading-none 
-            text-5xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
+            text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
           style={{ fontFamily: "Anton, sans-serif" }}
         >
           Anees
@@ -48,7 +48,7 @@ const Home = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.4 }}
           className="text-white font-display uppercase tracking-tighter leading-none 
-            text-5xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem] 
+            text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem] 
             -mt-2 sm:-mt-4"
           style={{ fontFamily: "Anton, sans-serif" }}
         >
