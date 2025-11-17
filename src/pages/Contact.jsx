@@ -45,14 +45,22 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="relative min-h-screen flex flex-col justify-center items-center 
-                 overflow-hidden bg-[#0d0d0d] py-20 px-4 sm:px-8 md:px-16"
+      className="
+        relative min-h-screen 
+        flex flex-col justify-center items-center 
+        overflow-hidden bg-[#0d0d0d] 
+        py-20 px-4 sm:px-6 md:px-12 lg:px-20
+      "
     >
-      {/* 🌐 EXACT HOME GRID BACKGROUND */}
+      {/* 🌐 Background Grid */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div
-          className="absolute top-1/2 left-1/2 w-[250vw] h-[250vh]
-                     -translate-x-1/2 -translate-y-1/2 -rotate-[15deg] opacity-[0.13]"
+          className="
+            absolute top-1/2 left-1/2 
+            w-[250vw] h-[250vh] 
+            -translate-x-1/2 -translate-y-1/2 
+            -rotate-[15deg] opacity-[0.13]
+          "
           style={{
             backgroundImage: `
               linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
@@ -61,17 +69,13 @@ const Contact = () => {
             backgroundSize: "3rem 3rem",
             animation: "gridMovement 200s linear infinite",
           }}
-        ></div>
+        />
 
         <style>
           {`
             @keyframes gridMovement {
-              0% {
-                transform: translate(-50%, -50%) rotate(-15deg) translate(0, 0);
-              }
-              100% {
-                transform: translate(-50%, -50%) rotate(-15deg) translate(-100rem, 100rem);
-              }
+              0% { transform: translate(-50%, -50%) rotate(-15deg) translate(0, 0); }
+              100% { transform: translate(-50%, -50%) rotate(-15deg) translate(-100rem, 100rem); }
             }
 
             @keyframes starFloat {
@@ -96,31 +100,36 @@ const Contact = () => {
               left: star.left,
               opacity: star.opacity,
             }}
-            animate={{
-              y: [0, -10, 0],
-              opacity: [0.4, 1, 0.4],
-            }}
-            transition={{
-              duration: star.duration,
-              repeat: Infinity,
-            }}
+            animate={{ y: [0, -10, 0], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: star.duration, repeat: Infinity }}
           />
         ))}
       </div>
 
       {/* HEADER */}
       <motion.div
-        className="text-center relative z-10 mb-12"
+        className="text-center relative z-10 mb-10 sm:mb-12"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold 
-                       bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
-                       text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]">
+        <h1
+          className="
+            text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
+            bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
+            text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]
+          "
+        >
           CONTACT
         </h1>
-        <p className="mt-3 text-gray-400 text-xs sm:text-sm tracking-[0.3em] uppercase">
+
+        <p
+          className="
+            mt-3 text-gray-400 
+            text-[10px] sm:text-xs md:text-sm 
+            tracking-[0.3em] uppercase
+          "
+        >
           Let’s Create Something Cosmic
         </p>
       </motion.div>
@@ -132,55 +141,78 @@ const Contact = () => {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative z-10 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl 
-                   p-8 rounded-2xl backdrop-blur-lg border border-white/20 bg-black/70 
-                   shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] 
-                   transition-all"
+        className="
+          relative z-10 w-full
+          max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+          p-6 sm:p-8 
+          rounded-2xl backdrop-blur-lg border border-white/20 bg-black/70 
+          shadow-[0_0_40px_rgba(255,255,255,0.1)]
+          hover:shadow-[0_0_60px_rgba(255,255,255,0.2)] transition-all
+        "
       >
-        <label className="block text-gray-300 mb-2 text-sm font-medium">Name</label>
+        {/* NAME */}
+        <label className="block text-gray-300 mb-2 text-sm">Name</label>
         <input
           type="text"
           name="name"
           placeholder="Your name"
-          className="w-full mb-4 px-4 py-2 rounded-lg bg-transparent border border-gray-700 text-white 
-                     placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all"
+          className="
+            w-full mb-4 px-4 py-2 text-sm sm:text-base 
+            rounded-lg bg-transparent border border-gray-700 text-white 
+            placeholder-gray-500 focus:outline-none focus:border-cyan-400 
+            transition-all
+          "
           required
         />
 
-        <label className="block text-gray-300 mb-2 text-sm font-medium">Email</label>
+        {/* EMAIL */}
+        <label className="block text-gray-300 mb-2 text-sm">Email</label>
         <input
           type="email"
           name="email"
           placeholder="you@example.com"
-          className="w-full mb-4 px-4 py-2 rounded-lg bg-transparent border border-gray-700 text-white 
-                     placeholder-gray-500 focus:outline-none focus:border-cyan-400 transition-all"
+          className="
+            w-full mb-4 px-4 py-2 text-sm sm:text-base 
+            rounded-lg bg-transparent border border-gray-700 text-white 
+            placeholder-gray-500 focus:outline-none focus:border-cyan-400 
+            transition-all
+          "
           required
         />
 
-        <label className="block text-gray-300 mb-2 text-sm font-medium">Message</label>
+        {/* MESSAGE */}
+        <label className="block text-gray-300 mb-2 text-sm">Message</label>
         <textarea
           name="message"
           placeholder="Write your message..."
-          className="w-full h-32 mb-6 px-4 py-2 rounded-lg bg-transparent border border-gray-700 
-                     text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400 
-                     transition-all resize-none"
+          className="
+            w-full h-28 sm:h-32 md:h-40
+            mb-6 px-4 py-2 text-sm sm:text-base
+            rounded-lg bg-transparent border border-gray-700 text-white 
+            placeholder-gray-500 focus:outline-none focus:border-cyan-400 
+            transition-all resize-none
+          "
           required
         ></textarea>
 
+        {/* BUTTON */}
         <motion.button
           whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0,255,255,0.7)" }}
           whileTap={{ scale: 0.95 }}
           type="submit"
-          className="w-full py-3 font-semibold text-lg text-black 
-                     bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-xl 
-                     shadow-[0_0_25px_rgba(0,255,255,0.5)] hover:shadow-[0_0_40px_rgba(0,255,255,0.8)] 
-                     transition-all"
+          className="
+            w-full py-2 sm:py-3 text-sm sm:text-lg font-semibold text-black 
+            bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 rounded-xl 
+            shadow-[0_0_25px_rgba(0,255,255,0.5)]
+            hover:shadow-[0_0_40px_rgba(0,255,255,0.8)] transition-all
+          "
         >
           Send Message
         </motion.button>
 
+        {/* SUCCESS MESSAGE */}
         {success && (
-          <p className="mt-4 text-center font-medium text-green-400">
+          <p className="mt-4 text-center font-medium text-green-400 text-sm sm:text-base">
             ✔ Message sent successfully!
           </p>
         )}

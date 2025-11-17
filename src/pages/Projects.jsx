@@ -2,9 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
 
-// -----------------------------------------------------------------------------
-// ⭐ STAR GENERATOR (Memoized for performance)
-// -----------------------------------------------------------------------------
+// ⭐ Responsive Star Generator
 const generateStars = () =>
   Array.from({ length: 35 }, (_, i) => ({
     id: i,
@@ -15,9 +13,7 @@ const generateStars = () =>
     duration: Math.random() * 6 + 4,
   }));
 
-// -----------------------------------------------------------------------------
-// 📦 PROJECT CARD
-// -----------------------------------------------------------------------------
+// 📦 Project Card
 const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
   <motion.div
     onClick={() => openModal(project.id)}
@@ -31,7 +27,7 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
                cursor-pointer flex flex-col w-full"
   >
     {/* IMAGE */}
-    <div className="relative w-full h-48 sm:h-56 md:h-64 overflow-hidden">
+    <div className="relative w-full h-40 sm:h-48 md:h-56 lg:h-64 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.img
           key={imgIndex}
@@ -50,37 +46,35 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
 
     {/* CONTENT */}
     <div className="flex flex-col flex-1 p-5 text-gray-300">
-      <div>
-        <h3 className="text-xl md:text-2xl font-semibold text-white mb-2 
-                       group-hover:text-amber-400 transition-colors">
-          {project.title}
-        </h3>
+      <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-2 
+                     group-hover:text-amber-400 transition-colors">
+        {project.title}
+      </h3>
 
-        <p className="text-gray-400 text-sm sm:text-base mb-3 line-clamp-2">
-          {project.shortDescription}
-        </p>
+      <p className="text-gray-400 text-xs sm:text-sm md:text-base mb-3 line-clamp-2">
+        {project.shortDescription}
+      </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.technologies.slice(0, 3).map((tech, i) => (
-            <span
-              key={i}
-              className="px-3 py-1 text-xs rounded-full bg-[#161616]
-                         border border-gray-700 text-gray-300"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {project.technologies.slice(0, 3).map((tech, i) => (
+          <span
+            key={i}
+            className="px-3 py-1 text-[10px] sm:text-xs rounded-full bg-[#161616]
+                       border border-gray-700 text-gray-300"
+          >
+            {tech}
+          </span>
+        ))}
       </div>
 
-      <div className="flex justify-between items-center pt-3 border-t border-white/10">
+      <div className="flex justify-between items-center pt-3 border-t border-white/10 mt-auto">
         <a href={project.demoLink} target="_blank" onClick={(e) => e.stopPropagation()}
-           className="flex items-center gap-2 text-sm hover:text-white">
+           className="flex items-center gap-2 text-xs sm:text-sm hover:text-white">
           <FiExternalLink /> Demo
         </a>
 
         <a href={project.githubLink} target="_blank" onClick={(e) => e.stopPropagation()}
-           className="flex items-center gap-2 text-sm hover:text-white">
+           className="flex items-center gap-2 text-xs sm:text-sm hover:text-white">
           <FiGithub /> Repo
         </a>
       </div>
@@ -88,18 +82,13 @@ const ProjectCard = React.memo(({ project, index, imgIndex, openModal }) => (
   </motion.div>
 ));
 
-// -----------------------------------------------------------------------------
-// 🧩 MAIN PROJECTS COMPONENT
-// -----------------------------------------------------------------------------
+// 🧩 MAIN Component
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [cardIndexes, setCardIndexes] = useState({});
   const stars = useMemo(() => generateStars(), []);
 
-  // ---------------------------------------------------------------------------
-  // 🔥 PROJECT DATA (Memoized)
-  // ---------------------------------------------------------------------------
   const projectData = useMemo(
     () => [
       {
@@ -108,104 +97,46 @@ const Projects = () => {
         shortDescription:
           "Full-stack MERN NSS portal with real-time chat, multi-role access and AI insights.",
         detailedDescription:
-          "A complete MERN platform featuring JWT-based authentication, real-time chats, AI summaries, Cloudinary uploads and more.",
+          "A complete MERN platform featuring JWT authentication, Cloudinary, socket chats and admin dashboards.",
         technologies: ["React", "Node.js", "MongoDB", "Socket.io", "OpenAI API"],
         demoLink: "#",
         githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1551033406-611cf9a28f67?q=80",
-          // "https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80",
-        ],
+        images: [],
       },
-
       {
         id: 1,
         title: "Lumio – Social Media Platform",
         shortDescription:
-          "A MERN social media app with posts, likes, comments, OTP login & modern UI.",
+          "A MERN social media app with posts, likes, comments, OTP login & animations.",
         detailedDescription:
-          "JWT auth, OTP login, comments, posts, Tailwind UI, Swiper animations.",
+          "OTP, JWT, Feed UI, comments, Swiper animations.",
         technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
         demoLink: "#",
         githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80",
-          // "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80",
-        ],
+        images: [],
       },
-
       {
         id: 2,
-        title: "LibroTrack – Book Inventory System",
+        title: "Lumio – Social Media Platform",
         shortDescription:
-          "Node + MongoDB system for book catalog and borrow tracking.",
+          "A MERN social media app with posts, likes, comments, OTP login & animations.",
         detailedDescription:
-          "Borrow/return system, Tailwind UI, inventory auto updates.",
-        technologies: ["Node.js", "MongoDB", "Tailwind CSS"],
-        demoLink: "#",
-        githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80",
-          // "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80",
-        ],
-      },
-
-      {
-        id: 3,
-        title: "BookMyShow Clone (Frontend)",
-        shortDescription:
-          "Movie booking UI with React, Redux Toolkit & Swiper.js.",
-        detailedDescription:
-          "Dynamic UI, carousels, full responsiveness, Redux state management.",
-        technologies: ["React", "Redux Toolkit", "Tailwind CSS"],
-        demoLink: "#",
-        githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80",
-          // "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?q=80",
-        ],
-      },
-
-      {
-        id: 4,
-        title: "Malappuram FC Ultras Fans Website",
-        shortDescription: "Football fan community website with admin panel.",
-        detailedDescription: "Results posting, match fixtures, standings.",
+          "OTP, JWT, Feed UI, comments, Swiper animations.",
         technologies: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
         demoLink: "#",
         githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1508193638397-1c22779fecd4?q=80",
-          // "https://images.unsplash.com/photo-1508087625619-2f2c0a7bb293?q=80",
-        ],
-      },
-
-      {
-        id: 5,
-        title: "Cruizo – Car Rental Website",
-        shortDescription: "React car rental website with booking flow.",
-        detailedDescription:
-          "Multi-page navigation, pricing UI, context-based booking.",
-        technologies: ["React", "Context API", "Tailwind CSS"],
-        demoLink: "#",
-        githubLink: "#",
-        images: [
-          // "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80",
-          // "https://images.unsplash.com/photo-1493238792000-8113da705763?q=80",
-        ],
+        images: [],
       },
     ],
     []
   );
 
-  // ---------------------------------------------------------------------------
-  // 🔁 AUTOMATIC IMAGE CYCLING
-  // ---------------------------------------------------------------------------
+  // 🖼 Auto Cycling
   useEffect(() => {
     const interval = setInterval(() => {
       setCardIndexes((prev) =>
         projectData.reduce((acc, p) => {
-          acc[p.id] = ((prev[p.id] || 0) + 1) % p.images.length;
+          acc[p.id] = ((prev[p.id] || 0) + 1) % (p.images.length || 1);
           return acc;
         }, {})
       );
@@ -214,32 +145,29 @@ const Projects = () => {
     return () => clearInterval(interval);
   }, [projectData]);
 
-  // ---------------------------------------------------------------------------
-  // RENDER
-  // ---------------------------------------------------------------------------
   return (
     <section
       id="projects"
-      className="relative min-h-screen py-24 px-6 sm:px-10 md:px-16 
+      className="relative min-h-screen py-20 px-4 sm:px-8 md:px-16 
                  flex flex-col justify-center items-center bg-[#0d0d0d] overflow-hidden"
     >
-      {/* 🔥 GRID BACKGROUND (Home Style) */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Background Grid */}
+      <div className="absolute inset-0 opacity-[0.1] pointer-events-none">
         <div
-          className="absolute top-1/2 left-1/2 w-[250vw] h-[250vh]
-                    -translate-x-1/2 -translate-y-1/2 -rotate-[15deg] opacity-[0.13]"
+          className="absolute top-1/2 left-1/2 w-[200vw] h-[200vh]
+                    -translate-x-1/2 -translate-y-1/2 -rotate-[12deg]"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)
+              linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
             `,
             backgroundSize: "3rem 3rem",
-            animation: "gridMovement 200s linear infinite",
+            animation: "gridMovement 160s linear infinite",
           }}
         />
       </div>
 
-      {/* ⭐ FLOATING STARS */}
+      {/* Floating Stars */}
       <div className="absolute inset-0 pointer-events-none">
         {stars.map((star) => (
           <motion.span
@@ -252,41 +180,40 @@ const Projects = () => {
               left: star.left,
               opacity: star.opacity,
             }}
-            animate={{ y: [0, -10, 0], opacity: [0.5, 1, 0.5] }}
+            animate={{ y: [0, -12, 0], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: star.duration, repeat: Infinity }}
           />
         ))}
       </div>
 
-      {/* CSS KEYFRAMES ONCE */}
       <style>
         {`
           @keyframes gridMovement {
-            0% { transform: translate(-50%, -50%) rotate(-15deg) translate(0,0); }
-            100% { transform: translate(-50%, -50%) rotate(-15deg) translate(-100rem, 100rem); }
+            0% { transform: translate(-50%, -50%) rotate(-12deg) translate(0,0); }
+            100% { transform: translate(-50%, -50%) rotate(-12deg) translate(-80rem, 80rem); }
           }
         `}
       </style>
 
       {/* HEADER */}
       <motion.div
-        className="text-center relative z-10 mb-16"
+        className="text-center relative z-10 mb-12 sm:mb-16"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold 
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold 
                        bg-gradient-to-b from-gray-100 to-gray-500 
                        bg-clip-text text-transparent">
           WORKS
         </h1>
-        <p className="mt-3 text-gray-400 text-xs tracking-[0.3em] uppercase">
-          Crafted with Code & Precision
+        <p className="mt-3 text-gray-400 text-[10px] sm:text-xs tracking-[0.25em] uppercase">
+          Crafted with precision
         </p>
       </motion.div>
 
-      {/* PROJECT GRID */}
-      <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
-                      gap-8 w-full max-w-7xl z-10">
+      {/* GRID */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 
+                      gap-6 sm:gap-8 w-full max-w-7xl relative z-10">
         {projectData.map((p, i) => (
           <ProjectCard
             key={p.id}
@@ -306,7 +233,8 @@ const Projects = () => {
       <AnimatePresence>
         {selectedProject !== null && (
           <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-black/80 backdrop-blur-lg flex items-center 
+                       justify-center p-4 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -320,25 +248,23 @@ const Projects = () => {
               initial={{ scale: 0.85, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
-              transition={{ duration: 0.35 }}
-              className="relative w-full max-w-4xl rounded-2xl bg-black/70 
-                         border border-white/20 overflow-hidden shadow-2xl"
+              transition={{ duration: 0.3 }}
+              className="relative w-full max-w-3xl rounded-2xl bg-black/70 
+                         border border-white/20 overflow-hidden shadow-xl"
             >
-              <motion.img
-                key={currentImageIndex}
-                src={projectData[selectedProject].images[currentImageIndex]}
-                className="w-full h-56 sm:h-72 md:h-96 object-cover"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              />
+              <div className="w-full h-48 sm:h-64 md:h-80">
+                <img
+                  src={projectData[selectedProject].images[currentImageIndex]}
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-              <div className="p-6 md:p-8 text-gray-300">
-                <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
+              <div className="p-5 sm:p-7 md:p-8 text-gray-300">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 text-white">
                   {projectData[selectedProject].title}
                 </h2>
 
-                <p className="text-gray-400 mb-6 leading-relaxed">
+                <p className="text-gray-400 text-sm sm:text-base mb-5 leading-relaxed">
                   {projectData[selectedProject].detailedDescription}
                 </p>
 
@@ -357,30 +283,32 @@ const Projects = () => {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a
                     href={projectData[selectedProject].demoLink}
-                    className="flex-1 py-3 rounded-lg bg-blue-600 hover:bg-blue-500 text-white flex justify-center items-center gap-2"
+                    className="flex-1 py-2 sm:py-3 rounded-lg bg-blue-600 hover:bg-blue-500 
+                               text-white flex justify-center items-center gap-2 text-sm"
                   >
                     <FiExternalLink /> Demo
                   </a>
 
                   <a
                     href={projectData[selectedProject].githubLink}
-                    className="flex-1 py-3 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-200 flex justify-center items-center gap-2"
+                    className="flex-1 py-2 sm:py-3 rounded-lg bg-gray-800 hover:bg-gray-700 
+                               text-gray-200 flex justify-center items-center gap-2 text-sm"
                   >
                     <FiGithub /> Repo
                   </a>
                 </div>
               </div>
 
-              <motion.button
+              <button
                 onClick={() => {
                   setSelectedProject(null);
                   document.body.style.overflow = "auto";
                 }}
-                whileHover={{ scale: 1.1 }}
-                className="absolute top-4 right-4 bg-white/10 p-2 rounded-full text-white"
+                className="absolute top-4 right-4 bg-white/10 p-2 rounded-full text-white 
+                         hover:bg-white/20 transition"
               >
                 ✕
-              </motion.button>
+              </button>
             </motion.div>
           </motion.div>
         )}

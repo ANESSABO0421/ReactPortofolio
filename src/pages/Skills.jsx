@@ -14,6 +14,7 @@ import {
   FaBrain,
   FaRobot,
 } from "react-icons/fa";
+
 import {
   SiTailwindcss,
   SiNextdotjs,
@@ -25,13 +26,11 @@ import {
   SiVite,
   SiShadcnui,
 } from "react-icons/si";
+
 import { VscCode } from "react-icons/vsc";
 import { RiClaudeFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 
-// ===========================
-// Skill Categories
-// ===========================
 const categories = [
   {
     title: "Frontend",
@@ -64,7 +63,7 @@ const categories = [
     ],
   },
   {
-    title: "Development Tools",
+    title: "Tools",
     icon: <FaTools className="text-yellow-400" />,
     skills: [
       { name: "Git", icon: <FaGitAlt /> },
@@ -97,112 +96,87 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen py-24 bg-[#0d0d0d] overflow-hidden flex flex-col items-center justify-center"
+      className="min-h-screen py-20 bg-[#0d0d0d] text-white"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* === MOVING GRID BACKGROUND (Same as HOME) === */}
-      {/* <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div
-          className="absolute top-1/2 left-1/2 w-[250vw] h-[250vh]
-                     -translate-x-1/2 -translate-y-1/2 -rotate-[15deg]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px)
-            `,
-            backgroundSize: "3rem 3rem",
-            animation: "gridMovement 200s linear infinite",
-          }}
-        ></div>
-      </div> */}
-
-      {/* === Floating Stars === */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        {[...Array(35)].map((_, i) => (
-          <span
-            key={i}
-            className="absolute bg-white rounded-full"
-            style={{
-              width: Math.random() * 2 + 1,
-              height: Math.random() * 2 + 1,
-              top: Math.random() * 100 + "%",
-              left: Math.random() * 100 + "%",
-              opacity: Math.random() * 0.9 + 0.2,
-              animation: `starFloat ${
-                Math.random() * 6 + 4
-              }s ease-in-out infinite`,
-            }}
-          ></span>
-        ))}
-      </div>
-
-      {/* === Keyframes === */}
-      <style>
-        {`
-          @keyframes gridMovement {
-            0% { transform: translate(-50%, -50%) rotate(-15deg) translate(0,0); }
-            100% { transform: translate(-50%, -50%) rotate(-15deg) translate(-100rem, 100rem); }
-          }
-
-          @keyframes starFloat {
-            0% { transform: translateY(0px); opacity: 0.5; }
-            50% { opacity: 1; transform: translateY(-10px); }
-            100% { opacity: 0.5; transform: translateY(0px); }
-          }
-        `}
-      </style>
-
-      {/* === Section Title === */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative z-10 mb-16 text-center"
-      >
+      {/* Title */}
+      <div className="text-center mb-12">
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl font-extrabold 
-                       bg-gradient-to-b from-gray-100 to-gray-500 
-                       bg-clip-text text-transparent"
+          className="
+            text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
+            bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
+            text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]
+          "
         >
           Skills
         </h1>
-        <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
-          Tools · Frameworks · Languages · AI
-        </p>
-      </motion.div>
 
-      {/* === Skill Cards === */}
-      <div className="relative z-10 grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 w-full max-w-7xl px-6">
+        <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
+          THE SKILL I MASTERED
+        </p>
+      </div>
+
+      {/* NEW FIXED GRID */}
+      <div
+        className="
+          grid 
+          grid-cols-1
+          sm:grid-cols-2
+          md:grid-cols-3
+          xl:grid-cols-4
+          gap-8
+          max-w-7xl
+          mx-auto
+          px-6
+          auto-rows-[1fr]
+        "
+      >
         {categories.map((category, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: index * 0.1 }}
-            className="group bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-white/10 rounded-3xl p-8 backdrop-blur-xl shadow-[0_0_25px_rgba(255,255,255,0.05)]"
+            transition={{ duration: 0.5 }}
+            className="
+              bg-[#111]
+              rounded-2xl
+              border border-gray-800
+              p-6
+              flex flex-col
+              justify-between
+              h-full
+              hover:border-gray-600
+              transition-all
+              duration-300
+            "
           >
             {/* Header */}
             <div className="flex items-center gap-3 mb-6">
               <span className="text-3xl">{category.icon}</span>
-              <h3 className="text-xl font-semibold text-gray-100">
-                {category.title}
-              </h3>
+              <h3 className="text-xl font-semibold">{category.title}</h3>
             </div>
 
-            {/* Skills */}
-            <div className="grid grid-cols-2 gap-5">
+            {/* Skill List */}
+            <div className="grid grid-cols-2 gap-4">
               {category.skills.map((skill, i) => (
-                <motion.div
+                <div
                   key={i}
-                  whileHover={{ scale: 1.08 }}
-                  transition={{ type: "spring", stiffness: 250 }}
-                  className="flex flex-col items-center bg-[#0f0f0f]/70 p-3 rounded-2xl border border-white/5"
+                  className="
+                    flex flex-col gap-2 items-center justify-center
+                    py-4
+                    rounded-xl
+                    bg-[#0f0f0f]
+                    border border-gray-900
+                    hover:border-gray-700
+                    transition
+                    h-24
+                  "
                 >
-                  <div className="text-3xl text-gray-300">{skill.icon}</div>
-                  <span className="text-xs text-gray-400 mt-1 text-center">
+                  <div className="text-2xl">{skill.icon}</div>
+                  <p className="text-xs text-gray-400 text-center">
                     {skill.name}
-                  </span>
-                </motion.div>
+                  </p>
+                </div>
               ))}
             </div>
           </motion.div>
