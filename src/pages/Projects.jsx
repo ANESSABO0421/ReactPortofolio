@@ -175,30 +175,23 @@ const Projects = () => {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0d0d0d] py-20 px-4 sm:px-8 md:px-16"
+      className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20 px-4 sm:px-8 md:px-16"
+      style={{ fontFamily: "Inter, sans-serif" }}
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.1]">
-        <div
-          className="absolute top-1/2 left-1/2 h-[200vh] w-[200vw] -translate-x-1/2 -translate-y-1/2 -rotate-[12deg]"
-          style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)
-            `,
-            backgroundSize: "3rem 3rem",
-            animation: prefersReducedMotion ? "none" : "gridMovement 160s linear infinite",
-          }}
-        />
+      {/* 🌐 GRID BACKGROUND - Same as Home & About Sections */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+      {/* 🌟 Floating Stars - Same as Home & About Sections */}
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {stars.map((star) => (
           <span
             key={star.id}
-            className="absolute rounded-full bg-white star-float"
+            className="absolute bg-white rounded-full star-float"
             style={{
-              width: star.size,
-              height: star.size,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
               top: `${star.top}%`,
               left: `${star.left}%`,
               opacity: star.opacity,
@@ -208,46 +201,43 @@ const Projects = () => {
         ))}
       </div>
 
-      <style>
-        {`
-          @keyframes gridMovement {
-            0% { transform: translate(-50%, -50%) rotate(-12deg) translate(0,0); }
-            100% { transform: translate(-50%, -50%) rotate(-12deg) translate(-80rem, 80rem); }
-          }
-        `}
-      </style>
-
-      <motion.div
-        className="relative z-10 mb-12 text-center sm:mb-16"
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        <h1
-          id="projects-heading"
-          className="bg-gradient-to-b from-gray-100 to-gray-500 bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl md:text-6xl"
+      <div className="relative z-10 w-full max-w-7xl">
+        {/* HEADER - Matching Home Section Style */}
+        <motion.div
+          className="relative z-10 mb-12 text-center sm:mb-16"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          WORKS
-        </h1>
-        <p className="mt-3 text-[10px] uppercase tracking-[0.25em] text-gray-400 sm:text-xs">
-          Crafted with precision
-        </p>
-      </motion.div>
+          <h1
+            id="projects-heading"
+            className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
+            style={{ fontFamily: "Anton, sans-serif" }}
+          >
+            WORKS
+          </h1>
+          <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
+            CRAFTED WITH PRECISION
+          </p>
+        </motion.div>
 
-      <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-        {projectData.map((project, index) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            imgIndex={cardIndexes[project.id] || 0}
-            onOpen={openModal}
-            prefersReducedMotion={prefersReducedMotion}
-          />
-        ))}
+        {/* PROJECTS GRID */}
+        <div className="relative z-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+          {projectData.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              imgIndex={cardIndexes[project.id] || 0}
+              onOpen={openModal}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          ))}
+        </div>
       </div>
 
+      {/* PROJECT MODAL */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
@@ -342,6 +332,33 @@ const Projects = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* CSS STYLES */}
+      <style jsx>{`
+        .moving-grid {
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+          background-size: 30px 30px;
+          transform: rotate(-20deg) scale(1.5);
+          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
+        }
+        
+        @keyframes gridMove {
+          0% {
+            transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
+          }
+          100% {
+            transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
+          }
+        }
+        
+        @keyframes starFloat {
+          0% { transform: translateY(0px); opacity: 0.5; }
+          50% { opacity: 1; transform: translateY(-10px); }
+          100% { opacity: 0.5; transform: translateY(0px); }
+        }
+      `}</style>
     </section>
   );
 };

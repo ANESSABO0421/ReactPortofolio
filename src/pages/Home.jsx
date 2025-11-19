@@ -30,6 +30,11 @@ const Home = () => {
       className="relative min-h-screen bg-[#0d0d0d] text-gray-200 overflow-hidden flex items-center"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
+      {/* === ANIMATING GRID BACKGROUND === */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-[-50%] moving-grid"></div>
+      </div>
+
       {/* === FLOATING STARS === */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         {stars.map((star) => (
@@ -56,11 +61,11 @@ const Home = () => {
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
+          className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem] shine-text"
           style={{ fontFamily: "Anton, sans-serif" }}
         >
           <span className="block flex items-center justify-center">Anees</span>
-          <span className="-mt-2 block sm:-mt-4">Aboobacker</span>
+          <span className="-mt-2 block sm:-mt-4 mr-2">Aboobacker</span>
         </motion.h1>
 
         {/* === INFO GRID === */}
@@ -130,6 +135,61 @@ const Home = () => {
           ))}
         </motion.div>
       </div>
+
+      {/* Add the CSS for moving grid background and text shine */}
+      <style jsx>{`
+        .moving-grid {
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+          background-size: 30px 30px;
+          transform: rotate(-20deg) scale(1.5);
+          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
+        }
+        
+        .shine-text {
+          background: linear-gradient(
+            90deg,
+            #ffffff,
+            #cccccc,
+            #888888,
+            #cccccc,
+            #ffffff
+          );
+          background-size: 200% auto;
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: ${prefersReducedMotion ? 'none' : 'textShine 3s ease-in-out infinite'};
+        }
+        
+        @keyframes gridMove {
+          0% {
+            transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
+          }
+          100% {
+            transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
+          }
+        }
+        
+        @keyframes starFloat {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+        
+        @keyframes textShine {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+      `}</style>
     </section>
   );
 };

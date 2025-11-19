@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { useMemo, memo } from "react";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -25,6 +25,16 @@ import {
   SiC,
   SiVite,
   SiShadcnui,
+  SiRedux,
+  SiExpress,
+  SiSocketdotio,
+  SiCloudinary,
+  SiVercel,
+  SiRender,
+  SiNetlify,
+  SiOpenai,
+  SiPostman,
+  SiFigma,
 } from "react-icons/si";
 
 import { VscCode } from "react-icons/vsc";
@@ -33,13 +43,24 @@ import { motion, useReducedMotion } from "framer-motion";
 
 const categories = [
   {
-    title: "Frontend",
+    title: "Frontend Development",
     icon: <FaLaptopCode className="text-cyan-400" aria-hidden="true" />,
     skills: [
       { name: "HTML5", icon: <FaHtml5 aria-hidden="true" /> },
+      { name: "CSS3", icon: <FaCss3Alt aria-hidden="true" /> },
+      { name: "JavaScript (ES6+)", icon: <FaJs aria-hidden="true" /> },
+      { name: "TypeScript", icon: <SiTypescript aria-hidden="true" /> },
+      { name: "React.js", icon: <FaReact aria-hidden="true" /> },
+      { name: "Next.js", icon: <SiNextdotjs aria-hidden="true" /> },
+      { name: "Redux", icon: <SiRedux aria-hidden="true" /> },
+      { name: "Redux Toolkit", icon: <SiRedux aria-hidden="true" /> },
       { name: "Tailwind CSS", icon: <SiTailwindcss aria-hidden="true" /> },
       { name: "Bootstrap", icon: <FaBootstrap aria-hidden="true" /> },
-      { name: "Next.js", icon: <SiNextdotjs aria-hidden="true" /> },
+      { name: "ShadCN/UI", icon: <SiShadcnui aria-hidden="true" /> },
+      { name: "Framer Motion", icon: <FaReact aria-hidden="true" /> },
+      { name: "Swiper.js", icon: <FaReact aria-hidden="true" /> },
+      { name: "Vite", icon: <SiVite aria-hidden="true" /> },
+      { name: "Responsive Design", icon: <FaLaptopCode aria-hidden="true" /> },
     ],
   },
   {
@@ -47,146 +68,238 @@ const categories = [
     icon: <FaDatabase className="text-green-400" aria-hidden="true" />,
     skills: [
       { name: "Node.js", icon: <FaNodeJs aria-hidden="true" /> },
-      { name: "Supabase", icon: <SiSupabase aria-hidden="true" /> },
-      { name: "PostgreSQL", icon: <SiPostgresql aria-hidden="true" /> },
+      { name: "Express.js", icon: <SiExpress aria-hidden="true" /> },
+      { name: "RESTful APIs", icon: <FaDatabase aria-hidden="true" /> },
       { name: "MongoDB", icon: <SiMongodb aria-hidden="true" /> },
+      { name: "Mongoose", icon: <SiMongodb aria-hidden="true" /> },
+      { name: "PostgreSQL", icon: <SiPostgresql aria-hidden="true" /> },
+      { name: "Supabase", icon: <SiSupabase aria-hidden="true" /> },
+      { name: "JWT Auth", icon: <FaNodeJs aria-hidden="true" /> },
+      { name: "OTP Systems", icon: <FaNodeJs aria-hidden="true" /> },
+      { name: "RBAC", icon: <FaNodeJs aria-hidden="true" /> },
     ],
   },
   {
-    title: "Programming",
+    title: "Real-Time & Cloud",
+    icon: <FaTools className="text-yellow-400" aria-hidden="true" />,
+    skills: [
+      { name: "Socket.io", icon: <SiSocketdotio aria-hidden="true" /> },
+      { name: "Cloudinary", icon: <SiCloudinary aria-hidden="true" /> },
+      { name: "Vercel", icon: <SiVercel aria-hidden="true" /> },
+      { name: "Render", icon: <SiRender aria-hidden="true" /> },
+      { name: "Netlify", icon: <SiNetlify aria-hidden="true" /> },
+      { name: "OpenAI API", icon: <SiOpenai aria-hidden="true" /> },
+    ],
+  },
+  {
+    title: "Programming Languages",
     icon: <VscCode className="text-blue-400" aria-hidden="true" />,
     skills: [
       { name: "JavaScript", icon: <FaJs aria-hidden="true" /> },
       { name: "TypeScript", icon: <SiTypescript aria-hidden="true" /> },
       { name: "Python", icon: <FaPython aria-hidden="true" /> },
-      { name: "C/C++", icon: <SiC aria-hidden="true" /> },
+      { name: "C / C++", icon: <SiC aria-hidden="true" /> },
     ],
   },
   {
-    title: "Tools",
-    icon: <FaTools className="text-yellow-400" aria-hidden="true" />,
+    title: "Tools & Platforms",
+    icon: <FaTools className="text-purple-400" aria-hidden="true" />,
     skills: [
       { name: "Git", icon: <FaGitAlt aria-hidden="true" /> },
+      { name: "GitHub", icon: <FaGitAlt aria-hidden="true" /> },
+      { name: "Postman", icon: <SiPostman aria-hidden="true" /> },
       { name: "VS Code", icon: <VscCode aria-hidden="true" /> },
       { name: "Cursor IDE", icon: <VscCode aria-hidden="true" /> },
-      { name: "Vite", icon: <SiVite aria-hidden="true" /> },
+      { name: "Windsurf", icon: <VscCode aria-hidden="true" /> },
+      { name: "Figma", icon: <SiFigma aria-hidden="true" /> },
     ],
   },
   {
-    title: "AI Development",
+    title: "AI Engineering & Prototyping",
     icon: <FaBrain className="text-pink-400" aria-hidden="true" />,
     skills: [
-      { name: "Manus", icon: <FaRobot aria-hidden="true" /> },
       { name: "ChatGPT", icon: <FaRobot aria-hidden="true" /> },
       { name: "Claude", icon: <RiClaudeFill aria-hidden="true" /> },
-    ],
-  },
-  {
-    title: "AI Prototyping",
-    icon: <FaRobot className="text-purple-400" aria-hidden="true" />,
-    skills: [
+      { name: "Manus", icon: <FaRobot aria-hidden="true" /> },
       { name: "Lovable", icon: <SiShadcnui aria-hidden="true" /> },
       { name: "v0", icon: <SiShadcnui aria-hidden="true" /> },
-      { name: "Shadcn/UI", icon: <SiShadcnui aria-hidden="true" /> },
     ],
   },
 ];
 
+const generateStars = () =>
+  Array.from({ length: 20 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 2 + 1,
+    top: Math.random() * 100,
+    left: Math.random() * 100,
+    opacity: Math.random() * 0.7 + 0.3,
+    duration: Math.random() * 6 + 4,
+  }));
+
 const Skills = () => {
   const prefersReducedMotion = useReducedMotion();
+  const stars = useMemo(() => generateStars(), []);
 
   return (
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="min-h-screen py-20 bg-[#0d0d0d] text-white"
+      className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* Title */}
-      <div className="text-center mb-12">
-        <h1
-          id="skills-heading"
-          className="
-            text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold
-            bg-gradient-to-b from-gray-100 to-gray-400 bg-clip-text 
-            text-transparent drop-shadow-[0_0_25px_rgba(255,255,255,0.15)]
-          "
-        >
-          Skills
-        </h1>
-
-        <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
-          THE SKILL I MASTERED
-        </p>
+      {/* 🌐 GRID BACKGROUND - Same as Home & About Sections */}
+      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
-      {/* NEW FIXED GRID */}
-      <div
-        className="
-          grid 
-          grid-cols-1
-          sm:grid-cols-2
-          md:grid-cols-3
-          xl:grid-cols-4
-          gap-8
-          max-w-7xl
-          mx-auto
-          px-6
-          auto-rows-[1fr]
-        "
-      >
-        {categories.map((category, index) => (
-          <motion.div
-            key={index}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-            className="
-              bg-[#111]
-              rounded-2xl
-              border border-gray-800
-              p-6
-              flex flex-col
-              justify-between
-              h-full
-              hover:border-gray-600
-              transition-all
-              duration-300
-            "
-          >
-            {/* Header */}
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-3xl">{category.icon}</span>
-              <h3 className="text-xl font-semibold">{category.title}</h3>
-            </div>
-
-            {/* Skill List */}
-            <div className="grid grid-cols-2 gap-4">
-              {category.skills.map((skill, i) => (
-                <div
-                  key={i}
-                  className="
-                    flex flex-col gap-2 items-center justify-center
-                    py-4
-                    rounded-xl
-                    bg-[#0f0f0f]
-                    border border-gray-900
-                    hover:border-gray-700
-                    transition
-                    h-24
-                  "
-                >
-                  <div className="text-2xl">{skill.icon}</div>
-                  <p className="text-xs text-gray-400 text-center">
-                    {skill.name}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+      {/* 🌟 Floating Stars - Same as Home & About Sections */}
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        {stars.map((star) => (
+          <span
+            key={star.id}
+            className="absolute bg-white rounded-full star-float"
+            style={{
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              top: `${star.top}%`,
+              left: `${star.left}%`,
+              opacity: star.opacity,
+              animation: prefersReducedMotion ? "none" : `starFloat ${star.duration}s ease-in-out infinite`,
+            }}
+          />
         ))}
       </div>
+
+      <div className="relative z-10 w-full max-w-7xl px-6">
+        {/* HEADER - Matching Home Section Style */}
+        <motion.div
+          className="relative z-10 mb-16 text-center"
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <h1
+            id="skills-heading"
+            className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
+            style={{ fontFamily: "Anton, sans-serif" }}
+          >
+            SKILLS
+          </h1>
+          <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
+            TECHNICAL PROFICIENCIES
+          </p>
+        </motion.div>
+
+        {/* FULL WIDTH CARDS LAYOUT */}
+        <div className="space-y-8">
+          {categories.map((category, index) => (
+            <motion.div
+              key={index}
+              initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+              className="
+                w-full
+                bg-gradient-to-br from-[#111] to-[#0a0a0a]
+                rounded-3xl
+                border border-white/10
+                p-8
+                hover:border-white/20
+                hover:shadow-2xl
+                hover:shadow-cyan-500/10
+                transition-all
+                duration-500
+                group
+              "
+            >
+              {/* Header */}
+              <div className="flex items-center gap-4 mb-8">
+                <div className="
+                  p-3 
+                  rounded-2xl 
+                  bg-gradient-to-br from-white/10 to-white/5 
+                  border border-white/10
+                  group-hover:border-white/20
+                  group-hover:shadow-lg
+                  transition-all
+                  duration-500
+                ">
+                  <span className="text-2xl">{category.icon}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300">
+                  {category.title}
+                </h3>
+              </div>
+
+              {/* Skills Grid - Responsive */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {category.skills.map((skill, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ 
+                      scale: 1.05,
+                      y: -4
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className="
+                      flex flex-col items-center justify-center
+                      p-5
+                      rounded-2xl
+                      bg-gradient-to-br from-white/5 to-white/2
+                      border border-white/10
+                      hover:border-cyan-500/50
+                      hover:bg-white/10
+                      hover:shadow-lg
+                      hover:shadow-cyan-500/20
+                      transition-all
+                      duration-300
+                      group/skill
+                      h-28
+                    "
+                  >
+                    <div className="text-2xl text-white/90 mb-2 group-hover/skill:scale-110 transition-transform duration-300">
+                      {skill.icon}
+                    </div>
+                    <p className="text-xs font-medium text-gray-300 group-hover/skill:text-white text-center leading-tight">
+                      {skill.name}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* CSS STYLES */}
+      <style jsx>{`
+        .moving-grid {
+          background-image:
+            linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+          background-size: 30px 30px;
+          transform: rotate(-20deg) scale(1.5);
+          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
+        }
+        
+        @keyframes gridMove {
+          0% {
+            transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
+          }
+          100% {
+            transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
+          }
+        }
+        
+        @keyframes starFloat {
+          0% { transform: translateY(0px); opacity: 0.5; }
+          50% { opacity: 1; transform: translateY(-10px); }
+          100% { opacity: 0.5; transform: translateY(0px); }
+        }
+      `}</style>
     </section>
   );
 };
