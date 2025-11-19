@@ -99,7 +99,7 @@ const About = () => {
                   w-full lg:w-1/2 mb-12 lg:mb-0"
       >
         <TiltCard
-          imageSrc="/image.png"
+          imageSrc="/anees.webp"
           altText="Anees Aboobacker"
           captionText="Anees Aboobacker"
           containerHeight="350px"
