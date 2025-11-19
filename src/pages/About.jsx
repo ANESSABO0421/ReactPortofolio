@@ -17,6 +17,12 @@ const generateStars = (count) =>
 const About = () => {
   const prefersReducedMotion = useReducedMotion();
   const stars = useMemo(() => generateStars(STAR_COUNT), []);
+  const statsData = useMemo(() => [
+    { title: "20+", subtitle: "PROJECTS" },
+    { title: "3+", subtitle: "YEARS" },
+    { title: "5+", subtitle: "TECH" },
+    { title: "MERN", subtitle: "STACK" },
+  ], []);
 
   return (
     <section
@@ -145,12 +151,7 @@ const About = () => {
               w-full max-w-2xl mx-auto lg:mx-0
             "
           >
-            {[
-              { title: "20+", subtitle: "PROJECTS" },
-              { title: "3+", subtitle: "YEARS" },
-              { title: "5+", subtitle: "TECH" },
-              { title: "MERN", subtitle: "STACK" },
-            ].map((item, i) => (
+            {statsData.map((item, i) => (
               <motion.div
                 key={i}
                 whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}

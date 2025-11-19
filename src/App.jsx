@@ -8,7 +8,7 @@ const Projects = lazy(() => import("./pages/Projects"));
 const Skills = lazy(() => import("./pages/Skills"));
 const Contact = lazy(() => import("./pages/Contact"));
 
-const SectionFallback = ({ label }) => (
+const SectionFallback = React.memo(({ label }) => (
   <div
     role="status"
     aria-live="polite"
@@ -16,7 +16,7 @@ const SectionFallback = ({ label }) => (
   >
     Loading {label}…
   </div>
-);
+));
 
 const App = () => (
   <>

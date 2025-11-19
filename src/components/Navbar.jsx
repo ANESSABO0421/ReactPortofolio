@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+
+const links = [
+  { name: "HOME", href: "#home" },
+  { name: "ABOUT", href: "#about" },
+  { name: "WORKS", href: "#projects" },
+  { name: "SKILLS", href: "#skills" },
+  { name: "CONTACT", href: "#contact" },
+];
 
 const Navbar = () => {
   const [active, setActive] = useState("home");
   const prefersReducedMotion = useReducedMotion();
 
-  const links = [
-    { name: "HOME", href: "#home" },
-    { name: "ABOUT", href: "#about" },
-    { name: "WORKS", href: "#projects" },
-    { name: "SKILLS", href: "#skills" },
-    { name: "CONTACT", href: "#contact" },
-  ];
+  const handleLinkClick = useCallback((name) => {
+    setActive(name.toLowerCase());
+  }, []);
 
   return (
     <motion.nav
@@ -43,7 +47,7 @@ const Navbar = () => {
           <li key={link.name} className="relative list-none">
             <a
               href={link.href}
-              onClick={() => setActive(link.name.toLowerCase())}
+              onClick={() => handleLinkClick(link.name)}
               className={`font-semibold tracking-widest transition-all duration-300 
                 text-[10px] sm:text-xs md:text-sm lg:text-base
                 ${
@@ -78,4 +82,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

@@ -113,7 +113,7 @@ const ProjectCard = React.memo(
 
 const Projects = () => {
   const prefersReducedMotion = useReducedMotion();
-  const projectData = projectList;
+  const projectData = useMemo(() => projectList, []);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [cardIndexes, setCardIndexes] = useState(() =>

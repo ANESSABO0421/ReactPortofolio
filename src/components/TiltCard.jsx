@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, memo } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {
@@ -7,7 +7,7 @@ const springValues = {
   mass: 2
 };
 
-export default function TiltCard({
+function TiltCard({
   imageSrc,
   altText = 'Tilted card image',
   captionText = '',
@@ -35,7 +35,7 @@ export default function TiltCard({
     mass: 1
   });
 
-  const [lastY, setLastY] = useState(0);
+  const lastYRef = useRef(0);
   const rafRef = useRef(null);
 
   const handleMouse = useCallback((e) => {
@@ -59,24 +59,24 @@ export default function TiltCard({
       x.set(e.clientX - rect.left);
       y.set(e.clientY - rect.top);
 
-      const velocityY = offsetY - lastY;
+      const velocityY = offsetY - lastYRef.current;
       rotateFigcaption.set(-velocityY * 0.6);
-      setLastY(offsetY);
+      lastYRef.current = offsetY;
     });
-  }, [rotateX, rotateY, rotateAmplitude, x, y, rotateFigcaption, lastY]);
+  }, [rotateX, rotateY, rotateAmplitude, x, y, rotateFigcaption]);
 
-  function handleMouseEnter() {
+  const handleMouseEnter = useCallback(() => {
     scale.set(scaleOnHover);
     opacity.set(1);
-  }
+  }, [scale, opacity, scaleOnHover]);
 
-  function handleMouseLeave() {
+  const handleMouseLeave = useCallback(() => {
     opacity.set(0);
     scale.set(1);
     rotateX.set(0);
     rotateY.set(0);
     rotateFigcaption.set(0);
-  }
+  }, [opacity, scale, rotateX, rotateY, rotateFigcaption]);
 
   const figureLabel = captionText ? `${captionText} portrait` : undefined;
 
@@ -146,3 +146,5 @@ export default function TiltCard({
     </figure>
   );
 }
+
+export default memo(TiltCard);
