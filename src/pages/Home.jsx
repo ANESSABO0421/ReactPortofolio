@@ -1,6 +1,6 @@
 import React, { useMemo, memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
 
 const STAR_COUNT = 20;
 const SOCIAL_LINKS = [
@@ -134,9 +134,37 @@ const Home = () => {
             </motion.a>
           ))}
         </motion.div>
-      </div>
 
-      {/* Add the CSS for moving grid background and text shine */}
+        {/* === DOWNLOAD CV BUTTON === */}
+        <motion.div
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
+          className="mt-8 sm:mt-10"
+        >
+          <a
+            href="/Anees_Aboobacker_CV.pdf" // Update this path to your actual CV file
+            download="Anees_Aboobacker_CV.pdf"
+            className="
+              inline-flex items-center px-6 py-3 sm:px-8 sm:py-3.5
+              text-sm font-medium text-white 
+              bg-transparent border-2 border-white rounded-full
+              hover:bg-white hover:text-black hover:font-medium
+              hover:scale-105
+              transition-all duration-300 ease-in-out
+              group relative overflow-hidden
+            "
+            aria-label="Download CV"
+          >
+            <span className="relative z-10 flex items-center">
+              <FaDownload className="mr-2" />
+              Download CV
+            </span>
+            <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+          </a>
+        </motion.div>
+
+        {/* Add the CSS for moving grid background and text shine */}
       <style jsx>{`
         .moving-grid {
           background-image:
@@ -189,7 +217,12 @@ const Home = () => {
             background-position: 200% center;
           }
         }
+        
+        .button-hover-effect {
+          transition: all 0.3s ease-in-out;
+        }
       `}</style>
+      </div>
     </section>
   );
 };

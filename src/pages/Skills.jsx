@@ -60,7 +60,6 @@ const categories = [
       { name: "Framer Motion", icon: <FaReact aria-hidden="true" /> },
       { name: "Swiper.js", icon: <FaReact aria-hidden="true" /> },
       { name: "Vite", icon: <SiVite aria-hidden="true" /> },
-      { name: "Responsive Design", icon: <FaLaptopCode aria-hidden="true" /> },
     ],
   },
   {
@@ -118,7 +117,7 @@ const categories = [
     title: "AI Engineering & Prototyping",
     icon: <FaBrain className="text-pink-400" aria-hidden="true" />,
     skills: [
-      { name: "ChatGPT", icon: <FaRobot aria-hidden="true" /> },
+      { name: "ChatGPT", icon: <SiOpenai aria-hidden="true" /> },
       { name: "Claude", icon: <RiClaudeFill aria-hidden="true" /> },
       { name: "Manus", icon: <FaRobot aria-hidden="true" /> },
       { name: "Lovable", icon: <SiShadcnui aria-hidden="true" /> },
@@ -235,7 +234,7 @@ const Skills = () => {
               </div>
 
               {/* Skills Grid - Responsive */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4">
                 {category.skills.map((skill, i) => (
                   <motion.div
                     key={i}
@@ -245,25 +244,42 @@ const Skills = () => {
                     }}
                     transition={{ duration: 0.2 }}
                     className="
+                      relative
                       flex flex-col items-center justify-center
-                      p-5
-                      rounded-2xl
+                      p-2.5 sm:p-3.5 md:p-4
+                      rounded-xl
                       bg-gradient-to-br from-white/5 to-white/2
-                      border border-white/10
-                      hover:border-cyan-500/50
-                      hover:bg-white/10
-                      hover:shadow-lg
-                      hover:shadow-cyan-500/20
-                      transition-all
-                      duration-300
+                      backdrop-blur-sm
+                      border border-white/20
+                      shadow-[0_4px_20px_-5px_rgba(0,0,0,0.2)]
+                      hover:border-cyan-400/50
+                      hover:shadow-[0_8px_30px_-5px_rgba(6,182,212,0.3)]
+                      hover:bg-gradient-to-br hover:from-white/10 hover:to-white/5
+                      hover:-translate-y-0.5
+                      transition-all duration-300 ease-out
                       group/skill
-                      h-28
+                      h-20 sm:h-24 md:h-28
+                      w-full
+                      overflow-hidden
+                      before:absolute before:inset-0 
+                      before:bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] 
+                      before:from-cyan-500/0 before:via-cyan-500/0 before:to-cyan-500/10
+                      before:opacity-0
+                      hover:before:opacity-100
+                      before:transition-opacity before:duration-500
+                      after:absolute after:inset-0
+                      after:bg-[linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.1)_50%,transparent_100%)]
+                      after:opacity-0
+                      hover:after:opacity-100
+                      after:transition-opacity after:duration-500
                     "
                   >
-                    <div className="text-2xl text-white/90 mb-2 group-hover/skill:scale-110 transition-transform duration-300">
-                      {skill.icon}
+                    <div className="relative z-10 text-2xl sm:text-3xl text-white/90 mb-1.5 sm:mb-2.5 group-hover/skill:scale-110 transition-all duration-300 ease-out">
+                      <span className="drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]">
+                        {skill.icon}
+                      </span>
                     </div>
-                    <p className="text-xs font-medium text-gray-300 group-hover/skill:text-white text-center leading-tight">
+                    <p className="relative z-10 text-[11px] xs:text-xs sm:text-sm font-medium text-gray-200 group-hover/skill:text-white text-center leading-tight px-1 bg-gradient-to-r from-transparent via-white/5 to-transparent rounded-full py-0.5">
                       {skill.name}
                     </p>
                   </motion.div>
