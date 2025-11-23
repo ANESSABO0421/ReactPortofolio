@@ -18,31 +18,39 @@ const SectionFallback = React.memo(({ label }) => (
   </div>
 ));
 
-const App = () => (
-  <>
-    <a className="skip-link" href="#main-content">
-      Skip to content
-    </a>
-    <div className="bg-[#e6f2ff] text-[#3a7ca5] transition-colors duration-500">
-      <Navbar />
-      <main id="main-content" role="main">
-        <Home />
-        <Suspense fallback={<SectionFallback label="about" />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<SectionFallback label="projects" />}>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<SectionFallback label="skills" />}>
-          <Skills />
-        </Suspense>
-        <Suspense fallback={<SectionFallback label="contact" />}>
-          <Contact />
-        </Suspense>
-      </main>
-      <Footer />
-    </div>
-  </>
-);
+import AntiGravityLoader from "./components/AntiGravityLoader";
+import { usePageLoader } from "./hooks/usePageLoader";
+
+const App = () => {
+  const { showLoader, done } = usePageLoader({ duration: 2000 });
+
+  return (
+    <>
+      <AntiGravityLoader isOpen={showLoader} onFinish={done} />
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <div className="bg-[#e6f2ff] text-[#3a7ca5] transition-colors duration-500">
+        <Navbar />
+        <main id="main-content" role="main">
+          <Home />
+          <Suspense fallback={<SectionFallback label="about" />}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<SectionFallback label="projects" />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionFallback label="skills" />}>
+            <Skills />
+          </Suspense>
+          <Suspense fallback={<SectionFallback label="contact" />}>
+            <Contact />
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
+    </>
+  );
+};
 
 export default App;

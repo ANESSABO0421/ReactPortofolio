@@ -1,0 +1,88 @@
+/* AntiGravityLoader.module.css */
+
+/* Full-screen overlay */
+.loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  
+  /* Dark navy -> deep purple gradient */
+  background: linear-gradient(135deg, #0a0e17 0%, #1a0b2e 100%);
+  
+  /* Glassmorphism blur */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  /* Cursor pointer to indicate dismissibility */
+  cursor: pointer;
+}
+
+/* Container for the central orb and particles */
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The central orb wrapper */
+.orbContainer {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* Neon accents for the orb */
+.orbGlow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.1) 70%, transparent 100%);
+  filter: blur(15px);
+  animation: pulseGlow 2s infinite alternate;
+}
+
+/* Particle styles */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .particle {
+    animation: none !important;
+    transition: none !important;
+  }
+  .orbGlow {
+    animation: none !important;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+}
