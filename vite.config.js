@@ -19,6 +19,15 @@ export default defineConfig({
         ],
       },
     }),
+    {
+      name: "html-inject-build-version",
+      transformIndexHtml(html) {
+        return html.replace(
+          /%BUILD_VERSION%/g,
+          new Date().toISOString()
+        );
+      },
+    },
   ],
   server: {
     host: true,

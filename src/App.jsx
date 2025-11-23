@@ -20,8 +20,10 @@ const SectionFallback = React.memo(({ label }) => (
 
 import AntiGravityLoader from "./components/AntiGravityLoader";
 import { usePageLoader } from "./hooks/usePageLoader";
+import { useSEO } from "./hooks/useSEO";
 
 const App = () => {
+  useSEO();
   const { showLoader, done } = usePageLoader({ duration: 2000 });
 
   return (
