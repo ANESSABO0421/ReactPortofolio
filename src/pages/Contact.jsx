@@ -136,7 +136,7 @@ const Contact = () => {
             <div className="relative z-10 space-y-6">
               {/* NAME FIELD */}
               <div className="space-y-2">
-                <label 
+                <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-name"
                 >
@@ -170,7 +170,7 @@ const Contact = () => {
 
               {/* EMAIL FIELD */}
               <div className="space-y-2">
-                <label 
+                <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-email"
                 >
@@ -204,7 +204,7 @@ const Contact = () => {
 
               {/* MESSAGE FIELD */}
               <div className="space-y-2">
-                <label 
+                <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-message"
                 >
@@ -262,7 +262,7 @@ const Contact = () => {
               >
                 {/* Button Shine Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
-                
+
                 <span className="relative z-10">
                   {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                 </span>
@@ -274,11 +274,11 @@ const Contact = () => {
                 animate={{ opacity: 1 }}
                 className={`
                   text-center text-sm font-medium
-                  ${status.type === "error" 
-                    ? "text-red-400" 
-                    : status.type === "success" 
-                    ? "text-green-400" 
-                    : "text-gray-400"
+                  ${status.type === "error"
+                    ? "text-red-400"
+                    : status.type === "success"
+                      ? "text-green-400"
+                      : "text-gray-400"
                   }
                 `}
                 role="status"

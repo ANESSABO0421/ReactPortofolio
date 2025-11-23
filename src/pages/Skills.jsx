@@ -238,7 +238,7 @@ const Skills = () => {
                 {category.skills.map((skill, i) => (
                   <motion.div
                     key={i}
-                    whileHover={{ 
+                    whileHover={{
                       scale: 1.05,
                       y: -4
                     }}

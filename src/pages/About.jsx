@@ -56,7 +56,7 @@ const About = () => {
 
       {/* MAIN CONTENT CONTAINER */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
-        
+
         {/* LEFT SIDE - IMAGE - Responsive sizing */}
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}

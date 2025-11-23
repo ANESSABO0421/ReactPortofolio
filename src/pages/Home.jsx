@@ -165,7 +165,7 @@ const Home = () => {
         </motion.div>
 
         {/* Add the CSS for moving grid background and text shine */}
-      <style jsx>{`
+        <style jsx>{`
         .moving-grid {
           background-image:
             linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
