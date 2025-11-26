@@ -30,25 +30,15 @@ export const usePageLoader = ({
 
     // Automatically trigger on route change
     useEffect(() => {
+        // Only trigger loader if pathname changes (ignore hash changes for scrolling)
         start();
 
-        // If autoHide is true, we can rely on the component's internal timer 
-        // or we can explicitly hide it here after a timeout if the component doesn't handle it.
-        // However, the AntiGravityLoader component typically handles the "duration" and calls onFinish.
-        // But for route changes, we want to ensure it shows *then* hides.
-
-        // In this specific requirement, the user asked:
-        // "On click-based navigation, the loader appears, plays 700–1200ms animation, then the route change finishes"
-        // Since we are detecting the route change *after* it happened (useEffect on location), 
-        // we are in the "show on navigation" phase.
-
-        // We'll let the loader run for its minimum duration then hide.
         const timer = setTimeout(() => {
             if (autoHide) done();
         }, duration);
 
         return () => clearTimeout(timer);
-    }, [location, start, done, duration, autoHide]);
+    }, [location.pathname, start, done, duration, autoHide]);
 
     // Initial mount handling is covered by default useState(true)
     // and the useEffect will trigger again on mount if location is present, 
