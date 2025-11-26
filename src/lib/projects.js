@@ -49,7 +49,7 @@ export const projects = [
       "Synapsis centralizes activity tracking, volunteer onboarding, and communication with JWT security, socket-powered rooms, and automated AI summaries for coordinators.",
     technologies: ["React", "Node.js", "MongoDB", "Socket.io", "OpenAI API"],
     demoLink: "https://github.com/ANESSABO0421",
-    githubLink: "https://github.com/ANESSABO0421",
+    githubLink: "https://github.com/ANESSABO0421/Cruizo",
     coverImage: "/anees.webp",
     images: ["/anees.webp"],
     imageAlt: "Synapsis dashboard preview",
@@ -77,7 +77,7 @@ export const projects = [
       "Cruizo is a frontend-only car rental application that lets users browse cars, filter by category, view detailed specs, and manage a booking flow — all powered on the client side. The app uses Context API for global state handling, Tailwind CSS for a sleek and responsive UI, and modular React components to simulate a real-world rental experience. It includes interactive car previews, booking steps, search filtering, and wishlist functionality.",
     technologies: ["React", "Tailwind CSS", "Context API"],
     demoLink: "https://github.com/ANESSABO0421",
-    githubLink: "https://github.com/ANESSABO0421",
+    githubLink: "https://github.com/ANESSABO0421/Cruizo",
     coverImage: "/anees.webp",
     images: ["/project4/proj2_1.webp", "/project4/proj2_2.webp", "/project4/proj2_3.webp", "/project4/proj2_4.webp", "/project4/proj2_5.webp", "/project4/proj2_6.webp", "/project4/proj2_7.webp", "/project4/proj2_8.webp", "/project4/proj2_9.webp", "/project4/proj2_10.webp"],
     imageAlt: "Cruizo car rental dashboard UI"
