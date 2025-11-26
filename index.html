@@ -1,129 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- ✅ CACHE BUSTING / BUILD VERSION -->
-    <meta name="build-version" content="%BUILD_VERSION%" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
 
-    <!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION -->
-    <meta
-      name="google-site-verification"
-      content="uGmOpMKixhv6PLishFb2wQYNhkZpEP1bhTNzVKBm_Lg"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- 🏆 PRIMARY SEO TAGS -->
-    <title>Anees Aboobacker | MERN Stack Developer Portfolio</title>
-    <meta
-      name="description"
-      content="Anees Aboobacker — MERN Stack Developer specializing in performant web apps, scalable backend systems, AI-powered workflows, and modern UI engineering."
-    />
-    <meta
-      name="keywords"
-      content="Anees Aboobacker, MERN Stack Developer, Portfolio, React Developer, Node.js, MongoDB, Full-stack Engineer, Web Performance"
-    />
-    <meta name="author" content="Anees Aboobacker" />
-    <meta name="robots" content="index, follow" />
-    <meta name="googlebot" content="index, follow" />
-    <meta name="theme-color" content="#0d0d0d" />
+  <!-- ✅ CACHE BUSTING / BUILD VERSION -->
+  <meta name="build-version" content="%BUILD_VERSION%" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
 
-    <!-- ⭐ CORRECT CANONICAL URL -->
-    <link rel="canonical" href="https://anees-portofolio.vercel.app/" />
+  <!-- ✅ GOOGLE SEARCH CONSOLE VERIFICATION -->
+  <meta name="google-site-verification" content="uGmOpMKixhv6PLishFb2wQYNhkZpEP1bhTNzVKBm_Lg" />
 
-    <!-- Favicon + Icons -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+  <!-- 🏆 PRIMARY SEO TAGS -->
+  <title>Anees Aboobacker | MERN Stack Developer Portfolio</title>
+  <meta name="description"
+    content="Anees Aboobacker — MERN Stack Developer specializing in performant web apps, scalable backend systems, AI-powered workflows, and modern UI engineering." />
+  <meta name="keywords"
+    content="Anees Aboobacker, MERN Stack Developer, Portfolio, React Developer, Node.js, MongoDB, Full-stack Engineer, Web Performance" />
+  <meta name="author" content="Anees Aboobacker" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="theme-color" content="#0d0d0d" />
 
-    <!-- 🚀 PERFORMANCE: DNS PREFETCH + PRECONNECT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdn.emailjs.com" crossorigin />
-    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-    <link rel="dns-prefetch" href="//cdn.emailjs.com" />
+  <!-- ⭐ CORRECT CANONICAL URL -->
+  <link rel="canonical" href="https://anees-portofolio.vercel.app/" />
 
-    <!-- 🚀 Preload Hero Image for Faster LCP -->
-    <link
-      rel="preload"
-      as="image"
-      href="/anees.webp"
-      type="image/webp"
-      fetchpriority="high"
-    />
 
-    <!-- 📄 Prefetch CV (Optional) -->
-    <link
-      rel="prefetch"
-      href="/Anees_Aboobacker_CV.pdf"
-      as="document"
-      type="application/pdf"
-      crossorigin="anonymous"
-    />
+  <!-- Favicon + Icons -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- ⏳ Prefetch Animation -->
-    <link rel="prefetch" href="/ani.gif" as="image" />
+  <!-- 🚀 PERFORMANCE: DNS PREFETCH + PRECONNECT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.emailjs.com" crossorigin />
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  <link rel="dns-prefetch" href="//cdn.emailjs.com" />
 
-    <!-- 🌐 FONTS (Loaded Optimally) -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+  <!-- 🚀 Preload Hero Image for Faster LCP -->
+  <link rel="preload" as="image" href="/anees.webp" type="image/webp" fetchpriority="high" />
 
-    <!-- 🌍 OPEN GRAPH (SOCIAL MEDIA PREVIEW) -->
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en_US" />
-    <meta
-      property="og:title"
-      content="Anees Aboobacker | MERN Stack Developer"
-    />
-    <meta
-      property="og:description"
-      content="Explore projects, skills, and experience of MERN Stack Developer Anees Aboobacker. Fast, modern, and scalable applications."
-    />
-    <meta property="og:url" content="https://anees-portofolio.vercel.app/" />
-    <meta
-      property="og:image"
-      content="https://anees-portofolio.vercel.app/anees.webp"
-    />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:type" content="image/png" />
-    <meta
-      property="og:image:alt"
-      content="Anees Aboobacker Portfolio Preview"
-    />
-    <meta property="og:site_name" content="Anees Aboobacker Portfolio" />
+  <!-- 📄 Prefetch CV (Optional) -->
+  <link rel="prefetch" href="/Anees_Aboobacker_CV.pdf" as="document" type="application/pdf" crossorigin="anonymous" />
 
-    <!-- 🐦 TWITTER CARD -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Anees Aboobacker Portfolio" />
-    <meta
-      name="twitter:description"
-      content="MERN stack developer building modern, high-performance applications."
-    />
-    <meta
-      name="twitter:image"
-      content="https://anees-portofolio.vercel.app/anees.webp"
-    />
+  <!-- ⏳ Prefetch Animation -->
+  <link rel="prefetch" href="/ani.gif" as="image" />
 
-    <!-- 🧠 JSON-LD SCHEMA (BOOSTS SEO RANKING) -->
-    <script type="application/ld+json">
+  <!-- 🌐 FONTS (Loaded Optimally) -->
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet" />
+  </noscript>
+
+  <!-- 🌍 OPEN GRAPH (SOCIAL MEDIA PREVIEW) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:title" content="Anees Aboobacker | MERN Stack Developer" />
+  <meta property="og:description"
+    content="Explore projects, skills, and experience of MERN Stack Developer Anees Aboobacker. Fast, modern, and scalable applications." />
+  <meta property="og:url" content="https://anees-portofolio.vercel.app/" />
+  <meta property="og:image" content="https://anees-portofolio.vercel.app/anees.webp" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Anees Aboobacker Portfolio Preview" />
+  <meta property="og:site_name" content="Anees Aboobacker Portfolio" />
+
+  <!-- 🐦 TWITTER CARD -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Anees Aboobacker Portfolio" />
+  <meta name="twitter:description" content="MERN stack developer building modern, high-performance applications." />
+  <meta name="twitter:image" content="https://anees-portofolio.vercel.app/anees.webp" />
+
+  <!-- 🧠 JSON-LD SCHEMA (BOOSTS SEO RANKING) -->
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
@@ -157,10 +117,11 @@
         ]
       }
     </script>
-  </head>
+</head>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

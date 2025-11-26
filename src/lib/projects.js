@@ -1,5 +1,46 @@
 export const projects = [
   {
+    id: "ultras-malappuram",
+    title: "Ultras Malappuram – Community Fan Platform",
+    shortDescription:
+      "Full-stack fan community hub featuring match updates, team standings, and admin-powered content management.",
+    detailedDescription:
+      "Ultras Malappuram is a MERN-based interactive platform built for football fans to track match results, fixtures, team rankings, and community announcements. The system includes secure admin authentication, dynamic content management, GSAP micro-interactions, and animated UI sections powered by Tailwind CSS and Framer Motion.",
+    technologies: [
+      "MongoDB",
+      "Express.js",
+      "React",
+      "Node.js",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
+    demoLink: "https://www.ultrasmalappuram.com/",
+    // githubLink: "https://github.com/ANESSABO0421",
+    coverImage: [
+      "/project1/proj1_1.webp",
+      "/project1/proj1_2.webp",
+      "/project1/proj1_3.webp",
+      "/project1/proj1_4.webp",
+      "/project1/proj1_5.webp",
+      "/project1/proj1_6.webp",
+      "/project1/proj1_7.webp",
+      "/project1/proj1_8.webp",
+      "/project1/proj1_9.webp",
+    ],
+    images: [
+      "/project1/proj1_1.webp",
+      "/project1/proj1_2.webp",
+      "/project1/proj1_3.webp",
+      "/project1/proj1_4.webp",
+      "/project1/proj1_5.webp",
+      "/project1/proj1_6.webp",
+      "/project1/proj1_7.webp",
+      "/project1/proj1_8.webp",
+      "/project1/proj1_9.webp",
+    ],
+    imageAlt: "Ultras Malappuram fans website interface",
+  },
+  {
     id: "synapsis",
     title: "Synapsis – NSS Management Portal",
     shortDescription:
@@ -28,31 +69,18 @@ export const projects = [
     imageAlt: "Lumio social media feed",
   },
   {
-    id: "ultras-malappuram",
-    title: "Ultras Malappuram – Community Fan Platform",
+    id: "cruizo-car-rental-app",
+    title: "Cruizo – Car Rental App",
     shortDescription:
-      "Full-stack fan community hub featuring match updates, team standings, and admin-powered content management.",
+      "A modern and responsive car rental platform built entirely with React, Tailwind CSS, and Context API for state management.",
     detailedDescription:
-      "Ultras Malappuram is a MERN-based interactive platform built for football fans to track match results, fixtures, team rankings, and community announcements. The system includes secure admin authentication, dynamic content management, GSAP micro-interactions, and animated UI sections powered by Tailwind CSS and Framer Motion.",
-    technologies: [
-      "MongoDB",
-      "Express.js",
-      "React",
-      "Node.js",
-      "Tailwind CSS",
-      "Framer Motion",
-    ],
+      "Cruizo is a frontend-only car rental application that lets users browse cars, filter by category, view detailed specs, and manage a booking flow — all powered on the client side. The app uses Context API for global state handling, Tailwind CSS for a sleek and responsive UI, and modular React components to simulate a real-world rental experience. It includes interactive car previews, booking steps, search filtering, and wishlist functionality.",
+    technologies: ["React", "Tailwind CSS", "Context API"],
     demoLink: "https://github.com/ANESSABO0421",
     githubLink: "https://github.com/ANESSABO0421",
-    coverImage: "/ultras-cover.png",
-    images: [
-      "/proj1.webp",
-      "/proj1_2.webp",
-      "/proj1_3.webp",
-      "/proj1_4.webp",
-      "/proj1_5.webp",
-      "/proj1_6.webp",
-    ],
-    imageAlt: "Ultras Malappuram fans website interface",
+    coverImage: "/anees.webp",
+    images: ["/project4/proj2_1.webp", "/project4/proj2_2.webp", "/project4/proj2_3.webp", "/project4/proj2_4.webp", "/project4/proj2_5.webp", "/project4/proj2_6.webp", "/project4/proj2_7.webp", "/project4/proj2_8.webp", "/project4/proj2_9.webp", "/project4/proj2_10.webp"],
+    imageAlt: "Cruizo car rental dashboard UI"
   },
+
 ];
