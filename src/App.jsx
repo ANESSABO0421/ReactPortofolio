@@ -32,7 +32,7 @@ const App = () => {
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <div className="bg-[#e6f2ff] text-[#3a7ca5] transition-colors duration-500">
+      <div className="min-h-screen overflow-x-hidden bg-[#020409] text-white antialiased transition-colors duration-500">
         <Navbar />
         <main id="main-content" role="main">
           <Home />

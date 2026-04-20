@@ -26,7 +26,7 @@ const Navbar = () => {
       className="
         fixed top-4 left-1/2 -translate-x-1/2 z-50
         border-3 rounded-full
-        w-[90%] sm:w-[80%] md:w-auto
+        w-[calc(100%-1.5rem)] sm:w-[80%] md:w-auto
         max-w-[500px]
       "
     >

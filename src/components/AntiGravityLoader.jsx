@@ -48,6 +48,18 @@ const AntiGravityLoader = ({
         }));
     }, [particles]);
 
+    const starArray = useMemo(() => {
+        return Array.from({ length: 22 }).map((_, i) => ({
+            id: i,
+            top: Math.random() * 100,
+            left: Math.random() * 100,
+            size: Math.random() * 2.6 + 1,
+            opacity: Math.random() * 0.7 + 0.2,
+            duration: Math.random() * 5 + 4,
+            delay: Math.random() * 2,
+        }));
+    }, []);
+
     // Animation variants
     const overlayVariants = {
         initial: { opacity: 0 },
@@ -115,6 +127,37 @@ const AntiGravityLoader = ({
                     aria-label="Loading content"
                 >
                     <div className={styles.scene}>
+                        <div className={styles.spaceBackdrop} aria-hidden="true">
+                            <div className={styles.vignette} />
+                            <div className={styles.nebula} />
+                            <div className={styles.orbitRing} />
+                            <div className={styles.orbitRingSecondary} />
+
+                            {!isReduced && starArray.map((star) => (
+                                <motion.span
+                                    key={star.id}
+                                    className={styles.star}
+                                    style={{
+                                        top: `${star.top}%`,
+                                        left: `${star.left}%`,
+                                        width: `${star.size}px`,
+                                        height: `${star.size}px`,
+                                        opacity: star.opacity,
+                                    }}
+                                    animate={{
+                                        opacity: [star.opacity * 0.5, star.opacity, star.opacity * 0.6],
+                                        scale: [1, 1.4, 1],
+                                    }}
+                                    transition={{
+                                        duration: star.duration,
+                                        delay: star.delay,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                    }}
+                                />
+                            ))}
+                        </div>
+
                         {/* Central Orb */}
                         <motion.div
                             className={styles.orbContainer}
@@ -124,24 +167,57 @@ const AntiGravityLoader = ({
                             {logo ? (
                                 logo
                             ) : (
-                                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <motion.circle
-                                        cx="30" cy="30" r="28"
+                                        cx="36" cy="36" r="31"
                                         stroke="url(#paint0_linear)"
-                                        strokeWidth="4"
+                                        strokeWidth="2.5"
                                         strokeLinecap="round"
                                         initial={{ pathLength: 0, rotate: -90 }}
                                         animate={{ pathLength: 1, rotate: 270 }}
                                         transition={{ duration: duration / 1000, ease: "easeInOut" }}
                                     />
+                                    <motion.circle
+                                        cx="36"
+                                        cy="36"
+                                        r="14"
+                                        fill="url(#paint1_radial)"
+                                        animate={isReduced ? undefined : {
+                                            scale: [0.92, 1.08, 0.96],
+                                            opacity: [0.65, 1, 0.8],
+                                        }}
+                                        transition={{
+                                            duration: duration / 900,
+                                            repeat: Infinity,
+                                            ease: "easeInOut",
+                                        }}
+                                    />
                                     <defs>
-                                        <linearGradient id="paint0_linear" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
-                                            <stop stopColor="#00FFFF" />
-                                            <stop offset="1" stopColor="#FF00FF" />
+                                        <linearGradient id="paint0_linear" x1="0" y1="0" x2="72" y2="72" gradientUnits="userSpaceOnUse">
+                                            <stop stopColor="#F8FBFF" />
+                                            <stop offset="0.5" stopColor="#7DD3FC" />
+                                            <stop offset="1" stopColor="#8B5CF6" />
                                         </linearGradient>
+                                        <radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(36 36) rotate(90) scale(14)">
+                                            <stop stopColor="#FFFFFF" />
+                                            <stop offset="0.45" stopColor="#93C5FD" />
+                                            <stop offset="1" stopColor="#020409" stopOpacity="0" />
+                                        </radialGradient>
                                     </defs>
                                 </svg>
                             )}
+                        </motion.div>
+
+                        <motion.div
+                            className={styles.loaderCopy}
+                            initial={isReduced ? false : { opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 6 }}
+                            transition={{ delay: 0.15, duration: 0.45 }}
+                        >
+                            <p className={styles.loaderEyebrow}>Entering Orbit</p>
+                            <h2 className={styles.loaderTitle}>Anees Aboobacker</h2>
+                            <p className={styles.loaderText}>Loading a premium portfolio experience</p>
                         </motion.div>
 
                         {/* Floating Particles */}
