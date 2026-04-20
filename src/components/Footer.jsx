@@ -12,6 +12,8 @@ const Footer = () => {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
       gsap.fromTo(
         ".footer-reveal",
         { y: 28, opacity: 0 },

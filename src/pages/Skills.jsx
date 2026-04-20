@@ -39,7 +39,7 @@ import {
 
 import { VscCode } from "react-icons/vsc";
 import { RiClaudeFill } from "react-icons/ri";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -249,13 +249,9 @@ const Skills = () => {
 
       <div className="relative z-10 w-full max-w-7xl px-6">
         {/* HEADER - Matching Home Section Style */}
-        <motion.div
+        <div
           ref={headerRef}
           className="relative z-10 mb-16 text-center"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <h1
             id="skills-heading"
@@ -267,12 +263,12 @@ const Skills = () => {
           <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
             TECHNICAL PROFICIENCIES
           </p>
-        </motion.div>
+        </div>
 
         {/* FULL WIDTH CARDS LAYOUT */}
         <div className="space-y-8">
           {categories.map((category, index) => (
-            <motion.div
+            <div
               key={index}
               className="
                 skills-category
@@ -311,13 +307,8 @@ const Skills = () => {
               {/* Skills Grid - Responsive */}
               <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 gap-3 sm:gap-4">
                 {category.skills.map((skill, i) => (
-                  <motion.div
+                  <div
                     key={i}
-                    whileHover={{
-                      scale: 1.05,
-                      y: -4
-                    }}
-                    transition={{ duration: 0.2 }}
                     className="
                       skill-chip
                       relative
@@ -358,10 +349,10 @@ const Skills = () => {
                     <p className="relative z-10 text-[11px] xs:text-xs sm:text-sm font-medium text-gray-200 group-hover/skill:text-white text-center leading-tight px-1 bg-gradient-to-r from-transparent via-white/5 to-transparent rounded-full py-0.5">
                       {skill.name}
                     </p>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import emailjs from "@emailjs/browser";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -145,13 +145,9 @@ const Contact = () => {
 
       <div className="relative z-10 w-full max-w-7xl px-6">
         {/* HEADER - Matching Home Section Style */}
-        <motion.div
+        <div
           ref={headerRef}
           className="relative z-10 mb-16 text-center"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <h1
             id="contact-heading"
@@ -163,18 +159,14 @@ const Contact = () => {
           <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
             LET'S CREATE SOMETHING COSMIC
           </p>
-        </motion.div>
+        </div>
 
         {/* PREMIUM FORM CONTAINER */}
         <div className="flex justify-center">
-          <motion.form
+          <form
             ref={formRef}
             onSubmit={sendEmail}
             aria-busy={isSubmitting}
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
             className="
               w-full max-w-2xl
               bg-gradient-to-br from-[#111] to-[#0a0a0a]
@@ -203,9 +195,7 @@ const Contact = () => {
                 >
                   Name
                 </label>
-                <motion.input
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                <input
                   type="text"
                   name="name"
                   id="contact-name"
@@ -237,9 +227,7 @@ const Contact = () => {
                 >
                   Email
                 </label>
-                <motion.input
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                <input
                   type="email"
                   name="email"
                   id="contact-email"
@@ -271,9 +259,7 @@ const Contact = () => {
                 >
                   Message
                 </label>
-                <motion.textarea
-                  whileFocus={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
+                <textarea
                   name="message"
                   id="contact-message"
                   placeholder="Tell me about your project..."
@@ -298,7 +284,7 @@ const Contact = () => {
               </div>
 
               {/* SUBMIT BUTTON */}
-              <motion.button
+              <button
                 className="
                   contact-field
                   w-full py-4
@@ -317,8 +303,6 @@ const Contact = () => {
                   group/btn
                 "
                 type="submit"
-                whileHover={prefersReducedMotion ? undefined : { scale: 1.05, y: -2 }}
-                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
                 disabled={isSubmitting}
                 aria-disabled={isSubmitting}
               >
@@ -328,10 +312,10 @@ const Contact = () => {
                 <span className="relative z-10">
                   {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
                 </span>
-              </motion.button>
+              </button>
 
               {/* STATUS MESSAGE */}
-              <motion.p
+              <p
                 className={`
                   contact-field
                   text-center text-sm font-medium
@@ -342,15 +326,13 @@ const Contact = () => {
                       : "text-gray-400"
                   }
                 `}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
                 role="status"
                 aria-live="polite"
               >
                 {status.message || (isSubmitting ? "Sending your message..." : "\u00A0")}
-              </motion.p>
+              </p>
             </div>
-          </motion.form>
+          </form>
         </div>
       </div>
 

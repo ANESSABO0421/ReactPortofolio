@@ -1,5 +1,5 @@
 import React, { useMemo, memo, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -116,7 +116,7 @@ const About = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
-        <motion.div ref={leftRef} className="w-full lg:w-1/2 flex justify-center order-2 lg:order-1">
+        <div ref={leftRef} className="w-full lg:w-1/2 flex justify-center order-2 lg:order-1">
           <div className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
             <TiltCard
               imageSrc="/anees.webp"
@@ -137,10 +137,10 @@ const About = () => {
               className="!w-full !h-full"
             />
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div ref={rightRef} className="w-full lg:w-1/2 text-center lg:text-left order-1 lg:order-2">
-          <motion.h1
+        <div ref={rightRef} className="w-full lg:w-1/2 text-center lg:text-left order-1 lg:order-2">
+          <h1
             className="text-white font-display mb-6 uppercase tracking-tight leading-tight 
                        text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
             style={{ fontFamily: "Anton, sans-serif" }}
@@ -148,9 +148,9 @@ const About = () => {
             MERN STACK
             <br />
             DEVELOPER
-          </motion.h1>
+          </h1>
 
-          <motion.p
+          <p
             className="text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-10
                        max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0"
           >
@@ -172,9 +172,9 @@ const About = () => {
               GEMS College, Ramapuram
             </span>
             .
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
             className="
               grid grid-cols-2 sm:grid-cols-4 
               gap-3 sm:gap-4 md:gap-6 
@@ -182,10 +182,8 @@ const About = () => {
             "
           >
             {statsData.map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 className="
                   flex flex-col items-center justify-center
                   w-full h-20 sm:h-24 md:h-28
@@ -205,10 +203,10 @@ const About = () => {
                 <div className="text-xs sm:text-xs md:text-sm text-gray-400 mt-1 z-10 font-semibold tracking-wider whitespace-nowrap">
                   {item.subtitle}
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`

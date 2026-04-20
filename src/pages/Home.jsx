@@ -1,5 +1,5 @@
 import React, { memo, useMemo, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -106,16 +106,16 @@ const Home = () => {
         ref={contentRef}
         className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-16 md:py-24"
       >
-        <motion.h1
+        <h1
           id="home-heading"
           className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem] shine-text"
           style={{ fontFamily: "Anton, sans-serif" }}
         >
           <span className="block flex items-center justify-center">Anees</span>
           <span className="-mt-2 block sm:-mt-4 mr-2">Aboobacker</span>
-        </motion.h1>
+        </h1>
 
-        <motion.div
+        <div
           className="
             mt-10 sm:mt-14 
             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
@@ -146,30 +146,27 @@ const Home = () => {
               Kerala, India
             </p>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div className="mt-10 flex items-center space-x-5 sm:space-x-8">
+        <div className="mt-10 flex items-center space-x-5 sm:space-x-8">
           {SOCIAL_LINKS.map((item) => (
-            <motion.a
+            <a
               key={item.label}
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-transform duration-200"
               aria-label={`Visit Anees on ${item.label}`}
-              whileHover={prefersReducedMotion ? undefined : { scale: 1.15 }}
-              transition={
-                prefersReducedMotion
-                  ? undefined
-                  : { type: "spring", stiffness: 400, damping: 20 }
-              }
+              style={{
+                transition: prefersReducedMotion ? "color 200ms ease" : "transform 200ms ease, color 200ms ease",
+              }}
             >
               {item.icon}
-            </motion.a>
+            </a>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div className="mt-8 sm:mt-10">
+        <div className="mt-8 sm:mt-10">
           <a
             href="/Anees_Aboobacker_CV.pdf"
             download="Anees_Aboobacker_CV.pdf"
@@ -190,7 +187,7 @@ const Home = () => {
             </span>
             <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
           </a>
-        </motion.div>
+        </div>
 
         <style jsx>{`
         .moving-grid {
