@@ -1,5 +1,9 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useCallback, memo, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+
+gsap.registerPlugin(useGSAP);
 
 const links = [
   { name: "HOME", href: "#home" },
@@ -11,18 +15,49 @@ const links = [
 
 const Navbar = () => {
   const [active, setActive] = useState("home");
+  const navRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
 
   const handleLinkClick = useCallback((name) => {
     setActive(name.toLowerCase());
   }, []);
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.fromTo(
+        navRef.current,
+        { y: -32, opacity: 0, filter: "blur(10px)" },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 1,
+          ease: "power3.out",
+        }
+      );
+
+      gsap.fromTo(
+        ".nav-link",
+        { y: -10, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.06,
+          delay: 0.12,
+          ease: "power2.out",
+        }
+      );
+    },
+    { scope: navRef, dependencies: [prefersReducedMotion] }
+  );
+
   return (
     <motion.nav
+      ref={navRef}
       aria-label="Primary"
-      initial={prefersReducedMotion ? false : { opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
       className="
         fixed top-4 left-1/2 -translate-x-1/2 z-50
         border-3 rounded-full
@@ -48,7 +83,7 @@ const Navbar = () => {
             <a
               href={link.href}
               onClick={() => handleLinkClick(link.name)}
-              className={`font-semibold tracking-widest transition-all duration-300 
+              className={`nav-link font-semibold tracking-widest transition-all duration-300 
                 text-[10px] sm:text-xs md:text-sm lg:text-base
                 ${
                   active === link.name.toLowerCase()

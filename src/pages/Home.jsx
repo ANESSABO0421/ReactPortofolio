@@ -1,6 +1,11 @@
-import React, { useMemo, memo } from "react";
+import React, { memo, useMemo, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FaGithub, FaLinkedin, FaInstagram, FaDownload } from "react-icons/fa";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const STAR_COUNT = 20;
 const SOCIAL_LINKS = [
@@ -20,22 +25,66 @@ const createStarField = (count) =>
   }));
 
 const Home = () => {
+  const sectionRef = useRef(null);
+  const gridRef = useRef(null);
+  const contentRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const stars = useMemo(() => createStarField(STAR_COUNT), []);
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.fromTo(
+        contentRef.current.children,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: "power3.out",
+        }
+      );
+
+      gsap.to(gridRef.current, {
+        yPercent: 12,
+        scale: 1.08,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      });
+
+      gsap.to(contentRef.current, {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      });
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="home"
       aria-labelledby="home-heading"
       className="relative min-h-screen bg-[#0d0d0d] text-gray-200 overflow-hidden flex items-center"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* === ANIMATING GRID BACKGROUND === */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-[-50%] moving-grid"></div>
+        <div ref={gridRef} className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
-      {/* === FLOATING STARS === */}
       <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
         {stars.map((star) => (
           <span
@@ -53,14 +102,12 @@ const Home = () => {
         ))}
       </div>
 
-      {/* === MAIN CONTENT === */}
-      <div className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-16 md:py-24">
-        {/* === NAME SECTION === */}
+      <div
+        ref={contentRef}
+        className="relative z-10 w-full flex flex-col items-center justify-center px-4 py-16 md:py-24"
+      >
         <motion.h1
           id="home-heading"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem] shine-text"
           style={{ fontFamily: "Anton, sans-serif" }}
         >
@@ -68,18 +115,13 @@ const Home = () => {
           <span className="-mt-2 block sm:-mt-4 mr-2">Aboobacker</span>
         </motion.h1>
 
-        {/* === INFO GRID === */}
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
           className="
             mt-10 sm:mt-14 
             grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
             gap-6 sm:gap-10 w-full max-w-5xl
           "
         >
-          {/* ITEM */}
           <div className="flex flex-col items-center text-center px-4 sm:border-r sm:border-gray-700">
             <p className="text-xs sm:text-sm font-bold tracking-widest text-white">
               FULL-STACK DEVELOPER
@@ -106,13 +148,7 @@ const Home = () => {
           </div>
         </motion.div>
 
-        {/* === SOCIAL ICONS === */}
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5, ease: "easeOut" }}
-          className="mt-10 flex items-center space-x-5 sm:space-x-8"
-        >
+        <motion.div className="mt-10 flex items-center space-x-5 sm:space-x-8">
           {SOCIAL_LINKS.map((item) => (
             <motion.a
               key={item.label}
@@ -121,9 +157,7 @@ const Home = () => {
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-transform duration-200"
               aria-label={`Visit Anees on ${item.label}`}
-              whileHover={
-                prefersReducedMotion ? undefined : { scale: 1.15 }
-              }
+              whileHover={prefersReducedMotion ? undefined : { scale: 1.15 }}
               transition={
                 prefersReducedMotion
                   ? undefined
@@ -135,15 +169,9 @@ const Home = () => {
           ))}
         </motion.div>
 
-        {/* === DOWNLOAD CV BUTTON === */}
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5, ease: "easeOut" }}
-          className="mt-8 sm:mt-10"
-        >
+        <motion.div className="mt-8 sm:mt-10">
           <a
-            href="/Anees_Aboobacker_CV.pdf" // Update this path to your actual CV file
+            href="/Anees_Aboobacker_CV.pdf"
             download="Anees_Aboobacker_CV.pdf"
             className="
               inline-flex items-center px-6 py-3 sm:px-8 sm:py-3.5
@@ -164,7 +192,6 @@ const Home = () => {
           </a>
         </motion.div>
 
-        {/* Add the CSS for moving grid background and text shine */}
         <style jsx>{`
         .moving-grid {
           background-image:
@@ -172,9 +199,9 @@ const Home = () => {
             linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
           background-size: 30px 30px;
           transform: rotate(-20deg) scale(1.5);
-          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
+          animation: ${prefersReducedMotion ? "none" : "gridMove 20s linear infinite"};
         }
-        
+
         .shine-text {
           background: linear-gradient(
             90deg,
@@ -188,9 +215,9 @@ const Home = () => {
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          animation: ${prefersReducedMotion ? 'none' : 'textShine 3s ease-in-out infinite'};
+          animation: ${prefersReducedMotion ? "none" : "textShine 3s ease-in-out infinite"};
         }
-        
+
         @keyframes gridMove {
           0% {
             transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
@@ -199,7 +226,7 @@ const Home = () => {
             transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
           }
         }
-        
+
         @keyframes starFloat {
           0%, 100% {
             transform: translateY(0px);
@@ -208,7 +235,7 @@ const Home = () => {
             transform: translateY(-10px);
           }
         }
-        
+
         @keyframes textShine {
           0% {
             background-position: -200% center;
@@ -216,10 +243,6 @@ const Home = () => {
           100% {
             background-position: 200% center;
           }
-        }
-        
-        .button-hover-effect {
-          transition: all 0.3s ease-in-out;
         }
       `}</style>
       </div>

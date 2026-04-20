@@ -1,6 +1,11 @@
 import React, { useRef, useState, useMemo, useCallback } from "react";
 import emailjs from "@emailjs/browser";
 import { motion, useReducedMotion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const generateStars = () =>
   Array.from({ length: 20 }, (_, i) => ({
@@ -14,6 +19,9 @@ const generateStars = () =>
 
 const Contact = () => {
   const formRef = useRef();
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const bgRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const [status, setStatus] = useState({ type: "idle", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,8 +61,60 @@ const Contact = () => {
     [isSubmitting]
   );
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.to(bgRef.current, {
+        yPercent: 10,
+        scale: 1.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.05,
+        },
+      });
+
+      gsap.fromTo(
+        headerRef.current.children,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 82%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".contact-field",
+        { y: 26, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 76%",
+          },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
       aria-labelledby="contact-heading"
       className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20"
@@ -62,7 +122,7 @@ const Contact = () => {
     >
       {/* 🌐 GRID BACKGROUND - Same as Other Sections */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-[-50%] moving-grid"></div>
+        <div ref={bgRef} className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
       {/* 🌟 Floating Stars - Same as Other Sections */}
@@ -86,6 +146,7 @@ const Contact = () => {
       <div className="relative z-10 w-full max-w-7xl px-6">
         {/* HEADER - Matching Home Section Style */}
         <motion.div
+          ref={headerRef}
           className="relative z-10 mb-16 text-center"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +196,7 @@ const Contact = () => {
 
             <div className="relative z-10 space-y-6">
               {/* NAME FIELD */}
-              <div className="space-y-2">
+              <div className="contact-field space-y-2">
                 <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-name"
@@ -169,7 +230,7 @@ const Contact = () => {
               </div>
 
               {/* EMAIL FIELD */}
-              <div className="space-y-2">
+              <div className="contact-field space-y-2">
                 <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-email"
@@ -203,7 +264,7 @@ const Contact = () => {
               </div>
 
               {/* MESSAGE FIELD */}
-              <div className="space-y-2">
+              <div className="contact-field space-y-2">
                 <label
                   className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
                   htmlFor="contact-message"
@@ -238,12 +299,8 @@ const Contact = () => {
 
               {/* SUBMIT BUTTON */}
               <motion.button
-                type="submit"
-                whileHover={prefersReducedMotion ? undefined : { scale: 1.05, y: -2 }}
-                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
-                disabled={isSubmitting}
-                aria-disabled={isSubmitting}
                 className="
+                  contact-field
                   w-full py-4
                   rounded-2xl
                   bg-gradient-to-r from-cyan-500 to-blue-600
@@ -259,6 +316,11 @@ const Contact = () => {
                   overflow-hidden
                   group/btn
                 "
+                type="submit"
+                whileHover={prefersReducedMotion ? undefined : { scale: 1.05, y: -2 }}
+                whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                disabled={isSubmitting}
+                aria-disabled={isSubmitting}
               >
                 {/* Button Shine Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
@@ -270,9 +332,8 @@ const Contact = () => {
 
               {/* STATUS MESSAGE */}
               <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
                 className={`
+                  contact-field
                   text-center text-sm font-medium
                   ${status.type === "error"
                     ? "text-red-400"
@@ -281,6 +342,8 @@ const Contact = () => {
                       : "text-gray-400"
                   }
                 `}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 role="status"
                 aria-live="polite"
               >

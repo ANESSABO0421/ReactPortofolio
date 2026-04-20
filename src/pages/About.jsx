@@ -1,6 +1,11 @@
-import React, { useMemo, memo } from "react";
+import React, { useMemo, memo, useRef } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TiltCard from "../components/TiltCard";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const STAR_COUNT = 20;
 
@@ -15,28 +20,84 @@ const generateStars = (count) =>
   }));
 
 const About = () => {
+  const sectionRef = useRef(null);
+  const gridRef = useRef(null);
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const stars = useMemo(() => generateStars(STAR_COUNT), []);
-  const statsData = useMemo(() => [
-    { title: "20+", subtitle: "PROJECTS" },
-    { title: "3+", subtitle: "YEARS" },
-    { title: "5+", subtitle: "TECH" },
-    { title: "MERN", subtitle: "STACK" },
-  ], []);
+  const statsData = useMemo(
+    () => [
+      { title: "20+", subtitle: "PROJECTS" },
+      { title: "3+", subtitle: "YEARS" },
+      { title: "5+", subtitle: "TECH" },
+      { title: "MERN", subtitle: "STACK" },
+    ],
+    []
+  );
+
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.to(gridRef.current, {
+        yPercent: 10,
+        scale: 1.06,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      });
+
+      gsap.fromTo(
+        leftRef.current,
+        { x: -40, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 72%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        rightRef.current.children,
+        { x: 40, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.85,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 68%",
+          },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
 
   return (
     <section
+      ref={sectionRef}
       id="about"
       aria-labelledby="about-heading"
       className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-12 lg:py-0"
       style={{ fontFamily: "Inter, sans-serif" }}
     >
-      {/* 🌐 GRID BACKGROUND - Same as Home */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-[-50%] moving-grid"></div>
+        <div ref={gridRef} className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
-      {/* 🌟 Floating Stars - Same as Home */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
         {stars.map((star) => (
           <span
@@ -54,17 +115,8 @@ const About = () => {
         ))}
       </div>
 
-      {/* MAIN CONTENT CONTAINER */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
-
-        {/* LEFT SIDE - IMAGE - Responsive sizing */}
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full lg:w-1/2 flex justify-center order-2 lg:order-1"
-        >
+        <motion.div ref={leftRef} className="w-full lg:w-1/2 flex justify-center order-2 lg:order-1">
           <div className="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px]">
             <TiltCard
               imageSrc="/anees.webp"
@@ -87,20 +139,8 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT SIDE - CONTENT */}
-        <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
-          className="w-full lg:w-1/2 text-center lg:text-left order-1 lg:order-2"
-        >
-          {/* MAIN HEADING - Responsive text sizes */}
+        <motion.div ref={rightRef} className="w-full lg:w-1/2 text-center lg:text-left order-1 lg:order-2">
           <motion.h1
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
             className="text-white font-display mb-6 uppercase tracking-tight leading-tight 
                        text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
             style={{ fontFamily: "Anton, sans-serif" }}
@@ -110,12 +150,7 @@ const About = () => {
             DEVELOPER
           </motion.h1>
 
-          {/* DESCRIPTION - Responsive text and spacing */}
           <motion.p
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
             className="text-gray-300 text-base sm:text-lg md:text-xl leading-relaxed mb-8 sm:mb-10
                        max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0"
           >
@@ -139,12 +174,7 @@ const About = () => {
             .
           </motion.p>
 
-          {/* STATS GRID - Responsive grid and sizing */}
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
             className="
               grid grid-cols-2 sm:grid-cols-4 
               gap-3 sm:gap-4 md:gap-6 
@@ -181,7 +211,6 @@ const About = () => {
         </motion.div>
       </div>
 
-      {/* CSS STYLES */}
       <style jsx>{`
         .moving-grid {
           background-image:
@@ -189,9 +218,9 @@ const About = () => {
             linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
           background-size: 30px 30px;
           transform: rotate(-20deg) scale(1.5);
-          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
+          animation: ${prefersReducedMotion ? "none" : "gridMove 20s linear infinite"};
         }
-        
+
         @keyframes gridMove {
           0% {
             transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
@@ -200,14 +229,13 @@ const About = () => {
             transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
           }
         }
-        
+
         @keyframes starFloat {
           0% { transform: translateY(0px); opacity: 0.5; }
           50% { opacity: 1; transform: translateY(-10px); }
           100% { opacity: 0.5; transform: translateY(0px); }
         }
 
-        /* Mobile-first responsive adjustments */
         @media (max-width: 640px) {
           .moving-grid {
             transform: rotate(-20deg) scale(2);

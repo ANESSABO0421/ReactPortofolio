@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { FiGithub, FiExternalLink } from "react-icons/fi";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects as projectList } from "../lib/projects";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const generateStars = () =>
   Array.from({ length: 20 }, (_, i) => ({
@@ -30,11 +35,7 @@ const ProjectCard = React.memo(
             onOpen(project.id);
           }
         }}
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
-        className="group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b] transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] backdrop-blur-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
+        className="project-card group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b] transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] backdrop-blur-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
       >
         <div className="relative h-40 w-full overflow-hidden sm:h-48 md:h-56 lg:h-64">
           {imageSrc ? (
@@ -112,6 +113,10 @@ const ProjectCard = React.memo(
 );
 
 const Projects = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const gridRef = useRef(null);
+  const bgRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const projectData = useMemo(() => projectList, []);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
@@ -171,8 +176,61 @@ const Projects = () => {
     }
   }, [currentImageIndex, selectedProject]);
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.to(bgRef.current, {
+        yPercent: 10,
+        scale: 1.06,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.1,
+        },
+      });
+
+      gsap.fromTo(
+        headerRef.current.children,
+        { y: 26, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".project-card",
+        { y: 44, opacity: 0, scale: 0.96 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.85,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 78%",
+          },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="projects"
       aria-labelledby="projects-heading"
       className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20 px-4 sm:px-8 md:px-16"
@@ -180,7 +238,7 @@ const Projects = () => {
     >
       {/* 🌐 GRID BACKGROUND - Same as Home & About Sections */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-[-50%] moving-grid"></div>
+        <div ref={bgRef} className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
       {/* 🌟 Floating Stars - Same as Home & About Sections */}
@@ -204,6 +262,7 @@ const Projects = () => {
       <div className="relative z-10 w-full max-w-7xl">
         {/* HEADER - Matching Home Section Style */}
         <motion.div
+          ref={headerRef}
           className="relative z-10 mb-12 text-center sm:mb-16"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -223,7 +282,7 @@ const Projects = () => {
         </motion.div>
 
         {/* PROJECTS GRID */}
-        <div className="relative z-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+        <div ref={gridRef} className="relative z-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
           {projectData.map((project, index) => (
             <ProjectCard
               key={project.id}

@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from "react";
+import React, { useMemo, memo, useRef } from "react";
 import {
   FaHtml5,
   FaCss3Alt,
@@ -40,6 +40,11 @@ import {
 import { VscCode } from "react-icons/vsc";
 import { RiClaudeFill } from "react-icons/ri";
 import { motion, useReducedMotion } from "framer-motion";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const categories = [
   {
@@ -137,11 +142,83 @@ const generateStars = () =>
   }));
 
 const Skills = () => {
+  const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const bgRef = useRef(null);
   const prefersReducedMotion = useReducedMotion();
   const stars = useMemo(() => generateStars(), []);
 
+  useGSAP(
+    () => {
+      if (prefersReducedMotion) return undefined;
+
+      gsap.to(bgRef.current, {
+        yPercent: 10,
+        scale: 1.05,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 1.05,
+        },
+      });
+
+      gsap.fromTo(
+        headerRef.current.children,
+        { y: 24, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 82%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".skills-category",
+        { y: 44, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          stagger: 0.14,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 65%",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".skill-chip",
+        { y: 20, opacity: 0, scale: 0.96 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.55,
+          stagger: 0.015,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 58%",
+          },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [prefersReducedMotion] }
+  );
+
   return (
     <section
+      ref={sectionRef}
       id="skills"
       aria-labelledby="skills-heading"
       className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20"
@@ -149,7 +226,7 @@ const Skills = () => {
     >
       {/* 🌐 GRID BACKGROUND - Same as Home & About Sections */}
       <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute inset-[-50%] moving-grid"></div>
+        <div ref={bgRef} className="absolute inset-[-50%] moving-grid"></div>
       </div>
 
       {/* 🌟 Floating Stars - Same as Home & About Sections */}
@@ -173,6 +250,7 @@ const Skills = () => {
       <div className="relative z-10 w-full max-w-7xl px-6">
         {/* HEADER - Matching Home Section Style */}
         <motion.div
+          ref={headerRef}
           className="relative z-10 mb-16 text-center"
           initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -196,11 +274,8 @@ const Skills = () => {
           {categories.map((category, index) => (
             <motion.div
               key={index}
-              initial={prefersReducedMotion ? false : { opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
               className="
+                skills-category
                 w-full
                 bg-gradient-to-br from-[#111] to-[#0a0a0a]
                 rounded-3xl
@@ -244,6 +319,7 @@ const Skills = () => {
                     }}
                     transition={{ duration: 0.2 }}
                     className="
+                      skill-chip
                       relative
                       flex flex-col items-center justify-center
                       p-2.5 sm:p-3.5 md:p-4

@@ -1,20 +1,47 @@
-import React, { useMemo, memo } from "react";
+import React, { useMemo, memo, useRef } from "react";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Footer = () => {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
+  const footerRef = useRef(null);
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        ".footer-reveal",
+        { y: 28, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top 88%",
+          },
+        }
+      );
+    },
+    { scope: footerRef }
+  );
 
   return (
-    <footer className="w-full bg-[#0d0d0d] text-gray-400 py-8 border-t border-gray-800">
+    <footer ref={footerRef} className="w-full bg-[#0d0d0d] text-gray-400 py-8 border-t border-gray-800">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         
         {/* Left - Brand */}
-        <p className="text-sm text-center md:text-left">
+        <p className="footer-reveal text-sm text-center md:text-left">
           © {currentYear} <span className="text-white font-semibold">Anees</span>. All rights reserved.
         </p>
 
         {/* Center - Social Icons */}
-        <div className="flex items-center gap-6 text-xl">
+        <div className="footer-reveal flex items-center gap-6 text-xl">
           <a
             href="https://github.com/ANESSABO0421"
             className="hover:text-white transition-colors"
