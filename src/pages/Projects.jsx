@@ -1,423 +1,163 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { FiGithub, FiExternalLink } from "react-icons/fi";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React, { useMemo, useState } from "react";
+import { FiExternalLink, FiGithub, FiX } from "react-icons/fi";
 import { projects as projectList } from "../lib/projects";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const generateStars = () =>
-  Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 2 + 1,
-    top: Math.random() * 100,
-    left: Math.random() * 100,
-    opacity: Math.random() * 0.7 + 0.3,
-    duration: Math.random() * 6 + 4,
-  }));
-
-const ProjectCard = React.memo(
-  ({ project, index, imgIndex, onOpen, prefersReducedMotion }) => {
-    const imageSrc = project.images[imgIndex] || project.coverImage;
-    const imageAlt = project.imageAlt || `${project.title} preview`;
-
-    return (
-      <motion.article
-        role="button"
-        tabIndex={0}
-        aria-label={`Open detailed view for ${project.title}`}
-        onClick={() => onOpen(project.id)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            onOpen(project.id);
-          }
-        }}
-        className="project-card group relative flex w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b] transition-all duration-500 hover:border-white/25 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] backdrop-blur-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
-      >
-        <div className="relative h-40 w-full overflow-hidden sm:h-48 md:h-56 lg:h-64">
-          {imageSrc ? (
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={`${project.id}-${imgIndex}`}
-                src={imageSrc}
-                alt={imageAlt}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                fetchpriority={index === 0 ? "high" : "auto"}
-                sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 90vw"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                initial={prefersReducedMotion ? false : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-              />
-            </AnimatePresence>
-          ) : (
-            <div
-              className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
-              aria-hidden="true"
-            />
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        </div>
-
-        <div className="flex flex-1 flex-col p-5 text-gray-300">
-          <h3 className="mb-2 text-lg font-semibold text-white transition-colors group-hover:text-amber-400 sm:text-xl md:text-2xl">
-            {project.title}
-          </h3>
-
-          <p className="mb-3 text-xs text-gray-400 sm:text-sm md:text-base line-clamp-2">
-            {project.shortDescription}
-          </p>
-
-          <div className="mb-4 flex flex-wrap gap-2">
-            {project.technologies.slice(0, 3).map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-gray-700 bg-[#161616] px-3 py-1 text-[10px] text-gray-300 sm:text-xs"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-auto flex items-center justify-between border-t border-white/10 pt-3">
-            <a
-              href={project.demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-xs hover:text-white sm:text-sm"
-              onClick={(event) => event.stopPropagation()}
-              aria-label={`View live demo for ${project.title}`}
-            >
-              <FiExternalLink aria-hidden="true" /> Demo
-            </a>
-
-            <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-xs hover:text-white sm:text-sm"
-              onClick={(event) => event.stopPropagation()}
-              aria-label={`Open GitHub repository for ${project.title}`}
-            >
-              <FiGithub aria-hidden="true" /> Repo
-            </a>
-          </div>
-        </div>
-      </motion.article>
-    );
-  }
-);
-
 const Projects = () => {
-  const sectionRef = useRef(null);
-  const headerRef = useRef(null);
-  const gridRef = useRef(null);
-  const bgRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
-  const projectData = useMemo(() => projectList, []);
+  const projects = useMemo(() => projectList, []);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [cardIndexes, setCardIndexes] = useState(() =>
-    projectData.reduce((acc, project) => ({ ...acc, [project.id]: 0 }), {})
-  );
-  const stars = useMemo(() => generateStars(), []);
 
-  const selectedProject = useMemo(
-    () => projectData.find((project) => project.id === selectedProjectId) ?? null,
-    [projectData, selectedProjectId]
-  );
-
-  const openModal = useCallback((id) => {
-    setSelectedProjectId(id);
-    setCurrentImageIndex(0);
-  }, []);
-
-  const closeModal = useCallback(() => {
-    setSelectedProjectId(null);
-  }, []);
-
-  useEffect(() => {
-    if (selectedProjectId) {
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = "";
-      };
-    }
-
-    document.body.style.overflow = "";
-    return undefined;
-  }, [selectedProjectId]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCardIndexes((prev) =>
-        projectData.reduce((acc, project) => {
-          const length = project.images.length || (project.coverImage ? 1 : 0);
-          acc[project.id] =
-            length > 0 ? ((prev[project.id] || 0) + 1) % length : 0;
-          return acc;
-        }, {})
-      );
-    }, 4000);
-
-    return () => clearInterval(interval);
-  }, [projectData]);
-
-  useEffect(() => {
-    if (!selectedProject) return;
-    const totalImages =
-      selectedProject.images.length || (selectedProject.coverImage ? 1 : 0);
-    if (currentImageIndex >= totalImages) {
-      setCurrentImageIndex(0);
-    }
-  }, [currentImageIndex, selectedProject]);
-
-  useGSAP(
-    () => {
-      if (prefersReducedMotion) return undefined;
-
-      gsap.to(bgRef.current, {
-        yPercent: 10,
-        scale: 1.06,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.1,
-        },
-      });
-
-      gsap.fromTo(
-        headerRef.current.children,
-        { y: 26, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 80%",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".project-card",
-        { y: 44, opacity: 0, scale: 0.96 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.85,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: "top 78%",
-          },
-        }
-      );
-    },
-    { scope: sectionRef, dependencies: [prefersReducedMotion] }
-  );
+  const selectedProject = projects.find((project) => project.id === selectedProjectId) ?? null;
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      aria-labelledby="projects-heading"
-      className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20 px-4 sm:px-8 md:px-16"
-      style={{ fontFamily: "Inter, sans-serif" }}
-    >
-      {/* 🌐 GRID BACKGROUND - Same as Home & About Sections */}
-      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div ref={bgRef} className="absolute inset-[-50%] moving-grid"></div>
-      </div>
-
-      {/* 🌟 Floating Stars - Same as Home & About Sections */}
-      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        {stars.map((star) => (
-          <span
-            key={star.id}
-            className="absolute bg-white rounded-full star-float"
-            style={{
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              top: `${star.top}%`,
-              left: `${star.left}%`,
-              opacity: star.opacity,
-              animation: prefersReducedMotion ? "none" : `starFloat ${star.duration}s ease-in-out infinite`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl">
-        {/* HEADER - Matching Home Section Style */}
-        <motion.div
-          ref={headerRef}
-          className="relative z-10 mb-12 text-center sm:mb-16"
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <h1
-            id="projects-heading"
-            className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
-            style={{ fontFamily: "Anton, sans-serif" }}
-          >
-            WORKS
-          </h1>
-          <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
-            CRAFTED WITH PRECISION
+    <section id="projects" className="portfolio-section section-anchor-offset">
+      <div className="portfolio-container">
+        <div className="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="section-kicker">Selected Works</p>
+            <h2 className="section-title">Projects</h2>
+          </div>
+          <p className="section-lead">
+            The cards are now arranged in a lighter editorial style inspired by the
+            reference site, while the project data remains your own.
           </p>
-        </motion.div>
+        </div>
 
-        {/* PROJECTS GRID */}
-        <div ref={gridRef} className="relative z-10 grid w-full grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
-          {projectData.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              index={index}
-              imgIndex={cardIndexes[project.id] || 0}
-              onOpen={openModal}
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          ))}
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {projects.map((project) => {
+            const preview = project.images?.[0] || project.coverImage?.[0] || project.coverImage;
+
+            return (
+              <article
+                key={project.id}
+                className="surface-card flex h-full flex-col overflow-hidden rounded-[2rem]"
+              >
+                <div className="relative h-64 overflow-hidden border-b border-[var(--line)] bg-[#0f1620]">
+                  {preview ? (
+                    <img
+                      src={preview}
+                      alt={project.imageAlt || project.title}
+                      className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-[1.03]"
+                    />
+                  ) : null}
+                </div>
+                <div className="flex flex-1 flex-col p-6">
+                  <p className="muted-label mb-3">Project</p>
+                  <h3 className="text-2xl font-extrabold tracking-tight text-[var(--text)]">
+                    {project.title}
+                  </h3>
+                  <p className="mt-4 flex-1 text-sm leading-7 text-[var(--muted)]">
+                    {project.shortDescription}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span key={tech} className="pill-chip text-xs">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-6 flex gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProjectId(project.id)}
+                      className="soft-button primary"
+                    >
+                      View Details
+                    </button>
+                    {project.demoLink ? (
+                      <a
+                        href={project.demoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="soft-button secondary"
+                      >
+                        <FiExternalLink />
+                        Live
+                      </a>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
 
-      {/* PROJECT MODAL */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-lg"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="project-modal-title"
-            aria-describedby="project-modal-description"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeModal}
+      {selectedProject ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(29,20,13,0.5)] p-4 backdrop-blur-md"
+          onClick={() => setSelectedProjectId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="project-modal-title"
+        >
+          <div
+            className="surface-card relative max-h-[90vh] w-full max-w-4xl overflow-auto rounded-[2rem]"
+            onClick={(event) => event.stopPropagation()}
           >
-            <motion.div
-              onClick={(event) => event.stopPropagation()}
-              initial={prefersReducedMotion ? false : { scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={prefersReducedMotion ? { opacity: 0 } : { scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-white/20 bg-black/70 shadow-xl"
+            <button
+              type="button"
+              onClick={() => setSelectedProjectId(null)}
+              className="absolute right-4 top-4 z-10 rounded-full border border-[var(--line)] bg-[var(--panel-strong)] p-2 text-[var(--text)]"
+              aria-label="Close project details"
             >
-              <div className="h-48 w-full sm:h-64 md:h-80">
+              <FiX />
+            </button>
+            <div className="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="min-h-[320px] border-b border-[var(--line)] bg-[#0f1620] lg:min-h-full lg:border-b-0 lg:border-r">
                 <img
                   src={
-                    selectedProject.images[currentImageIndex] ||
+                    selectedProject.images?.[0] ||
+                    selectedProject.coverImage?.[0] ||
                     selectedProject.coverImage
                   }
                   alt={selectedProject.imageAlt || selectedProject.title}
-                  loading="lazy"
-                  decoding="async"
-                  fetchpriority="auto"
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-cover object-top"
                 />
               </div>
-
-              <div className="p-5 text-gray-300 sm:p-7 md:p-8">
-                <h2
-                  id="project-modal-title"
-                  className="mb-3 text-xl font-bold text-white sm:text-2xl md:text-3xl"
-                >
+              <div className="p-6 sm:p-8">
+                <p className="section-kicker">Detailed View</p>
+                <h3 id="project-modal-title" className="heading-display text-5xl leading-none">
                   {selectedProject.title}
-                </h2>
-
-                <p
-                  id="project-modal-description"
-                  className="mb-5 text-sm leading-relaxed text-gray-400 sm:text-base"
-                >
+                </h3>
+                <p className="mt-5 text-sm leading-7 text-[var(--muted)] sm:text-base">
                   {selectedProject.detailedDescription}
                 </p>
-
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {selectedProject.technologies.map((technology) => (
-                    <span
-                      key={technology}
-                      className="rounded-full border border-gray-700 bg-[#1a1a1a] px-3 py-1 text-xs text-gray-300"
-                    >
-                      {technology}
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => (
+                    <span key={tech} className="pill-chip text-xs">
+                      {tech}
                     </span>
                   ))}
                 </div>
-
-                <div className="flex flex-col gap-4 sm:flex-row">
-                  <a
-                    href={selectedProject.demoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-blue-600 py-2 text-sm text-white transition hover:bg-blue-500 sm:py-3"
-                  >
-                    <FiExternalLink aria-hidden="true" /> Demo
-                  </a>
-
-                  <a
-                    href={selectedProject.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-gray-800 py-2 text-sm text-gray-200 transition hover:bg-gray-700 sm:py-3"
-                  >
-                    <FiGithub aria-hidden="true" /> Repo
-                  </a>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  {selectedProject.demoLink ? (
+                    <a
+                      href={selectedProject.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="soft-button primary"
+                    >
+                      <FiExternalLink />
+                      Visit Demo
+                    </a>
+                  ) : null}
+                  {selectedProject.githubLink ? (
+                    <a
+                      href={selectedProject.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="soft-button secondary"
+                    >
+                      <FiGithub />
+                      Source
+                    </a>
+                  ) : null}
                 </div>
               </div>
-
-              <button
-                type="button"
-                onClick={closeModal}
-                className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white transition hover:bg-white/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                aria-label="Close project details"
-              >
-                ✕
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* CSS STYLES */}
-      <style jsx>{`
-        .moving-grid {
-          background-image:
-            linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-          background-size: 30px 30px;
-          transform: rotate(-20deg) scale(1.5);
-          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
-        }
-        
-        @keyframes gridMove {
-          0% {
-            transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
-          }
-          100% {
-            transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
-          }
-        }
-        
-        @keyframes starFloat {
-          0% { transform: translateY(0px); opacity: 0.5; }
-          50% { opacity: 1; transform: translateY(-10px); }
-          100% { opacity: 0.5; transform: translateY(0px); }
-        }
-      `}</style>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 };

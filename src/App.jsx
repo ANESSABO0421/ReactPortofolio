@@ -1,24 +1,21 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import CustomCursor from "./components/CustomCursor";
 import Home from "./pages/Home";
-import { useLocation } from "react-router-dom";
+import { useSEO } from "./hooks/useSEO";
 
 const About = lazy(() => import("./pages/About"));
 const Projects = lazy(() => import("./pages/Projects"));
 const Skills = lazy(() => import("./pages/Skills"));
 const Contact = lazy(() => import("./pages/Contact"));
 
-const SectionFallback = React.memo(({ label }) => (
-  <div
-    role="status"
-    aria-live="polite"
-    className="flex min-h-[40vh] items-center justify-center bg-transparent text-sm uppercase tracking-[0.3em]"
-  >
-    Loading {label}…
+const SectionFallback = ({ label }) => (
+  <div className="portfolio-container py-20 text-sm font-bold uppercase tracking-[0.28em] text-[#7d4523]">
+    Loading {label}
   </div>
-));
-import { useSEO } from "./hooks/useSEO";
+);
 
 const DeferredSection = ({ id, children }) => (
   <div
@@ -37,12 +34,42 @@ const App = () => {
   useSEO();
   const activeHash = location.hash.replace("#", "");
 
+  useEffect(() => {
+    let ticking = false;
+
+    const updateParallax = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const root = document.documentElement;
+
+      root.style.setProperty("--scroll-y", `${scrollY}px`);
+      root.style.setProperty("--parallax-grid", `${scrollY * 0.18}px`);
+      root.style.setProperty("--parallax-stars", `${scrollY * 0.1}px`);
+      root.style.setProperty("--parallax-glow", `${scrollY * 0.06}px`);
+      ticking = false;
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    };
+
+    updateParallax();
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <>
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>
-      <div className="min-h-screen overflow-x-hidden bg-[#020409] text-white antialiased transition-colors duration-500">
+      <div className="portfolio-shell">
+        <CustomCursor />
         <Navbar />
         <main id="main-content" role="main">
           <Home />

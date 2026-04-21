@@ -1,76 +1,48 @@
-import React, { useMemo, memo, useRef } from "react";
+import React, { memo, useMemo } from "react";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const Footer = () => {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
-  const footerRef = useRef(null);
-
-  useGSAP(
-    () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
-
-      gsap.fromTo(
-        ".footer-reveal",
-        { y: 28, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: footerRef.current,
-            start: "top 88%",
-          },
-        }
-      );
-    },
-    { scope: footerRef }
-  );
+  const year = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <footer ref={footerRef} className="w-full bg-[#0d0d0d] text-gray-400 py-8 border-t border-gray-800">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        
-        {/* Left - Brand */}
-        <p className="footer-reveal text-sm text-center md:text-left">
-          © {currentYear} <span className="text-white font-semibold">Anees</span>. All rights reserved.
-        </p>
-
-        {/* Center - Social Icons */}
-        <div className="footer-reveal flex items-center gap-6 text-xl">
-          <a
-            href="https://github.com/ANESSABO0421"
-            className="hover:text-white transition-colors"
-            aria-label="GitHub"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FiGithub aria-hidden="true" />
-          </a>
-          <a
-            href="https://linkedin.com"
-            className="hover:text-white transition-colors"
-            aria-label="LinkedIn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FiLinkedin aria-hidden="true" />
-          </a>
-          <a
-            href="mailto:hello@aneesaboobacker.com"
-            className="hover:text-white transition-colors"
-            aria-label="Email"
-          >
-            <FiMail aria-hidden="true" />
-          </a>
+    <footer className="pb-10 pt-4">
+      <div className="portfolio-container">
+        <div className="section-divider mb-8" />
+        <div className="flex flex-col gap-6 rounded-[2rem] border border-[var(--line)] bg-[rgba(13,18,25,0.78)] px-6 py-8 shadow-[var(--shadow)] md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="muted-label mb-2">Portfolio</p>
+            <p className="text-sm text-[var(--muted)]">
+              © {year} Anees Aboobacker. Crafted with a cleaner studio-style interface.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/ANESSABO0421"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="rounded-full border border-[var(--line)] p-3 text-[var(--text)] transition-transform hover:-translate-y-0.5"
+            >
+              <FiGithub />
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="rounded-full border border-[var(--line)] p-3 text-[var(--text)] transition-transform hover:-translate-y-0.5"
+            >
+              <FiLinkedin />
+            </a>
+            <a
+              href="mailto:hello@aneesaboobacker.com"
+              aria-label="Email"
+              className="rounded-full border border-[var(--line)] p-3 text-[var(--text)] transition-transform hover:-translate-y-0.5"
+            >
+              <FiMail />
+            </a>
+          </div>
         </div>
-
       </div>
     </footer>
   );

@@ -1,119 +1,82 @@
-import React, { useState, useCallback, memo, useRef } from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-
-gsap.registerPlugin(useGSAP);
+import React, { memo, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const links = [
-  { name: "HOME", href: "#home" },
-  { name: "ABOUT", href: "#about" },
-  { name: "WORKS", href: "#projects" },
-  { name: "SKILLS", href: "#skills" },
-  { name: "CONTACT", href: "#contact" },
+  { name: "Home", href: "#home", id: "home" },
+  { name: "About", href: "#about", id: "about" },
+  { name: "Works", href: "#projects", id: "projects" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Contact", href: "#contact", id: "contact" },
 ];
 
 const Navbar = () => {
+  const location = useLocation();
   const [active, setActive] = useState("home");
-  const navRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
 
-  const handleLinkClick = useCallback((name) => {
-    setActive(name.toLowerCase());
+  useEffect(() => {
+    const hashTarget = location.hash.replace("#", "").toLowerCase();
+    const pathTarget = location.pathname.replace("/", "").toLowerCase();
+
+    if (hashTarget && links.some((link) => link.id === hashTarget)) {
+      setActive(hashTarget);
+      return;
+    }
+
+    if (pathTarget && links.some((link) => link.id === pathTarget)) {
+      setActive(pathTarget);
+      return;
+    }
+
+    setActive("home");
+  }, [location.hash, location.pathname]);
+
+  useEffect(() => {
+    const sections = links
+      .map((link) => document.getElementById(link.id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target?.id) {
+          setActive(visible.target.id);
+        }
+      },
+      { rootMargin: "-35% 0px -45% 0px", threshold: [0.2, 0.45, 0.7] }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
   }, []);
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion) return undefined;
-
-      gsap.fromTo(
-        navRef.current,
-        { y: -32, opacity: 0, filter: "blur(10px)" },
-        {
-          y: 0,
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 1,
-          ease: "power3.out",
-        }
-      );
-
-      gsap.fromTo(
-        ".nav-link",
-        { y: -10, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.06,
-          delay: 0.12,
-          ease: "power2.out",
-        }
-      );
-    },
-    { scope: navRef, dependencies: [prefersReducedMotion] }
-  );
-
   return (
-    <motion.nav
-      ref={navRef}
-      aria-label="Primary"
-      className="
-        fixed top-4 left-1/2 -translate-x-1/2 z-50
-        border-3 rounded-full
-        w-[calc(100%-1.5rem)] sm:w-[80%] md:w-auto
-        max-w-[500px]
-      "
-    >
-      <ul
-        className="
-          flex items-center justify-center
-          gap-4 sm:gap-6 md:gap-8
-          px-3 sm:px-6 md:px-8
-          py-2 sm:py-3
-          rounded-full bg-black/60 border border-white/10 backdrop-blur-xl
-          shadow-[0_0_25px_rgba(255,255,255,0.15)]
-          relative overflow-hidden
-          before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/5 before:to-transparent
-          before:translate-x-[-100%] before:animate-[shine_6s_linear_infinite]
-        "
+    <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-5 sm:px-6">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex w-fit items-center justify-center rounded-full border border-[rgba(255,255,255,0.28)] bg-[rgba(31,34,40,0.72)] px-2 py-2 backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.14)]"
       >
-        {links.map((link) => (
-          <li key={link.name} className="relative list-none">
-            <a
-              href={link.href}
-              onClick={() => handleLinkClick(link.name)}
-              className={`nav-link font-semibold tracking-widest transition-all duration-300 
-                text-[10px] sm:text-xs md:text-sm lg:text-base
-                ${
-                  active === link.name.toLowerCase()
-                    ? "text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-                    : "text-gray-400 hover:text-white"
+        <ul className="flex items-center gap-1 sm:gap-2">
+          {links.map((link) => (
+            <li key={link.id}>
+              <a
+                href={link.href}
+                onClick={() => setActive(link.id)}
+                className={`rounded-full px-4 py-2 text-xs font-extrabold uppercase tracking-[0.08em] transition-colors sm:px-5 sm:text-sm ${
+                  active === link.id
+                    ? "bg-[rgba(255,255,255,0.16)] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.22)]"
+                    : "text-[rgba(255,255,255,0.56)] hover:text-[var(--text)]"
                 }`}
-              aria-current={active === link.name.toLowerCase() ? "page" : undefined}
-            >
-              {link.name}
-            </a>
-
-            {active === link.name.toLowerCase() && (
-              <motion.div
-                layoutId="activeUnderline"
-                className="absolute -bottom-1 left-1/2 w-2 h-2 bg-white rounded-full -translate-x-1/2 shadow-[0_0_10px_white]"
-              />
-            )}
-          </li>
-        ))}
-      </ul>
-
-      {/* Metallic Sweep Animation */}
-      <style>{`
-        @keyframes shine {
-          0% { transform: translateX(-100%); }
-          50% { transform: translateX(100%); }
-          100% { transform: translateX(-100%); }
-        }
-      `}</style>
-    </motion.nav>
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 };
 

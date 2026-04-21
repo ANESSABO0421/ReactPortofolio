@@ -1,31 +1,10 @@
-import React, { useRef, useState, useMemo, useCallback } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import { useReducedMotion } from "framer-motion";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const generateStars = () =>
-  Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 2 + 1,
-    top: Math.random() * 100,
-    left: Math.random() * 100,
-    opacity: Math.random() * 0.7 + 0.3,
-    duration: Math.random() * 6 + 4,
-  }));
 
 const Contact = () => {
-  const formRef = useRef();
-  const sectionRef = useRef(null);
-  const headerRef = useRef(null);
-  const bgRef = useRef(null);
-  const prefersReducedMotion = useReducedMotion();
-  const [status, setStatus] = useState({ type: "idle", message: "" });
+  const formRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const stars = useMemo(() => generateStars(), []);
+  const [status, setStatus] = useState({ type: "idle", message: "" });
 
   const sendEmail = useCallback(
     (event) => {
@@ -45,12 +24,11 @@ const Contact = () => {
         .then(() => {
           setStatus({
             type: "success",
-            message: "Message sent successfully! I'll get back shortly.",
+            message: "Message sent successfully. I will get back to you soon.",
           });
           formRef.current?.reset();
         })
-        .catch((error) => {
-          console.error("Email error:", error);
+        .catch(() => {
           setStatus({
             type: "error",
             message: "Something went wrong. Please try again later.",
@@ -61,307 +39,94 @@ const Contact = () => {
     [isSubmitting]
   );
 
-  useGSAP(
-    () => {
-      if (prefersReducedMotion) return undefined;
-
-      gsap.to(bgRef.current, {
-        yPercent: 10,
-        scale: 1.05,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 1.05,
-        },
-      });
-
-      gsap.fromTo(
-        headerRef.current.children,
-        { y: 24, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: headerRef.current,
-            start: "top 82%",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        ".contact-field",
-        { y: 26, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: formRef.current,
-            start: "top 76%",
-          },
-        }
-      );
-    },
-    { scope: sectionRef, dependencies: [prefersReducedMotion] }
-  );
-
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      aria-labelledby="contact-heading"
-      className="relative min-h-screen bg-[#0d0d0d] text-white overflow-hidden flex items-center justify-center py-20"
-      style={{ fontFamily: "Inter, sans-serif" }}
-    >
-      {/* 🌐 GRID BACKGROUND - Same as Other Sections */}
-      <div className="absolute inset-0 z-0 overflow-hidden" aria-hidden="true">
-        <div ref={bgRef} className="absolute inset-[-50%] moving-grid"></div>
-      </div>
-
-      {/* 🌟 Floating Stars - Same as Other Sections */}
-      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        {stars.map((star) => (
-          <span
-            key={star.id}
-            className="absolute bg-white rounded-full star-float"
-            style={{
-              width: `${star.size}px`,
-              height: `${star.size}px`,
-              top: `${star.top}%`,
-              left: `${star.left}%`,
-              opacity: star.opacity,
-              animation: prefersReducedMotion ? "none" : `starFloat ${star.duration}s ease-in-out infinite`,
-            }}
-          />
-        ))}
-      </div>
-
-      <div className="relative z-10 w-full max-w-7xl px-6">
-        {/* HEADER - Matching Home Section Style */}
-        <div
-          ref={headerRef}
-          className="relative z-10 mb-16 text-center"
-        >
-          <h1
-            id="contact-heading"
-            className="text-white font-display mb-2 uppercase tracking-tighter leading-none text-7xl sm:text-7xl md:text-8xl lg:text-[8rem] xl:text-[10rem]"
-            style={{ fontFamily: "Anton, sans-serif" }}
-          >
-            CONTACT
-          </h1>
-          <p className="mt-3 text-gray-400 uppercase text-xs tracking-[0.3em]">
-            LET'S CREATE SOMETHING COSMIC
+    <section id="contact" className="portfolio-section section-anchor-offset">
+      <div className="portfolio-container grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="surface-card rounded-[2rem] p-6 sm:p-8">
+          <p className="section-kicker">Let&apos;s Work Together</p>
+          <h2 className="section-title text-[clamp(3rem,7vw,5.8rem)]">Contact</h2>
+          <p className="section-lead mt-5">
+            Ready to bring a new product idea, portfolio refresh, or frontend build
+            to life. This section now matches the softer premium style across the site.
           </p>
-        </div>
-
-        {/* PREMIUM FORM CONTAINER */}
-        <div className="flex justify-center">
-          <form
-            ref={formRef}
-            onSubmit={sendEmail}
-            aria-busy={isSubmitting}
-            className="
-              w-full max-w-2xl
-              bg-gradient-to-br from-[#111] to-[#0a0a0a]
-              rounded-3xl
-              border border-white/10
-              p-8
-              hover:border-white/20
-              hover:shadow-2xl
-              hover:shadow-cyan-500/10
-              transition-all
-              duration-500
-              group
-              relative
-              overflow-hidden
-            "
-          >
-            {/* Background Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl" />
-
-            <div className="relative z-10 space-y-6">
-              {/* NAME FIELD */}
-              <div className="contact-field space-y-2">
-                <label
-                  className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
-                  htmlFor="contact-name"
-                >
-                  Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="contact-name"
-                  placeholder="Your name"
-                  className="
-                    w-full px-4 py-3
-                    rounded-2xl
-                    bg-gradient-to-br from-white/5 to-white/2
-                    border border-white/10
-                    text-white placeholder-gray-400
-                    focus:outline-none focus:border-cyan-500/50
-                    focus:bg-white/10
-                    focus:shadow-lg
-                    focus:shadow-cyan-500/20
-                    transition-all
-                    duration-300
-                    backdrop-blur-sm
-                  "
-                  autoComplete="name"
-                  required
-                />
-              </div>
-
-              {/* EMAIL FIELD */}
-              <div className="contact-field space-y-2">
-                <label
-                  className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
-                  htmlFor="contact-email"
-                >
-                  Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="contact-email"
-                  placeholder="you@example.com"
-                  className="
-                    w-full px-4 py-3
-                    rounded-2xl
-                    bg-gradient-to-br from-white/5 to-white/2
-                    border border-white/10
-                    text-white placeholder-gray-400
-                    focus:outline-none focus:border-cyan-500/50
-                    focus:bg-white/10
-                    focus:shadow-lg
-                    focus:shadow-cyan-500/20
-                    transition-all
-                    duration-300
-                    backdrop-blur-sm
-                  "
-                  autoComplete="email"
-                  required
-                />
-              </div>
-
-              {/* MESSAGE FIELD */}
-              <div className="contact-field space-y-2">
-                <label
-                  className="block text-sm font-medium text-gray-300 group-hover:text-white transition-colors duration-300"
-                  htmlFor="contact-message"
-                >
-                  Message
-                </label>
-                <textarea
-                  name="message"
-                  id="contact-message"
-                  placeholder="Tell me about your project..."
-                  rows="6"
-                  className="
-                    w-full px-4 py-3
-                    rounded-2xl
-                    bg-gradient-to-br from-white/5 to-white/2
-                    border border-white/10
-                    text-white placeholder-gray-400
-                    focus:outline-none focus:border-cyan-500/50
-                    focus:bg-white/10
-                    focus:shadow-lg
-                    focus:shadow-cyan-500/20
-                    transition-all
-                    duration-300
-                    backdrop-blur-sm
-                    resize-none
-                  "
-                  required
-                />
-              </div>
-
-              {/* SUBMIT BUTTON */}
-              <button
-                className="
-                  contact-field
-                  w-full py-4
-                  rounded-2xl
-                  bg-gradient-to-r from-cyan-500 to-blue-600
-                  text-white font-semibold text-lg
-                  border border-cyan-400/50
-                  shadow-[0_0_30px_rgba(0,255,255,0.3)]
-                  hover:shadow-[0_0_50px_rgba(0,255,255,0.5)]
-                  hover:from-cyan-400 hover:to-blue-500
-                  disabled:opacity-50 disabled:cursor-not-allowed
-                  transition-all
-                  duration-300
-                  relative
-                  overflow-hidden
-                  group/btn
-                "
-                type="submit"
-                disabled={isSubmitting}
-                aria-disabled={isSubmitting}
-              >
-                {/* Button Shine Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
-
-                <span className="relative z-10">
-                  {isSubmitting ? "SENDING..." : "SEND MESSAGE"}
-                </span>
-              </button>
-
-              {/* STATUS MESSAGE */}
-              <p
-                className={`
-                  contact-field
-                  text-center text-sm font-medium
-                  ${status.type === "error"
-                    ? "text-red-400"
-                    : status.type === "success"
-                      ? "text-green-400"
-                      : "text-gray-400"
-                  }
-                `}
-                role="status"
-                aria-live="polite"
-              >
-                {status.message || (isSubmitting ? "Sending your message..." : "\u00A0")}
-              </p>
+          <div className="mt-8 grid gap-4">
+            <div className="metric-card">
+              <p className="muted-label mb-2">Email</p>
+              <p className="text-base font-bold text-[var(--text)]">hello@aneesaboobacker.com</p>
             </div>
-          </form>
+            <div className="metric-card">
+              <p className="muted-label mb-2">Location</p>
+              <p className="text-base font-bold text-[var(--text)]">Kerala, India</p>
+            </div>
+            <div className="metric-card">
+              <p className="muted-label mb-2">Availability</p>
+              <p className="text-base font-bold text-[var(--text)]">Open for collaborations</p>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* CSS STYLES */}
-      <style jsx>{`
-        .moving-grid {
-          background-image:
-            linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-          background-size: 30px 30px;
-          transform: rotate(-20deg) scale(1.5);
-          animation: ${prefersReducedMotion ? 'none' : 'gridMove 20s linear infinite'};
-        }
-        
-        @keyframes gridMove {
-          0% {
-            transform: rotate(-20deg) scale(1.5) translateX(0px) translateY(0px);
-          }
-          100% {
-            transform: rotate(-20deg) scale(1.5) translateX(30px) translateY(30px);
-          }
-        }
-        
-        @keyframes starFloat {
-          0% { transform: translateY(0px); opacity: 0.5; }
-          50% { opacity: 1; transform: translateY(-10px); }
-          100% { opacity: 0.5; transform: translateY(0px); }
-        }
-      `}</style>
+        <form
+          ref={formRef}
+          onSubmit={sendEmail}
+          className="surface-card rounded-[2rem] p-6 sm:p-8"
+          aria-busy={isSubmitting}
+        >
+          <div className="grid gap-5">
+            <label className="grid gap-2">
+              <span className="muted-label">Name</span>
+              <input
+                type="text"
+                name="name"
+                required
+                autoComplete="name"
+                placeholder="Your name"
+                className="rounded-[1.2rem] border border-[var(--line)] bg-[rgba(18,25,34,0.82)] px-4 py-4 text-[var(--text)] outline-none transition focus:border-[var(--line-strong)]"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="muted-label">Email</span>
+              <input
+                type="email"
+                name="email"
+                required
+                autoComplete="email"
+                placeholder="you@example.com"
+                className="rounded-[1.2rem] border border-[var(--line)] bg-[rgba(18,25,34,0.82)] px-4 py-4 text-[var(--text)] outline-none transition focus:border-[var(--line-strong)]"
+              />
+            </label>
+
+            <label className="grid gap-2">
+              <span className="muted-label">Message</span>
+              <textarea
+                name="message"
+                required
+                rows="7"
+                placeholder="Tell me about your project..."
+                className="rounded-[1.2rem] border border-[var(--line)] bg-[rgba(18,25,34,0.82)] px-4 py-4 text-[var(--text)] outline-none transition focus:border-[var(--line-strong)]"
+              />
+            </label>
+
+            <button type="submit" disabled={isSubmitting} className="soft-button primary w-full">
+              {isSubmitting ? "Sending..." : "Send Message"}
+            </button>
+
+            <p
+              role="status"
+              aria-live="polite"
+              className={`text-sm ${
+                status.type === "error"
+                  ? "text-red-600"
+                  : status.type === "success"
+                    ? "text-green-700"
+                    : "text-[var(--muted)]"
+              }`}
+            >
+              {status.message || "Your message goes directly through the contact form."}
+            </p>
+          </div>
+        </form>
+      </div>
     </section>
   );
 };
