@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, memo } from 'react';
+import { useRef, useCallback, memo } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {

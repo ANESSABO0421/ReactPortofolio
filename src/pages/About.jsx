@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import LazyImage from "../components/LazyImage";
 
 const highlights = [
   "Hands-on MERN development with a strong eye for layout and usability.",
@@ -14,9 +15,9 @@ const timeline = [
 
 const About = () => {
   return (
-    <section id="about" className="portfolio-section section-anchor-offset">
-      <div className="portfolio-container grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="surface-card parallax-medium rounded-[2rem] p-6 sm:p-8">
+    <section className="portfolio-section section-anchor-offset">
+      <div className="portfolio-container grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-10">
+        <div className="surface-card parallax-medium rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-8">
           <p className="section-kicker">About</p>
           <h2 className="section-title text-[clamp(3rem,7vw,5.8rem)]">The Journey So Far</h2>
           <p className="section-lead mt-5">
@@ -27,7 +28,7 @@ const About = () => {
             {highlights.map((item) => (
               <div
                 key={item}
-                className="rounded-[1.5rem] border border-[var(--line)] bg-[rgba(18,25,34,0.72)] px-5 py-4 text-[var(--muted)]"
+                className="rounded-[1.2rem] border border-[var(--line)] bg-[rgba(18,25,34,0.72)] px-4 py-4 text-[var(--muted)] sm:rounded-[1.5rem] sm:px-5"
               >
                 {item}
               </div>
@@ -37,13 +38,15 @@ const About = () => {
 
         <div className="grid gap-5">
           <div className="grid gap-5 xl:grid-cols-[0.86fr_1.14fr]">
-            <div className="surface-card parallax-fast overflow-hidden rounded-[2rem] p-4">
-              <div className="relative h-full min-h-[320px] overflow-hidden rounded-[1.55rem] border border-[var(--line)] bg-[linear-gradient(180deg,rgba(18,25,34,0.94),rgba(8,12,18,0.92))]">
+            <div className="surface-card parallax-fast overflow-hidden rounded-[1.5rem] p-3 sm:rounded-[2rem] sm:p-4">
+              <div className="relative h-full min-h-[280px] overflow-hidden rounded-[1.25rem] border border-[var(--line)] bg-[linear-gradient(180deg,rgba(18,25,34,0.94),rgba(8,12,18,0.92))] sm:min-h-[320px] sm:rounded-[1.55rem]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(120,166,217,0.22),transparent_52%)]" />
-                <img
+                <LazyImage
                   src="/anees.webp"
                   alt="Anees Aboobacker portrait"
                   className="h-full w-full object-cover object-top scale-[1.04]"
+                  wrapperClassName="h-full w-full"
+                  sizes="(max-width: 1280px) 100vw, 40vw"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/40 to-transparent" />
                 <div className="absolute bottom-5 left-5">
@@ -55,9 +58,9 @@ const About = () => {
               </div>
             </div>
 
-            <div className="surface-card parallax-medium rounded-[2rem] p-6 sm:p-8">
+            <div className="surface-card parallax-medium rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-8">
               <p className="muted-label mb-3">Profile</p>
-              <h3 className="heading-display text-5xl leading-none sm:text-6xl">
+              <h3 className="heading-display text-4xl leading-none sm:text-6xl">
                 MERN Stack
                 <br />
                 Developer

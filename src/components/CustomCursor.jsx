@@ -6,9 +6,13 @@ const CustomCursor = () => {
   const mouseRef = useRef({ x: 0, y: 0 });
   const outerPosRef = useRef({ x: 0, y: 0 });
   const rafRef = useRef(null);
+  const isAnimatingRef = useRef(false);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) {
+    const mediaQuery = window.matchMedia("(pointer: fine)");
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!mediaQuery.matches || reduceMotionQuery.matches) {
       return undefined;
     }
 
@@ -25,6 +29,11 @@ const CustomCursor = () => {
       if (innerRef.current) {
         innerRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`;
       }
+
+      if (!isAnimatingRef.current) {
+        isAnimatingRef.current = true;
+        rafRef.current = window.requestAnimationFrame(animate);
+      }
     };
 
     const animate = () => {
@@ -35,7 +44,15 @@ const CustomCursor = () => {
         outerRef.current.style.transform = `translate3d(${outerPosRef.current.x}px, ${outerPosRef.current.y}px, 0)`;
       }
 
-      rafRef.current = window.requestAnimationFrame(animate);
+      const deltaX = Math.abs(mouseRef.current.x - outerPosRef.current.x);
+      const deltaY = Math.abs(mouseRef.current.y - outerPosRef.current.y);
+
+      if (deltaX > 0.2 || deltaY > 0.2) {
+        rafRef.current = window.requestAnimationFrame(animate);
+      } else {
+        isAnimatingRef.current = false;
+        rafRef.current = null;
+      }
     };
 
     const interactiveSelector = "a, button, input, textarea, select, [role='button']";
@@ -53,7 +70,6 @@ const CustomCursor = () => {
     window.addEventListener("mousemove", onMove);
     document.addEventListener("mouseover", onOver);
     document.addEventListener("mouseout", onOut);
-    rafRef.current = window.requestAnimationFrame(animate);
 
     return () => {
       document.body.classList.remove("custom-cursor-enabled", "cursor-hover");

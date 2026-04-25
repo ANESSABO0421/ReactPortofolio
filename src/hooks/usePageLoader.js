@@ -50,8 +50,9 @@ export const usePageLoader = ({
         const timer = setTimeout(() => {
             if (autoHide) done();
         }, duration);
+
         return () => clearTimeout(timer);
-    }, []); // Run once on mount
+    }, [autoHide, done, duration]); // Run once on mount with stable dependencies
 
     return { showLoader, start, done };
 };

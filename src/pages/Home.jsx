@@ -25,7 +25,7 @@ const infoBlocks = [
 
 const Home = () => {
   return (
-    <section id="home" className="portfolio-section section-anchor-offset hero-home pt-6 sm:pt-10">
+    <section id="home" className="portfolio-section section-anchor-offset hero-home pt-4 sm:pt-10">
       <div className="portfolio-container">
         <div className="mx-auto max-w-6xl text-center">
           <p className="section-kicker mb-6 text-center">Full-Stack Developer Based In Kerala, India</p>
@@ -41,7 +41,7 @@ const Home = () => {
             practical interfaces with a sharper studio-style presentation.
           </p>
 
-          <div className="hero-premium-panel parallax-medium mx-auto mt-16 max-w-6xl">
+          <div className="hero-premium-panel parallax-medium mx-auto mt-12 max-w-6xl sm:mt-16">
             <div className="hero-premium-header">
               <p className="hero-premium-eyebrow">Signature Profile</p>
               <div className="hero-premium-divider" />
@@ -61,14 +61,14 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-            <a href="#projects" className="soft-button primary">
+          <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:mt-12 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
+            <a href="#projects" className="soft-button primary w-full sm:w-auto">
               View Works
             </a>
             <a
               href="/Anees_Aboobacker_CV.pdf"
               download="Anees_Aboobacker_CV.pdf"
-              className="soft-button secondary"
+              className="soft-button secondary w-full sm:w-auto"
             >
               Download Resume
             </a>

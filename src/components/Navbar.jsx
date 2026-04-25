@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const links = [
@@ -12,6 +12,10 @@ const links = [
 const Navbar = () => {
   const location = useLocation();
   const [active, setActive] = useState("home");
+
+  const handleLinkClick = useCallback((sectionId) => {
+    setActive(sectionId);
+  }, []);
 
   useEffect(() => {
     const hashTarget = location.hash.replace("#", "").toLowerCase();
@@ -53,18 +57,18 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-5 sm:px-6">
+    <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-4 sm:px-6 sm:pt-5">
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-fit items-center justify-center rounded-full border border-[rgba(255,255,255,0.28)] bg-[rgba(31,34,40,0.72)] px-2 py-2 backdrop-blur-xl shadow-[0_0_30px_rgba(255,255,255,0.14)]"
+        className="portfolio-nav-shell mx-auto max-w-full rounded-full border border-[rgba(255,255,255,0.18)] bg-[rgba(18,22,28,0.82)] px-2 py-2 shadow-[0_0_20px_rgba(255,255,255,0.08)] sm:w-fit"
       >
-        <ul className="flex items-center gap-1 sm:gap-2">
+        <ul className="portfolio-nav-list flex items-center gap-1 sm:gap-2">
           {links.map((link) => (
             <li key={link.id}>
               <a
                 href={link.href}
-                onClick={() => setActive(link.id)}
-                className={`rounded-full px-4 py-2 text-xs font-extrabold uppercase tracking-[0.08em] transition-colors sm:px-5 sm:text-sm ${
+                onClick={() => handleLinkClick(link.id)}
+                className={`portfolio-nav-link rounded-full px-3 py-2 text-[0.65rem] font-extrabold uppercase tracking-[0.08em] transition-colors sm:px-5 sm:text-sm ${
                   active === link.id
                     ? "bg-[rgba(255,255,255,0.16)] text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.22)]"
                     : "text-[rgba(255,255,255,0.56)] hover:text-[var(--text)]"

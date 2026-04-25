@@ -86,7 +86,7 @@ const categories = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="portfolio-section section-anchor-offset">
+    <section className="portfolio-section section-anchor-offset">
       <div className="portfolio-container">
         <div className="mb-10">
           <p className="section-kicker">Tech Stack & Toolkit</p>
@@ -99,7 +99,10 @@ const Skills = () => {
 
         <div className="grid gap-6">
           {categories.map((category) => (
-            <article key={category.title} className="surface-card rounded-[2rem] p-6 sm:p-8">
+            <article
+              key={category.title}
+              className="surface-card rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-8"
+            >
               <div className="mb-6 flex items-center gap-4">
                 <div className="rounded-[1.1rem] border border-[var(--line)] bg-[rgba(120,166,217,0.12)] p-4 text-xl text-[var(--accent-deep)]">
                   {category.icon}
@@ -111,11 +114,11 @@ const Skills = () => {
                   </h3>
                 </div>
               </div>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+              <div className="grid gap-3 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
                 {category.skills.map(([name, icon]) => (
                   <div
                     key={name}
-                    className="rounded-[1.3rem] border border-[var(--line)] bg-[rgba(18,25,34,0.74)] px-4 py-4"
+                    className="rounded-[1.1rem] border border-[var(--line)] bg-[rgba(18,25,34,0.74)] px-3 py-4 sm:rounded-[1.3rem] sm:px-4"
                   >
                     <div className="mb-3 text-xl text-[var(--accent-deep)]">{icon}</div>
                     <p className="text-sm font-bold text-[var(--text)]">{name}</p>

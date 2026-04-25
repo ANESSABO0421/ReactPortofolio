@@ -33,10 +33,6 @@ export default defineConfig({
     host: true,
     port: 5173,
   },
-  optimizeDeps: {
-    include: ["framer-motion", "@emailjs/browser"],
-    exclude: [],
-  },
   build: {
     target: "esnext",
     cssCodeSplit: true,
@@ -59,6 +55,9 @@ export default defineConfig({
             }
             if (id.includes("framer-motion") || id.includes("motion")) {
               return "vendor-motion";
+            }
+            if (id.includes("@emailjs")) {
+              return "vendor-email";
             }
             if (id.includes("react-icons")) {
               return "vendor-icons";

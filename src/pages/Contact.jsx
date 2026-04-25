@@ -1,5 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
+import React, { memo, useCallback, useRef, useState } from "react";
 
 const Contact = () => {
   const formRef = useRef(null);
@@ -14,12 +13,14 @@ const Contact = () => {
       setIsSubmitting(true);
       setStatus({ type: "idle", message: "" });
 
-      emailjs
-        .sendForm(
-          "service_1ujloms",
-          "template_vw9xwq5",
-          formRef.current,
-          "dtWkdo4Xe4hk2mNM4"
+      import("@emailjs/browser")
+        .then(({ default: emailjs }) =>
+          emailjs.sendForm(
+            "service_1ujloms",
+            "template_vw9xwq5",
+            formRef.current,
+            "dtWkdo4Xe4hk2mNM4"
+          )
         )
         .then(() => {
           setStatus({
@@ -40,9 +41,9 @@ const Contact = () => {
   );
 
   return (
-    <section id="contact" className="portfolio-section section-anchor-offset">
+    <section className="portfolio-section section-anchor-offset">
       <div className="portfolio-container grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-        <div className="surface-card rounded-[2rem] p-6 sm:p-8">
+        <div className="surface-card rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-8">
           <p className="section-kicker">Let&apos;s Work Together</p>
           <h2 className="section-title text-[clamp(3rem,7vw,5.8rem)]">Contact</h2>
           <p className="section-lead mt-5">
@@ -68,7 +69,7 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={sendEmail}
-          className="surface-card rounded-[2rem] p-6 sm:p-8"
+          className="surface-card rounded-[1.5rem] p-5 sm:rounded-[2rem] sm:p-8"
           aria-busy={isSubmitting}
         >
           <div className="grid gap-5">
@@ -131,4 +132,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default memo(Contact);
