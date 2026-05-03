@@ -12,7 +12,7 @@ const Footer = () => {
           <div>
             <p className="muted-label mb-2">Portfolio</p>
             <p className="text-sm text-[var(--muted)]">
-              © {year} Anees Aboobacker. Crafted with a cleaner studio-style interface.
+              © {year} Anees Aboobacker. All Right Reserved
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -26,7 +26,7 @@ const Footer = () => {
               <FiGithub />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/anees-aboobacker-4842b627a/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -35,7 +35,7 @@ const Footer = () => {
               <FiLinkedin />
             </a>
             <a
-              href="mailto:hello@aneesaboobacker.com"
+              href="mailto:aneesaboo123@gmail.com"
               aria-label="Email"
               className="rounded-full border border-[var(--line)] p-3 text-[var(--text)] transition-transform hover:-translate-y-0.5"
             >

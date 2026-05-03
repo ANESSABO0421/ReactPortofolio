@@ -57,7 +57,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-3 pt-4 sm:px-6 sm:pt-5">
+    <header className="portfolio-header fixed left-0 right-0 top-0 z-50 px-3 pt-4 sm:px-6 sm:pt-5">
       <nav
         aria-label="Primary"
         className="portfolio-nav-shell mx-auto max-w-full rounded-full border border-[rgba(255,255,255,0.18)] bg-[rgba(18,22,28,0.82)] px-2 py-2 shadow-[0_0_20px_rgba(255,255,255,0.08)] sm:w-fit"

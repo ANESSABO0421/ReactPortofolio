@@ -110,6 +110,17 @@ a {
   isolation: isolate;
 }
 
+.portfolio-header {
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
+}
+
+body.project-modal-open .portfolio-header {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-1rem);
+}
+
 .portfolio-shell::before {
   content: "";
   position: fixed;

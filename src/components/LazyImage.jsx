@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 
 const LazyImage = ({
   src,
@@ -15,6 +15,10 @@ const LazyImage = ({
   onClick,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(false);
+  }, [src]);
 
   const handleLoad = useCallback(() => {
     setIsLoaded(true);

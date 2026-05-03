@@ -53,7 +53,7 @@ const Contact = () => {
           <div className="mt-8 grid gap-4">
             <div className="metric-card">
               <p className="muted-label mb-2">Email</p>
-              <p className="text-base font-bold text-[var(--text)]">hello@aneesaboobacker.com</p>
+              <p className="text-base font-bold text-[var(--text)]">aneesaboo123@gmail.com</p>
             </div>
             <div className="metric-card">
               <p className="muted-label mb-2">Location</p>

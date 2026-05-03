@@ -2,15 +2,15 @@ import React, { memo } from "react";
 import LazyImage from "../components/LazyImage";
 
 const highlights = [
-  "Hands-on MERN development with a strong eye for layout and usability.",
-  "Comfortable moving between frontend polish, backend structure, and deployment.",
-  "Interested in portfolio, product, and business-facing interfaces that feel intentional.",
+  "1 year building scalable REST APIs, ERP platforms, and AI-integrated tools across web and mobile.",
+  "Comfortable across the full stack — Node.js backends, React frontends, React Native mobile, and cloud deployments.",
+  "Experienced with real-time systems, JWT auth, RBAC, MongoDB aggregation, and third-party API integrations.",
 ];
 
 const timeline = [
-  { period: "Present", title: "Frontend and full-stack portfolio refinement" },
-  { period: "Internship", title: "Softroniics, Perinthalmanna" },
-  { period: "Degree", title: "B.Sc. in Computer Science, GEMS College" },
+  { period: "Nov 2025 – Apr 2026", title: "MERN Stack Developer, Necttos OPC Pvt. Ltd." },
+  { period: "May 2025 – Nov 2025", title: "MERN Stack Developer Intern, Softroniics" },
+  { period: "2022 – 2025", title: "B.Sc. Computer Science, GEMS Arts & Science College" },
 ];
 
 const About = () => {
@@ -21,8 +21,9 @@ const About = () => {
           <p className="section-kicker">About</p>
           <h2 className="section-title text-[clamp(3rem,7vw,5.8rem)]">The Journey So Far</h2>
           <p className="section-lead mt-5">
-            Your content stays intact, but the section now reads more like a premium
-            personal website: spacious layout, strong typography, and a cleaner visual rhythm.
+            MERN Stack Developer with a year of hands-on experience delivering features across
+            ERP systems, real-time platforms, and AI-powered tools — from API design to
+            production deployment.
           </p>
           <div className="mt-8 space-y-4">
             {highlights.map((item) => (
@@ -66,9 +67,9 @@ const About = () => {
                 Developer
               </h3>
               <p className="mt-5 text-base leading-8 text-[var(--muted)]">
-                Hi, I&apos;m Anees Aboobacker, a MERN stack developer currently interning at
-                Softronics Perinthalmanna. I enjoy building clean, responsive, and
-                performance-focused web applications with thoughtful details.
+                I&apos;m Anees Aboobacker, a MERN stack developer from Malappuram, Kerala. I build
+                REST APIs, real-time systems, and full-stack web and mobile applications — with
+                a focus on clean architecture, performance, and shipping production-ready code.
               </p>
             </div>
           </div>
