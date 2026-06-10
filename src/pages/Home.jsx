@@ -75,8 +75,8 @@ const Home = () => {
               View Works
             </a>
             <a
-              href="/Anees_Aboobacker_CV.pdf"
-              download="Anees_Aboobacker_CV.pdf"
+              href="/Anees_Aboobacker_Resume.pdf"
+              download="Anees_Aboobacker_Resume.pdf"
               className="soft-button secondary w-full sm:w-auto"
             >
               Download Resume
